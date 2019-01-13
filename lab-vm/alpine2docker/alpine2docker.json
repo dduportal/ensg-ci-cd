@@ -21,9 +21,9 @@
       "disk_size": 40960,
       "guest_os_type": "Linux26_64",
       "iso_urls": [
-        "http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/x86_64/alpine-virt-3.8.0-x86_64.iso"
+        "http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/x86_64/alpine-virt-3.8.2-x86_64.iso"
       ],
-      "iso_checksum": "c0daab130ff32399bfce8893d7f6c591078ce8f87e82a2b987f8832fa6cf2d76",
+      "iso_checksum": "77a609dd710ba0d3b0806a314f5c4ef1718ce140b522bf7c7ca081eba664db2c",
       "iso_checksum_type": "sha256",
       "communicator": "ssh",
       "http_directory": "./http",

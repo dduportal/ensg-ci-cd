@@ -1,7 +1,13 @@
 
 # CHANGELOG
 
-## 20/07/2017 (1.6.0)
+## 13/01/2019 (1.7.0)
+
+- Upgrade to Alpine Linux 3.8.2
+- Upgrade Docker to 18.06.1-r0
+- Upgrade Docker-Compose to 1.23.2
+
+## 20/07/2018 (1.6.0)
 
 - Upgrade to Alpine Linux 3.8.0
 - Upgrade Docker to 18.03.1-r0-CE
