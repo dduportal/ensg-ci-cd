@@ -2,18 +2,22 @@
 [background-color="hsl(50, 89%, 74%)"]
 = Bonjour !
 
-== Damien DUPORTAL
-[.right.text-center]
-image::damien.jpg[height="400",float="left"]
+// //// Speaker Slide and Company slide
+[{invert}]
+== Whoami
 
-* *Training Engineer* @ CloudBees
-** Docker & Apple fanboy.
-** Human stack focused
-** Rock climber
-* Contact:
-** Twitter: link:https://twitter.com/DamienDuportal[@DamienDuportal]
-** Github: link:https://github.com/dduportal[dduportal]
-** eMail: damien.duportal@gmail.com
+* Damien DUPORTAL:
+** link:https://traefik.io/[Træfik]'s Developer Advocate @
+link:https://containo.us/[Containous] et Freelancer
+** Ancien Training Engineer @ CloudBees
+
+* mailto:damien.duportal@gmail.com[icon:envelope[] damien.duportal@gmail.com]
+* link:https://twitter.com/DamienDuportal[icon:twitter[] @DamienDuportal]
+* link:https://github.com/dduportal[icon:github[] dduportal]
+
+// image::damien.jpg[height=200]
+
+// //// end of Speaker Slide and Company slide
 
 == Et vous ?
 [.left.text-center]

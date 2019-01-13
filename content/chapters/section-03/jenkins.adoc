@@ -49,7 +49,7 @@ image::jenkins-background.jpg[background, size=cover]
 * *Pipeline-as-Code:*
 ** Syntaxe "scriptée" : "Code your Pipeline"
 
-== Jenkins en 2017
+== Jenkins en 2017-2018
 image::jenkins-background.jpg[background, size=cover]
 
 image::BlueOcean.png[]

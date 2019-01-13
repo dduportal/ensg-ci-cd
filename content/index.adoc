@@ -1,11 +1,11 @@
 [%notitle]
-= Introduction au CI/CD - ENSG - Décembre 2017
+= Introduction au CI/CD - ENSG - Janvier 2019
 include::./attributes.adoc[]
 
 [{invert}]
 == Introduction au CI/CD
 [.title]
-ENSG - Décembre 2017
+ENSG - Janvier 2019
 
 image::qrcode.png["QRCode to this presentation",height=150]
 
@@ -13,7 +13,7 @@ image::qrcode.png["QRCode to this presentation",height=150]
 * Présentation disponible à l'URL link:{presentationUrl}[]
 * This work is licensed under a
 link:http://creativecommons.org/licenses/by/4.0/[Creative Commons Attribution 4.0 International License]
-* link:https://github.com/dduportal/ensg-ci-cd[Source Code]
+* link:https://github.com/dduportal/ensg-ci-cd[Code Source]
 
 == Comment utiliser cette présentation ?
 
