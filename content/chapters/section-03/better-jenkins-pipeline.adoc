@@ -36,8 +36,7 @@ link:{demoapp-repo-web-url}/src/master/src/test/java/hello/HelloControllerIT.jav
 * Ajouter un nouveau webhook:
 ** Type: *Gitea*
 ** When should this webhook be triggered?: *I need everything*
-** Payload URL:
-link:{demoapp-mb-job-build-url}[{demoapp-mb-job-build-url},window=_blank]
+** Payload URL: `{webhook-url}`
 
 == Solution: Webhooks
 
