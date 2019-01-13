@@ -202,8 +202,7 @@ Le <strong>Blue Ocean Pipeline Editor</strong> s&#8217;ouvre pour en générer u
   }
 }</code></pre></div></div></section></section>
 <section><section id="amlioration_du_pipeline" data-background-color="rgb(248, 228, 130)" data-state="invert"><h2>Amélioration du Pipeline</h2></section><section id="exercise_rparer_le_build"><h2>Exercise: Réparer le build</h2><div class="ulist"><ul><li><p>Le build est en état <code>UNSTABLE</code> (jaune)</p></li><li><p><strong>Priorité:</strong> réparer le build</p></li><li><p>Utiliser <strong>Gitea git server</strong></p></li><li><p>Les tests d&#8217;intégration sont dans <code>src/test/java/hello</code></p></li><li><p>Indices:</p><div class="ulist"><ul><li><p><em>Integration Tests:</em> == <strong>IT</strong></p></li></ul></div></li></ul></div></section><section id="solution_rparer_le_build"><h2>Solution: Réparer le build</h2><div class="ulist"><ul><li><p>Depuis
-<a href="http://localhost:80/gitserver/butler/demoapp/src/master/src/test/java/hello/HelloControllerIT.java">src/test/java/hello/HelloControllerIT.java</a></p><div class="ulist"><ul><li><p>Cliquer sur "Edit"</p></li></ul></div></li><li><p>Commenter la ligne 39</p></li><li><p><strong>Dé</strong>-commenter la ligne 40</p></li><li><p><strong>Commit</strong> avec un message (push automatique)</p></li><li><p>Lancer le build manuellement dans Blue Ocean</p></li><li><p>Le build doit être vert (<strong>Stable</strong>)</p></li></ul></div></section><section id="webhooks_pour_un_retour_plus_rapide"><h2>Webhooks pour un retour plus rapide</h2><div class="ulist"><ul><li><p>Nous avons dû lancer le build manuellement</p></li><li><p>IC: Retours <strong>rapides</strong> !</p><div class="ulist"><ul><li><p>Lancer le build dès que le code est poussé</p></li></ul></div></li></ul></div></section><section id="exercise_webhooks"><h2>Exercise: Webhooks</h2><div class="ulist"><ul><li><p>Configurons un <strong>"Webhook"</strong> :</p><div class="ulist"><ul><li><p>Depuis <strong>Gitea git server</strong> &#8594; <strong>Settings</strong> &#8594; <strong>Webhooks</strong></p><div class="ulist"><ul><li><p><a href="http://localhost:80/gitserver/butler/demoapp/settings/hooks" target="_blank">Lien direct vers la configuration de Webhooks</a></p></li></ul></div></li></ul></div></li><li><p>Ajouter un nouveau webhook:</p><div class="ulist"><ul><li><p>Type: <strong>Gitea</strong></p></li><li><p>When should this webhook be triggered?: <strong>I need everything</strong></p></li><li><p>Payload URL:
-<a href="http://localhost:80/jenkins/job/demoapp/build?delay=0" target="_blank">http://localhost:80/jenkins/job/demoapp/build?delay=0</a></p></li></ul></div></li></ul></div></section><section id="solution_webhooks"><h2>Solution: Webhooks</h2><div class="ulist"><ul><li><p>Ajoutez un commentaire dans le Jenkinsfile
+<a href="http://localhost:80/gitserver/butler/demoapp/src/master/src/test/java/hello/HelloControllerIT.java">src/test/java/hello/HelloControllerIT.java</a></p><div class="ulist"><ul><li><p>Cliquer sur "Edit"</p></li></ul></div></li><li><p>Commenter la ligne 39</p></li><li><p><strong>Dé</strong>-commenter la ligne 40</p></li><li><p><strong>Commit</strong> avec un message (push automatique)</p></li><li><p>Lancer le build manuellement dans Blue Ocean</p></li><li><p>Le build doit être vert (<strong>Stable</strong>)</p></li></ul></div></section><section id="webhooks_pour_un_retour_plus_rapide"><h2>Webhooks pour un retour plus rapide</h2><div class="ulist"><ul><li><p>Nous avons dû lancer le build manuellement</p></li><li><p>IC: Retours <strong>rapides</strong> !</p><div class="ulist"><ul><li><p>Lancer le build dès que le code est poussé</p></li></ul></div></li></ul></div></section><section id="exercise_webhooks"><h2>Exercise: Webhooks</h2><div class="ulist"><ul><li><p>Configurons un <strong>"Webhook"</strong> :</p><div class="ulist"><ul><li><p>Depuis <strong>Gitea git server</strong> &#8594; <strong>Settings</strong> &#8594; <strong>Webhooks</strong></p><div class="ulist"><ul><li><p><a href="http://localhost:80/gitserver/butler/demoapp/settings/hooks" target="_blank">Lien direct vers la configuration de Webhooks</a></p></li></ul></div></li></ul></div></li><li><p>Ajouter un nouveau webhook:</p><div class="ulist"><ul><li><p>Type: <strong>Gitea</strong></p></li><li><p>When should this webhook be triggered?: <strong>I need everything</strong></p></li><li><p>Payload URL: <code><a href="http://jenkins:8080/jenkins/git/notifyCommit?url=ssh://git@gitserver:5022/butler/demoapp.git" class="bare">http://jenkins:8080/jenkins/git/notifyCommit?url=ssh://git@gitserver:5022/butler/demoapp.git</a></code></p></li></ul></div></li></ul></div></section><section id="solution_webhooks"><h2>Solution: Webhooks</h2><div class="ulist"><ul><li><p>Ajoutez un commentaire dans le Jenkinsfile
 depuis <strong>Gitea git server</strong></p><div class="ulist"><ul><li><p>Un build va démarrer</p></li><li><p>Validez dans l&#8217;onglet "Changes"</p></li></ul></div></li></ul></div></section><section id="aller_plus_loin"><h2>Aller plus loin&#8230;&#8203;</h2><div class="ulist"><ul><li><p>Dans l&#8217;éditeur <strong>Blue Ocean</strong>, voir la version textuelle:</p><div class="ulist"><ul><li><p>Combinaison <code>CTRL + S</code> (On Mac: <code>CMD +S</code>)</p></li><li><p>Bi-directionnel: essayez de charger une solution de pipeline</p></li></ul></div></li><li><p>Le <strong>Pipeline Syntax Snippet Generator</strong> comme acolyte:</p><div class="ulist"><ul><li><p>Génération dynamique en fonction de vos plugins</p></li><li><p>Depuis l&#8217;interface "ancienne" de Jenkins</p></li><li><p>Menu de gauche de votre job "Pipeline" (ou MultiBranch)</p><div class="ulist"><ul><li><p><a href="http://localhost:80/jenkins/job/demoapp/pipeline-syntax/" target="_blank">http://localhost:80/jenkins/job/demoapp/pipeline-syntax/</a></p></li></ul></div></li></ul></div></li></ul></div></section><section id="exercise_rutilisation_binaire"><h2>Exercise - Réutilisation Binaire</h2><div class="ulist"><ul><li><p>But: réutiliser les binaires générés dans <strong>Build</strong></p></li><li><p>Action: "mise sur étagère": <strong>Stash / Unstash</strong></p></li><li><p>Modifier le Pipeline pour :</p><div class="ulist"><ul><li><p>"Stasher" le dossier <code>target</code>, à la fin de la phase <strong>Build</strong></p></li><li><p>"Unstasher" au début de la phase <strong>Test</strong></p></li></ul></div></li><li><p><em>Attention</em>, une limite de l&#8217;éditeur <strong>Blue Ocean</strong>
 va être atteinte</p></li></ul></div></section><section id="solution_rutilisation_binaire"><h2>Solution - Réutilisation Binaire</h2><div class="ulist"><ul><li><p>L&#8217;éditeur Blue Ocean ne supporte pas encore
 le ré-ordonnancement de "stages"</p><div class="ulist"><ul><li><p>Mode textuel et/ou <strong>Snippet Generator</strong> à utiliser</p></li></ul></div></li></ul></div>
@@ -347,10 +346,10 @@ des "stages"</p></li><li><p>Agent <code>java7</code> pour le Test Java 7</p></li
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
@@ -411,10 +410,10 @@ dans un block <code>dockerfile</code></p></li></ul></div></section><section id="
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
@@ -472,10 +471,10 @@ d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuo
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
@@ -541,10 +540,10 @@ pour une instruction spécifique</p></li></ul></div></li></ul></div></section><s
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
@@ -625,10 +624,10 @@ dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètr
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
@@ -714,10 +713,10 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
@@ -807,10 +806,10 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
             junit 'target/**/*.xml'
           }
         }
-        stage('Test Java 7') {
+        stage('Test Java 12') {
           agent {
             node {
-              label 'java7'
+              label 'java12'
             }
           }
           steps {
