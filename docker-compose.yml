@@ -1,4 +1,4 @@
-version: '2.4'
+version: '2.2' # Keep on old version because Travis only provides old docker-compose
 
 # Reusable options
 x-slides-base: &slides-base
