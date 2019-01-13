@@ -32,7 +32,7 @@ pipeline {
           }
           steps {
             unstash 'build-result'
-            sh './scripts/test.sh'
+            sh './scripts/integration-tests.sh'
             junit 'target/**/*.xml'
           }
         }
@@ -44,7 +44,7 @@ pipeline {
           }
           steps {
             unstash 'build-result'
-            sh './scripts/test.sh'
+            sh './scripts/integration-tests.sh'
             junit 'target/**/*.xml'
           }
         }

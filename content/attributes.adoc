@@ -28,7 +28,7 @@
 :pipeline-solutions: ./pipeline-solutions
 :box-url: https://github.com/dduportal/ensg-ci-cd/releases/download/2018-2019/jenkins-lab-demo.box
 :external-domain: localhost
-:external-port: 10000
+:external-port: 80
 :admin-user: butler
 :admin-password: butler
 :homepage-url: http://{external-domain}:{external-port}

@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh './scripts/test.sh'
+        sh './scripts/integration-tests.sh'
       }
     }
     stage('Deploy') {

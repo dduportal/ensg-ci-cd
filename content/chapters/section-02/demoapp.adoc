@@ -5,7 +5,7 @@
 == Pourquoi ?
 
 * *But :* Illustrer un exemple de "Software Supply Chain"
-* *Problématique :* Quel language/framewor/outil choisir ?
+* *Problématique :* Quel language/framework/outil choisir ?
 * *Solution:*
 ** _"Opinionated"_ demo application
 ** Tout le monde sur le même pied
@@ -62,7 +62,7 @@ link:https://spring.io/guides/gs/spring-boot/[Spring Boot Starter,window=_blank]
 
 [source,bash,subs="attributes"]
 ----
-# Get the git repository
+# Get the code. Requires authentication.
 git clone {demoapp-repo-web-url}
 # Browse to the local repository
 cd ./{demoapp-repo-name}
@@ -138,10 +138,16 @@ ls -lrh ./target/
 +
 [source,subs="attributes",bash]
 ----
-java -jar ./target/demoapp-1.0.0.jar
+java -jar ./target/demoapp.jar
+# Utiliser CTRL-C pour arrêter
 ----
-* Ouvrir une autre instance de *DevBox* et vérifier
+* Ouvrir une autre instance de *DevBox* (link:{devbox-url}[Click Me, window=_blank]) et vérifier
 link:http//localhost:8080[] avec `curl`
++
+[source,subs="attributes",bash]
+----
+curl -v http://localhost:8080/ 
+----
 
 == Demo Application : Tests d'intégration
 

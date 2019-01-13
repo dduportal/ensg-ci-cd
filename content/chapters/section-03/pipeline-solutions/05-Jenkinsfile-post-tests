@@ -18,7 +18,7 @@ pipeline {
     stage('Test') {
       steps {
         unstash 'build-result'
-        sh './scripts/test.sh'
+        sh './scripts/integration-tests.sh'
         junit 'target/**/*.xml'
       }
     }
