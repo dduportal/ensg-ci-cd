@@ -1,5 +1,5 @@
 
-[background-color="hsl(50, 89%, 74%)"]
+[{invert}]
 = Pipeline Avancés
 
 == Input

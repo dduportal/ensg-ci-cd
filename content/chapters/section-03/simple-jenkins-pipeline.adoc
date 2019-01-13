@@ -1,5 +1,5 @@
 
-[background-color="hsl(50, 89%, 74%)"]
+[{invert}]
 = Simple Jenkins Pipeline
 
 == Accéder à Jenkins
@@ -19,16 +19,23 @@
 
 * Créer un nouveau Pipeline, avec les réglages suivants :
 ** Stocké dans *Git*
-** Utilisez l'URL en *SSH*
-** Configurez Gitea pour que Jenkins puisse accéder au code :
-*** Dans Gitea, cliquez en haut à droite sur le drop-down
-*** Allez dans "Settings" -> "SSH/GPG Keys"
-*** Ajoutez la clef SSH publique générée par Jenkins
+** Repository URL: Dans Gitea, récupérez l'URL en *SSH* :
+image:gitea-ssh-url.png[height=50]
+** Vérifiez la clef SSH que Jenkins puisse accéder au code :
+*** Dans Gitea, cliquez en haut à droite sur le drop-down, allez dans "Settings" -> "SSH/GPG Keys"
+
+== Exercice : L'éditeur de Pipeline
+
+* Cliquez sur le bouton *Create a Pipeline*
+* Aucun fichier `Jenkinsfile` n'est trouvé dans le dépôt de code:
+Le *Blue Ocean Pipeline Editor* s'ouvre pour en générer un.
+
+* Familiarisez-vous avec l'interface:
+** Pour créer une étape ("stage"), utilisez le petit "plus" (image:plus.png[height=50])
+** Cliquez sur une étape pour voir le panneau de configuration à droite
 
 == Exercice : Votre Premier Pipeline
 
-* Cliquez sur le bouton *Create a Pipeline*
-* Utilisez *Blue Ocean Pipeline Editor* et le serveur *Gitea*
 * Créez un pipeline avec 3 "stages" : *Build*, *Test* et *Deploy*
 * Chaque "stage" doit avoir 1 "step" qui affiche un message
 ** "Building..." pour *Build*, "Testing..." pour *Test* ...

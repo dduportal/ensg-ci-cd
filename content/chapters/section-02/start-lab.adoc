@@ -1,23 +1,32 @@
 
-[background-color="hsl(50, 89%, 74%)"]
-= Démarrer le Lab
+[{invert}]
+= Démarrer le lab
 
 == Pré-requis
 
-* VirtualBox (5.1.30+)
-** Check: `VboxManage -v`
-* Vagrant (2.0.1+)
-** Check: `vagrant -v`
-* Pour le proxy HTTP:
-** https://github.com/tmatilai/vagrant-proxyconf
-*** `export VAGRANT_HTTP_PROXY=... && vagrant ...`
-** et/ou https://github.com/AlbanMontaigu/docker-transparent-proxy
-
-== Obtenir Le template de la VM
+* VirtualBox (5.1.30+) et Vagrant (2.0.1+)
+* Pour le proxy HTTP : https://github.com/tmatilai/vagrant-proxyconf
 
 [source,bash]
 ----
-vagrant box add jenkins-lab-demo http://bit.ly/2Bl1hfI
+# Vérifier que vagrant est présent
+vagrant -v
+
+# Installer le plugin vagrant
+vagrant plugin install vagrant-proxyconf
+
+# Configurer le plugin
+export VAGRANT_HTTP_PROXY=http://10.0.4.2:3128
+export VAGRANT_HTTPS_PROXY="${VAGRANT_HTTP_PROXY}"
+export VAGRANT_NO_PROXY=localhost,127.0.0.1
+----
+// ** et/ou https://github.com/AlbanMontaigu/docker-transparent-proxy
+
+== Obtenir le template de la VM
+
+[source,bash,subs="attributes"]
+----
+vagrant box add jenkins-lab-demo {box-url}
 ----
 
 == Initialiser l'environnement
@@ -34,7 +43,7 @@ cd ~/jenkins-lab-demo
 vagrant init -m -f jenkins-lab-demo
 ----
 
-== Démarrer / Arrêter le Lab
+== Démarrer / Arrêter le lab
 
 [source,bash]
 ----
@@ -45,13 +54,13 @@ vagrant halt # Arrêter "proprement la VM"
 vagrant destroy # Détruire la VM (BRUTAL)
 ----
 
-== Accéder au Lab
+== Accéder au lab
 
 * Dans votre navigateur, ouvrir link:{homepage-url}[{homepage-url},window=_blank]
 * Bienvenue sur la page d'accueil du Lab:
-** Le lien *Workshop Slides* vous permettra d'accéder au slides
+** Le lien *Slides* vous permettra d'accéder au slides
 
-== Accéder au Code Source
+== Accéder au code source
 
 * Cliquer sur le lien *Git Server* sur la page d'accueil du Lab
 ** link:{gitserver-url}[Lien direct,window=_blank]

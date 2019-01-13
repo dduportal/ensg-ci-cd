@@ -1,5 +1,5 @@
 
-[background-color="hsl(50, 89%, 74%)"]
+[{invert}]
 = Demo Application
 
 == Pourquoi ?
@@ -45,7 +45,7 @@ link:https://spring.io/guides/gs/spring-boot/[Spring Boot Starter,window=_blank]
 * `CTRL + A`: jump to beginning of line
 * `CTRL + E`: jump to end of line
 
-== Quelques Commandes
+== Quelques commandes
 
 * `cat` (concatenate)
 * `ls` (list)

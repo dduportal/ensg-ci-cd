@@ -1,5 +1,5 @@
 
-[background-color="hsl(50, 89%, 74%)"]
+[{invert}]
 = Jenkins
 
 == Meet Jenkins
@@ -37,34 +37,18 @@ image::jenkins-background.jpg[background, size=cover]
 
 image::ci-usage-rebel-lab-2016.jpg[width=400]
 
-[.footer]
-Source : link:http://pages.zeroturnaround.com/RebelLabs-Developer-Productivity-Report-2016.html[RebelLabs Tools and Technologies Leaderboard 2016,window=_blank]
-
-== Jenkins en 2016 : Jenkins *2*
-image::jenkins-background.jpg[background, size=cover]
-
-* *But :* CI -> CD
-* Pas de "cassure" depuis Jenkins 1
-* Expérience "premièr démarrage" améliorée
-* *Pipeline-as-Code:*
-** Syntaxe "scriptée" : "Code your Pipeline"
-
-== Jenkins en 2017-2018
-image::jenkins-background.jpg[background, size=cover]
-
-image::BlueOcean.png[]
-
-== Blue Ocean
-* Pierre angulaire de l'évolution de Jenkins
-* Visualisation et manipulation de "Pipelines"
-* GUI moderne, se concentrant sur les actions principales
-
 == Jenkins Pipeline
+image::jenkins-background.jpg[background, size=cover]
 
-* Un outil pour définir votre "Pipeline" dans Jenkins
+image::pipeline-picture.jpg[height=200]
+
+* Un outil pour définir votre "Pipeline" dans Jenkins avec un language de domaine
 * Le Pipeline est décrit dans un fichier texte: le `JenkinsFile`
-** DSL spécifique
-** Stocké dans un SCM
+* "Pipeline-as-code" : Stocké dans un SCM
+
+== Débuter avec les pipelines
+
+image::i-have-no-idea-what-i-am-doing.jpg[]
 
 == Débuter avec les Pipelines
 
@@ -85,9 +69,3 @@ image::BlueOcean.png[]
 ** Syntaxe originale (~3 ans)
 ** "Great Power == Great Responsibility"
 ** À utiliser lorsque le Déclaratif commence à être *bizarre*
-
-== Blue Ocean Pipeline Editor
-
-* Fourni le cycle ("round trip") *complet* avec le SCM
-* Pas de Pipeline ? "Suivez le guide".
-* Le Pipeline existe déjà ? Edit, commit, et exécutez le
