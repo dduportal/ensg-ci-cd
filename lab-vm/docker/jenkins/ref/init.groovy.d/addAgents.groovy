@@ -15,8 +15,8 @@ global_domain = Domain.global()
 
 def env = System.getenv()
 String customJvmOpts = env['CUSTOM_JVM_OPTS']
-String jdk8Home = '/usr/lib/jvm/java-1.8-openjdk'
-String jdk7Home = '/usr/lib/jvm/java-1.7-openjdk'
+String alpineJdk8Home = '/usr/lib/jvm/java-1.8-openjdk'
+String alpineJdk12Home = '/opt/openjdk-12'
 
 credentials_store = Jenkins.instance.getExtensionList(
   'com.cloudbees.plugins.credentials.SystemCredentialsProvider'
@@ -57,15 +57,15 @@ else {
 
 /// Configure and start Agents on Nodes
 
-Slave dockerNode = new DumbSlave(
-  "docker-node",
-  "Node for running Docker",
+Slave productionNode = new DumbSlave(
+  "production-node",
+  "Node for production deployment, and Docker Workloads",
   "/home/jenkins",
-  "4",
-  Node.Mode.NORMAL,
-  "docker",
+  "1",
+  Node.Mode.EXCLUSIVE,
+  "deploy production docker",
   new SSHLauncher(
-    "jenkins-docker-node", // HostName
+    "jenkins-production-node", // HostName
     22,
     'ssh-nodes-key', // Credential ID
     customJvmOpts, // JVM Options
@@ -81,19 +81,19 @@ Slave dockerNode = new DumbSlave(
   new LinkedList()
 )
 
-List<Entry> dockerNodeEnv = new ArrayList<Entry>();
-dockerNodeEnv.add(new Entry("JAVA_HOME","${jdk8Home}"))
-dockerNodeEnv.add(new Entry("DOCKER_HOST","unix:///var/run/docker.sock"))
-EnvironmentVariablesNodeProperty dockerNodeEnvPro = new EnvironmentVariablesNodeProperty(dockerNodeEnv);
-dockerNode.getNodeProperties().add(dockerNodeEnvPro)
+List<Entry> productionNodeEnv = new ArrayList<Entry>();
+productionNodeEnv.add(new Entry("JAVA_HOME","${alpineJdk8Home}"))
+productionNodeEnv.add(new Entry("DOCKER_HOST","unix:///var/run/docker.sock"))
+EnvironmentVariablesNodeProperty productionNodeEnvPro = new EnvironmentVariablesNodeProperty(productionNodeEnv);
+productionNode.getNodeProperties().add(productionNodeEnvPro)
 
 Slave mavenJDK8Node = new DumbSlave(
   "maven-jdk8-node",
-  "Node for running Maven with OpenJDK8",
+  "Node for running Maven with OpenJDK8, or Docker workloads",
   "/home/jenkins",
-  "2",
+  "4",
   Node.Mode.NORMAL,
-  "jdk8 java8 maven maven-jdk8 maven-java8 maven3 maven3-jdk8 maven3-java8",
+  "jdk8 java8 maven maven-jdk8 maven-java8 maven3 maven3-jdk8 maven3-java8 docker",
   new SSHLauncher(
     "jenkins-maven-jdk8-node", // HostName
     22,
@@ -112,23 +112,23 @@ Slave mavenJDK8Node = new DumbSlave(
 )
 
 List<Entry> jdk8SSHNodeEnv = new ArrayList<Entry>();
-jdk8SSHNodeEnv.add(new Entry("JAVA_HOME","${jdk8Home}"))
+jdk8SSHNodeEnv.add(new Entry("JAVA_HOME","${alpineJdk8Home}"))
 EnvironmentVariablesNodeProperty jdk8SSHNodeEnvPro = new EnvironmentVariablesNodeProperty(jdk8SSHNodeEnv);
 mavenJDK8Node.getNodeProperties().add(jdk8SSHNodeEnvPro)
 
-Slave mavenJDK7Node = new DumbSlave(
-  "maven-jdk7-node",
-  "Node for running Maven with OpenJDK7",
+Slave mavenJDK12Node = new DumbSlave(
+  "maven-jdk12-node",
+  "Node for running Maven with OpenJDK12",
   "/home/jenkins",
   "2",
-  Node.Mode.NORMAL,
-  "jdk7 java7 maven-jdk7 maven-java7 maven3-jdk7 maven3-java7",
+  Node.Mode.EXCLUSIVE,
+  "jdk12 java12 maven-jdk12 maven-java12 maven3-jdk12 maven3-java12",
   new SSHLauncher(
-    "jenkins-maven-jdk7-node", // HostName
+    "jenkins-maven-jdknext-node", // HostName
     22,
     'ssh-nodes-key', // Credential ID
     customJvmOpts, // JVM Options
-    "${jdk8Home}/bin/java", // JavaPath - Use JDK8 for running the slave.jar
+    "${alpineJdk8Home}/bin/java", // JavaPath - Use JDK8 for running the slave.jar
     "", // Prefix Start CMD
     "", // Suffix Start CMD
     15, // Launch Timeout
@@ -140,17 +140,17 @@ Slave mavenJDK7Node = new DumbSlave(
   new LinkedList()
 )
 
-List<Entry> jdk7SSHNodeEnv = new ArrayList<Entry>();
-jdk7SSHNodeEnv.add(new Entry("JAVA_HOME","${jdk7Home}"))
-EnvironmentVariablesNodeProperty jdk7SSHNodeEnvPro = new EnvironmentVariablesNodeProperty(jdk7SSHNodeEnv);
-mavenJDK7Node.getNodeProperties().add(jdk7SSHNodeEnvPro)
+List<Entry> jdk12SSHNodeEnv = new ArrayList<Entry>();
+jdk12SSHNodeEnv.add(new Entry("JAVA_HOME","${alpineJdk12Home}"))
+EnvironmentVariablesNodeProperty jdk12SSHNodeEnvPro = new EnvironmentVariablesNodeProperty(jdk12SSHNodeEnv);
+mavenJDK12Node.getNodeProperties().add(jdk12SSHNodeEnvPro)
 
 
-Jenkins.instance.addNode(dockerNode)
+Jenkins.instance.addNode(productionNode)
 println("Added successfully 'docker-node' to Jenkins")
 
 Jenkins.instance.addNode(mavenJDK8Node)
 println("Added successfully 'maven-jdk8-node' to Jenkins")
 
-Jenkins.instance.addNode(mavenJDK7Node)
-println("Added successfully 'maven-jdk7-node' to Jenkins")
+Jenkins.instance.addNode(mavenJDK12Node)
+println("Added successfully 'maven-jdk12-node' to Jenkins")

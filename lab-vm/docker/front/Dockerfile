@@ -7,6 +7,9 @@ COPY ./docs /usr/share/www/html
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh
 
-VOLUME ["/etc/nginx"]
+HEALTHCHECK --start-period=5s --interval=2s --retries=5 --timeout=5s \
+  CMD wget localhost:80 --spider
+
+VOLUME ["/etc/nginx","/tmp","/var/cache/nginx","/var/run"]
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]

@@ -1,11 +1,13 @@
 
-export BOX_VERSION ?= 1.2.0
+export BOX_VERSION ?= 1.3.0
 export BOX_NAME ?= jenkins-lab-demo
 export BOX_FILE ?= $(CURDIR)/jenkins-lab-demo.box
 GIT_SUBPROJECT := alpine2docker
 CUSTOMIZE_DIR := $(GIT_SUBPROJECT)/customize
 TMP_LAB_DIR := ./tmp-lab
-TESTS_URL ?= http://localhost:10000
+EXTERNAL_PORT ?= 10000
+TESTS_URL ?= http://localhost:$(EXTERNAL_PORT)
+export DOCKER_USERNAME ?= dduportal
 
 all: box lab
 
@@ -13,7 +15,13 @@ lab: clean-lab init-lab start-lab
 
 clean: clean-lab clean-box
 
-box: clean-box build-box test-box
+box: clean-box build-box test clean-box
+
+docker:
+	cd ./docker && docker-compose build
+
+docker-deploy:
+	cd ./docker && docker-compose push
 
 build-box: $(BOX_FILE)
 
@@ -52,4 +60,4 @@ clean-box:
 	cd $(GIT_SUBPROJECT) && git checkout .
 
 .PHONY: all lab box clean build-box clean-box start-lab clean-lab \
-	suspend-lab test
+	suspend-lab test docker docker-deploy
