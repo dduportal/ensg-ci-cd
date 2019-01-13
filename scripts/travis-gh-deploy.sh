@@ -3,8 +3,8 @@
 set -eux
 
 ZIP_FILE=gh-pages.zip
-REPOSITORY_NAME=slides
-REPOSITORY_OWNER=containous
+REPOSITORY_NAME=ensg-ci-cd
+REPOSITORY_OWNER=dduportal
 REPOSITORY_URL="https://github.com/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/archive/${ZIP_FILE}"
 CURRENT_DIR="$(cd "$(dirname "${0}")" && pwd -P)"
 DOCS_DIR="${CURRENT_DIR}/../docs"
