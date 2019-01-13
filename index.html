@@ -1,0 +1,932 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Introduction au CI/CD - ENSG - Décembre 2017</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="./reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="./styles/build.css" id="theme"><link rel="stylesheet" href="styles/font-awesome.min.css"><link href="./reveal.js/plugin/highlight/styles/github.min.css" rel="stylesheet"><script>var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? "./reveal.js/css/print/pdf.css" : "./reveal.js/css/print/paper.css";
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="./reveal.js/lib/js/html5shiv.js"></script><![endif]--></head><body><div class="reveal"><div class="slides"><section id="introduction_au_ci_cd" data-background-color="rgb(248, 228, 130)" data-state="invert"><h2>Introduction au CI/CD</h2><div class="paragraph title"><p>ENSG - Décembre 2017</p></div>
+<div class="imageblock" style=""><img src="images/qrcode.png" alt="QRCode to this presentation" height="150"></div>
+<div class="ulist small"><ul><li><p>Présentation disponible à l&#8217;URL <a href="https://dduportal.github.io/ensg-ci-cd" class="bare">https://dduportal.github.io/ensg-ci-cd</a></p></li><li><p>This work is licensed under a
+<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p></li><li><p><a href="https://github.com/dduportal/ensg-ci-cd">Source Code</a></p></li></ul></div></section>
+<section id="comment_utiliser_cette_prsentation"><h2>Comment utiliser cette présentation ?</h2><div class="ulist"><ul><li><p>Pour naviguer, utilisez les flèches en bas à droite (ou celles de votre clavier)</p><div class="ulist"><ul><li><p>Gauche/Droite: changer de chapitre</p></li><li><p>Haut/Bas: naviguer dans un chapitre</p></li></ul></div></li><li><p>Pour avoir une vue globale : utiliser la touche "o" (pour "<strong>Overview</strong>")</p></li><li><p>Pour voir les notes de l&#8217;auteur : utilisez la touche "s" (pour "<strong>Speaker</strong> notes")</p></li></ul></div></section>
+<section><section id="bonjour" data-background-color="hsl(50, 89%, 74%)"><h2>Bonjour !</h2></section><section id="damien_duportal"><h2>Damien DUPORTAL</h2><div class="imageblock right text-center" style="float: left"><img src="images/damien.jpg" alt="damien" height="400"></div>
+<div class="ulist"><ul><li><p><strong>Training Engineer</strong> @ CloudBees</p><div class="ulist"><ul><li><p>Docker &amp; Apple fanboy.</p></li><li><p>Human stack focused</p></li><li><p>Rock climber</p></li></ul></div></li><li><p>Contact:</p><div class="ulist"><ul><li><p>Twitter: <a href="https://twitter.com/DamienDuportal">@DamienDuportal</a></p></li><li><p>Github: <a href="https://github.com/dduportal">dduportal</a></p></li><li><p>eMail: <a href="mailto:damien.duportal@gmail.com">damien.duportal@gmail.com</a></p></li></ul></div></li></ul></div></section><section id="et_vous"><h2>Et vous ?</h2><div class="imageblock left text-center" style=""><img src="images/commitstrip.png" alt="commitstrip" width="400"></div></section></section>
+<section><section id="organisation_du_cours" data-background-color="hsl(50, 89%, 74%)"><h2>Organisation du Cours</h2></section><section id="objectifs"><h2>Objectifs</h2><div class="ulist"><ul><li><p>Découvrir (ou redécouvrir) les bases des éléments de la
+"chaîne de production logicielle"</p><div class="ulist"><ul><li><p>SCM, Tests, Sécurité, etc.</p></li></ul></div></li><li><p>Découvrir les concepts de l&#8217;Intégration Continue
+et du Déploiement Continu</p></li><li><p>Découvrir Jenkins</p></li><li><p>Mettre en oeuvre Jenkins en tant que dévelopeur</p></li></ul></div></section><section id="temps"><h2>Temps</h2><div class="ulist"><ul><li><p>2 jours ensemble</p></li><li><p>Matin:</p><div class="ulist"><ul><li><p>09:00 &#8594; 10:30</p></li><li><p>11:00 &#8594; 12:30</p></li></ul></div></li><li><p>Après-Midi:</p></li><li><p>13:30 &#8594; 15:00</p></li><li><p>15:30 &#8594; 17:00</p></li></ul></div></section></section>
+<section><section id="evaluation" data-background-color="hsl(50, 89%, 74%)"><h2>Evaluation</h2></section><section id="evaluation_2"><h2>Evaluation</h2><div class="ulist"><ul><li><p>QCM: 25 % de la note</p></li><li><p>Rendu de TP: 75 % de la note</p></li></ul></div></section><section id="qcm"><h2>QCM</h2><div class="ulist"><ul><li><p>But : évaluer l&#8217;acquisition
+des concepts théoriques autour du CI/CD</p></li><li><p>Format :</p><div class="ulist"><ul><li><p>10 questions à choix multiples portant sur les 2 jours</p></li><li><p>Pas de points négatifs</p></li></ul></div></li><li><p>Temps limité: 15 minutes</p></li></ul></div></section><section id="rendu_de_tp"><h2>Rendu de TP</h2><div class="ulist"><ul><li><p>But : évaluer l&#8217;acquisition de compétences
+de mise en oeuvre basiques autour du CI/CD</p></li><li><p>Format:</p><div class="ulist"><ul><li><p>Rendu public dans GitHub : valorisable sur vos CVs</p></li><li><p>Réutilisation d&#8217;un de vos projets</p></li></ul></div></li><li><p>Temps:</p><div class="ulist"><ul><li><p>Estimation du travail personnel: 4h +- 1h</p></li><li><p>Dates de remise des consignes et rendus à définir ensemble</p><div class="ulist"><ul><li><p>3 semaines entre les deux</p></li></ul></div></li></ul></div></li></ul></div></section></section>
+<section><section id="source_code_management_scm" data-background-color="hsl(50, 89%, 74%)"><h2>Source Code Management (SCM)</h2><div class="paragraph"><p>"Gestion de Code Source"</p></div></section><section id="qu_est_ce_que_le_scm"><h2>Qu&#8217;est ce que le SCM ?</h2><div class="paragraph"><p>Les Gestionnaires de Code Source, également connus
+comme "Version Control Systems" (VCS):</p></div>
+<div class="ulist"><ul><li><p>Sont des systèmes <strong>logiciels</strong></p></li><li><p>Conservent <strong>toutes</strong> les modifications apportées à une collection de fichiers,
+dans le temps</p></li><li><p>Permettent de <strong>partager</strong> ces changements</p></li><li><p>Fournissent des fonctionnalités de <strong>merge</strong> et de <strong>suivi</strong> des modifications</p></li></ul></div></section><section id="pourquoi_les_scm"><h2>Pourquoi les SCM ?</h2><div class="ulist"><ul><li><p>Pour <strong>collaborer</strong> efficacement sur un même référentiel de code source</p><div class="ulist"><ul><li><p>Aide à la résolution de conflits</p></li><li><p>Partage de contenu facile</p></li></ul></div></li><li><p>Pour conserver une trace de <strong>tous</strong> les changements :
+On parle de source unique de vérité (<em>Single Source of Truth</em>)</p><div class="ulist"><ul><li><p>Historique complet des modifications</p></li><li><p>Possibilité de retour arrière à tout moment</p></li></ul></div></li></ul></div></section><section id="quels_sont_les_types_de_scm"><h2>Quels sont les types de SCM ?</h2><div class="ulist"><ul><li><p><strong>Locaux</strong></p></li><li><p><strong>Centralisés</strong></p></li><li><p><strong>Distribués</strong></p></li></ul></div></section><section id="scm_locaux"><h2>SCM Locaux</h2><div class="imageblock" style="float: right"><img src="images/scm-local.png" alt="scm local" width="300"></div>
+<div class="ulist"><ul><li><p>Plus vieux type, ancêtre de tous les autres</p></li><li><p><strong>Uniquement</strong> historique de modification</p><div class="ulist"><ul><li><p>Utilise une <em>"base de donnée de versions"</em> des fichiers</p></li><li><p>Stockage uniquement des différences (<em>"diff"</em>)</p></li></ul></div></li><li><p><strong>Pas</strong> de partage</p></li><li><p>Exemple: <em>rcs</em> (toujours dans Apple XCode Tools)</p></li></ul></div></section><section id="scm_centraliss_cvcs"><h2>SCM Centralisés (CVCS)</h2><div class="ulist"><ul><li><p>Couvre <strong>historique</strong> ET <strong>partage</strong></p><div class="ulist"><ul><li><p>La "base de données de versions" est stockée sur un serveur central</p></li></ul></div></li><li><p>Chaque client ne possède qu'<strong>une seule</strong> version du code</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/scm-centralized.png" alt="scm centralized" width="300"></div>
+<div class="ulist"><ul><li><p>Apprentissage très facile, limité sur la résolution de conflits</p></li><li><p>Exemples: CVS, SVN, Perforce, TFS</p></li></ul></div></section><section id="scm_distribus_dvcs"><h2>SCM Distribués (DVCS)</h2><div class="ulist"><ul><li><p>La "base de données de versions" est distribuée par
+<strong>duplication sur chaque noeud</strong></p></li><li><p>Exemples: Git, Mercurial, Bazaar, Monotone</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/scm-distributed.png" alt="scm distributed" width="300"></div></section><section id="comment_hberger_son_scm"><h2>Comment héberger son SCM ?</h2><div class="ulist"><ul><li><p><strong>Hébergés dans le Cloud</strong></p></li><li><p><strong>Hébergé "à la maison"</strong></p></li></ul></div></section><section id="scm_hbergs_dans_le_cloud"><h2>SCM "Hébergés dans le Cloud"</h2><div class="ulist"><ul><li><p><strong>SCM as a Service</strong></p></li><li><p>Le serveur centralisé est un service hébergé par un fournisseur</p></li><li><p>Avantages:</p><div class="ulist"><ul><li><p>Pas de temps/énergie passés sur la gestion</p></li><li><p>Associent au SCM d&#8217;autre services : gestionnaire de tickets,
+wiki, éditeur de texte online, etc.</p></li></ul></div></li><li><p>Risque: Votre code est hébergé par un tiers</p></li><li><p>Exemples: GitHub, Bitbucket by Atlassian, Amazon CodeCommit,
+Visual Studio Online by Microsoft, SourceForge, GitLab.com, etc.</p></li></ul></div></section><section id="scm_hbergs_dans_le_cloud_2"><h2>SCM "Hébergés dans le Cloud"</h2><div class="ulist"><ul><li><p>Pour pallier au risque précédent,
+on trouve des versions "On-Premide" (généralement payantes)</p></li><li><p>Le monde de l&#8217;Open Source fourni également des solutions
+à héberger soit-même</p><div class="ulist"><ul><li><p>Très souvent gratuit et on peut le corriger</p></li><li><p>Temps et énergie à consacrer</p></li></ul></div></li><li><p>Exemples: Gitlab, Gitea, Gogs, Bazaar server, VisualSVN Server, etc.</p></li></ul></div></section><section id="terminologie_des_scm_basiques"><h2>Terminologie des SCM : Basiques</h2><div class="ulist"><ul><li><p><strong>diff:</strong> un ensemble de lignes "changées" sur un fichier donné</p></li><li><p><strong>changeset:</strong> un ensemble de "diff" (donc peut couvrir plusieurs fichiers)</p></li><li><p><strong>commit:</strong> Action de sauvegarder un changeset dans la base de données
+des versions.</p></li></ul></div></section><section id="terminologie_des_scm_reprsentation"><h2>Terminologie des SCM : Représentation</h2><div class="ulist"><ul><li><p>Le dernier commit dans l&#8217;historique est aliasé comme <em>"HEAD"</em></p></li></ul></div>
+<div class="imageblock" style=""><img src="images/scm-basics-legend.png" alt="scm basics legend"></div>
+<div class="imageblock" style=""><img src="images/scm-basics-history.png" alt="scm basics history"></div></section><section id="terminologie_des_scm_branches"><h2>Terminologie des SCM : Branches</h2><div class="ulist"><ul><li><p>Abstraction d&#8217;une version "isolée" du code</p></li><li><p>Concrètement, une <strong>branche</strong> est un alias pointant vers un "commit"</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/scm-branches.png" alt="scm branches"></div></section><section id="terminologie_des_scm_merge"><h2>Terminologie des SCM : Merge</h2><div class="ulist"><ul><li><p>On intègre une branche dans une autre en effectuant un <strong>merge</strong></p><div class="ulist"><ul><li><p>Un nouveau commit est créé, fruit de la combinaison de 2 autres commits</p></li></ul></div></li></ul></div>
+<div class="imageblock" style=""><img src="images/scm-merge.png" alt="scm merge"></div></section><section id="terminologie_des_scm_pull_request"><h2>Terminologie des SCM : Pull Request</h2><div class="ulist"><ul><li><p>Une <strong>Pull Request</strong> (ou "Merge Request") est une procédure de
+revue de code avant intégration</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/scm-pull-request.png" alt="scm pull request"></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Soit une branche de travail principale nommée "master"</p></li><li><p>Un dévelopeur va <strong>demander</strong> un merge d&#8217;une autre branche vers <strong>master</strong></p></li><li><p>Le serveur de SCM va fournir les éléments de <strong>revue de code</strong>,
+sur les différences entre les 2 branches</p></li></ul></div></aside></section><section id="motifs_d_utilisation_des_scms"><h2>Motifs d&#8217;utilisation des SCMs ?</h2><div class="paragraph"><p>Voici quelques motifs d&#8217;utilisation des SCMs :</p></div>
+<div class="ulist"><ul><li><p>"Centralized" Flow</p></li><li><p>"Feature Branch" Flow</p></li><li><p>"Git" Flow</p></li><li><p>"GitHub" Flow</p></li></ul></div></section><section id="centralized_flow"><h2>Centralized Flow</h2><div class="imageblock" style=""><img src="images/scm-centralized-flow-how-to.jpg" alt="scm centralized flow how to" width="800"></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Defined by collaborators working from a single code base</p><div class="ulist"><ul><li><p>Abstraction of this process is the basis for Trunk based development</p></li></ul></div></li><li><p>This pattern is the natural usage of a CVCS like SVN or CVS</p></li><li><p>It is easy to understand and use, and sufficient enough for a lot of cases</p></li><li><p>Collaboration is blocked when centralized server is down or history is broken</p></li></ul></div></aside></section><section id="feature_branch_flow"><h2>Feature Branch Flow</h2><div class="ulist"><ul><li><p><strong>Une seule</strong> branche <strong>par</strong> fonctionnalité</p></li></ul></div>
+<div class="imageblock" style=""><a class="image" href="https://twitter.com/jay_gee/status/702638177471873024"><img src="images/scm-feature-branch-workflow.png" alt="scm feature branch workflow"></a></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Encapsulation allows working without disturbing the main codebase</p></li><li><p>Allows easier collaboration</p></li><li><p>Merge conflicts map the conceptual conflicts: easier to track</p></li><li><p>Useful when inclusion of a feature in the main code base is open to debate</p></li></ul></div></aside></section><section id="git_flow"><h2>Git Flow</h2><div class="imageblock" style=""><img src="images/scm-git-workflow.png" alt="scm git workflow" width="800"></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Extension of the Feature Branch Workflow pattern</p></li><li><p>Proposed by Vincent Driessen at <a href="http://nvie.com">nvie</a></p></li><li><p>Target large-scale projects or software products</p></li><li><p>Strict branching implementation: roles for specific branches</p></li><li><p>Useful when Build Promotion will play a signifigant role in your release strategy</p></li></ul></div></aside></section><section id="github_flow"><h2>GitHub Flow</h2><div class="imageblock" style=""><img src="images/github_flow.png" alt="github flow" height="600"></div></section><section id="rsoudre_des_problmes_avec_le_scm"><h2>Résoudre des problèmes avec le SCM</h2><div class="ulist"><ul><li><p>"Infrastructure as Code" :</p><div class="ulist"><ul><li><p>Besoins de traçabilité, de définition explicite et de gestion de conflits</p></li><li><p>Collaboration requise pour chaque changement (revue, responsabilités)</p></li></ul></div></li><li><p>Code Civil:</p><div class="ulist"><ul><li><p><a href="https://github.com/steeve/france.code-civil" class="bare">https://github.com/steeve/france.code-civil</a></p></li><li><p><a href="https://github.com/steeve/france.code-civil/pull/40" class="bare">https://github.com/steeve/france.code-civil/pull/40</a></p></li></ul></div></li></ul></div></section><section id="pour_aller_plus_loin"><h2>Pour aller plus loin&#8230;&#8203;</h2><div class="paragraph"><p>Un peu de lecture :</p></div>
+<div class="ulist"><ul><li><p><a href="http://martinfowler.com/bliki/VersionControlTools.html" class="bare">http://martinfowler.com/bliki/VersionControlTools.html</a></p></li><li><p><a href="http://martinfowler.com/bliki/FeatureBranch.html" class="bare">http://martinfowler.com/bliki/FeatureBranch.html</a></p></li><li><p><a href="https://about.gitlab.com/2014/09/29/gitlab-flow/" class="bare">https://about.gitlab.com/2014/09/29/gitlab-flow/</a></p></li><li><p><a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control" class="bare">https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control</a></p></li><li><p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows" class="bare">https://www.atlassian.com/git/tutorials/comparing-workflows</a></p></li><li><p><a href="http://nvie.com/posts/a-successful-git-branching-model/" class="bare">http://nvie.com/posts/a-successful-git-branching-model/</a></p></li></ul></div></section></section>
+<section><section id="tests_logiciels" data-background-color="hsl(50, 89%, 74%)"><h2>Tests Logiciels</h2></section><section id="pourquoi_tester_un_logiciel"><h2>Pourquoi tester un logiciel ?</h2><div class="ulist"><ul><li><p><a href="http://istqbexamcertification.com/when-do-defects-in-software-testing-arise/">Les Humains font des erreurs</a></p></li><li><p><a href="https://en.wikipedia.org/wiki/Turing_test">Les Humains écrivent du code</a></p></li><li><p>Le code est donc sujet à erreurs: <strong>Conséquences?</strong></p></li><li><p>Les <strong>tests</strong> identifient ces erreurs, dans un <strong>but</strong> de correction</p></li></ul></div></section><section id="qu_est_ce_que_le_test_logiciel"><h2>Qu&#8217;est ce que le "test logiciel" ?</h2><div class="ulist"><ul><li><p>Le test logiciel est une pratique suivant 2 piliers :</p><div class="ulist"><ul><li><p>Valider que le logiciel remplisse les rôles qui lui sont confiés</p></li><li><p>Rechercher les <strong>fautes</strong> pour les corriger,
+améliorant la qualité du système</p></li></ul></div></li></ul></div></section><section id="tests_automatis_ou_manuels"><h2>Tests Automatisé ou Manuels ?</h2><div class="ulist"><ul><li><p>Automatiser : <strong>répétition</strong> et <strong>reproductibilité</strong></p></li><li><p>Test Manuel à considérer dans <strong>peu de cas</strong>, quand :</p><div class="ulist"><ul><li><p>Coût de l&#8217;automatisation dépasse sa valeur</p></li><li><p>Automatisation impossible</p></li></ul></div></li></ul></div></section><section id="terminologie_du_test_logiciel"><h2>Terminologie du Test Logiciel</h2><div class="ulist"><ul><li><p><strong>SUT</strong>: "System Under Testing". Défini les frontières du système.</p></li><li><p><strong>Test Double</strong>: Terme générique désignant un sous-ensemble simplifié
+du "S.U.T.". Exemples: Mock, Stub, Spy, etc.</p></li><li><p><strong>Boîte Blanche</strong>: Tester avec une vue interne du SUT</p></li><li><p><strong>Boîte Noire</strong>: Tester le SUT sans connaissance préalable de
+ses mécanismes interne</p></li></ul></div></section><section id="comment_tester_le_logiciel"><h2>Comment tester le logiciel ?</h2><div class="ulist"><ul><li><p>La question <strong>primordiale</strong> est:
+"Que voulez-vous tester ?"</p></li><li><p>En fonction de la réponse, différent types de tests
+peuvent être utilisé (liste NON exhaustive) :</p><div class="ulist"><ul><li><p>Unit testing</p></li><li><p>Integration testing</p></li><li><p>Smoke testing</p></li><li><p>Functional Testing</p></li><li><p>Non-Regression testing</p></li><li><p>Acceptance testing</p></li></ul></div></li></ul></div></section><section id="test_unitaire"><h2>Test Unitaire</h2><div class="ulist"><ul><li><p>Focalisé sur le plus petit sous sytème possible du SUT, en "boîte blanche"</p></li><li><p>Tests <strong>indépendants</strong> les uns des autres</p><div class="ulist"><ul><li><p>Ordre d&#8217;exécution non important</p></li><li><p>Utilisation de <strong>Test Doubles</strong> pour simuler le "reste" en bon fonctionnement</p></li></ul></div></li></ul></div>
+<div class="imageblock" style=""><img src="images/test-unit.png" alt="test unit" width="300"></div></section><section id="tests_d_intgration"><h2>Tests d&#8217;Intégration</h2><div class="ulist"><ul><li><p>Vérifier l&#8217;intégration entre différents sous-systèmes</p></li><li><p>Le SUT est en "boîte blanche"</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/test-integration.gif" alt="test integration"></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Sub-Systems refers to:</p><div class="ulist"><ul><li><p>Internal sub-system: already validated by a unit test</p></li><li><p>External sub-system: external element like a database, filesystem&#8230;&#8203;</p></li></ul></div></li><li><p>"Integration testing" can cover many subjects and may be slower to run</p><div class="ulist"><ul><li><p>Each sub-system must be validated against the others with which it interacts
+Appropriate scope and scale of integration testing is widely debated</p></li></ul></div></li></ul></div></aside></section><section id="smoke_testing"><h2>Smoke Testing</h2><div class="imageblock" style=""><img src="images/test-smoke.jpg" alt="test smoke" width="200"></div>
+<div class="ulist"><ul><li><p>But : <strong>Fail Fast</strong> en "boîte blanche"</p></li><li><p>Valide les fonctions "de base" du système</p></li><li><p>On parle parfois de "Sanity Checking"</p></li></ul></div>
+<div class="quoteblock"><blockquote><em>
+If it smokes, it&#8217;s bad
+</em></blockquote><div class="attribution">&#8212; Anonymous Electrician</div></div></section><section id="tests_fonctionnels"><h2>Tests Fonctionnels</h2><div class="ulist"><ul><li><p>Vérifie que le logiciel se comporte comme prévue par
+<strong>les personnes en charge de la fabrication</strong></p></li><li><p>Pas de <strong>biais</strong> d&#8217;inteprétation</p></li><li><p>Le SUT est en "boîte noire"</p></li></ul></div></section><section id="tests_de_rgression"><h2>Tests de Régression</h2><div class="ulist"><ul><li><p>Vérifie que le SUT a un comportement stable dans le temps</p></li><li><p>Focalisation sur bug qui ne doit pas revenir</p></li><li><p>Le SUT est en "boîte noire"</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/test-regression.png" alt="test regression" width="200"></div>
+<div class="quoteblock"><blockquote><em>
+Correcting a single bug may introduce several more.
+</em></blockquote><div class="attribution">&#8212; Any developer</div></div></section><section id="tests_d_acceptation"><h2>Tests d&#8217;Acceptation</h2><div class="ulist"><ul><li><p>Également connu sous l&#8217;acronyme "UAT" User Acceptance Testing</p></li><li><p>Vérifie que le logiciel se comporte comme attendu par <strong>l&#8217;utilisateur</strong></p></li><li><p>Biais de communication inclus</p></li><li><p>Le SUT est en "boîte noire"</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/test-acceptance.jpg" alt="test acceptance" width="300"></div></section><section id="ordre_des_tests"><h2>Ordre des Tests</h2><div class="ulist"><ul><li><p>Fonction des temps d&#8217;exécutions, des coûts de corrections,
+et des valeurs ajoutées. <strong>Contextuel</strong>.</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/test-pyramid.png" alt="test pyramid" width="600"></div></section><section id="test_driven_development"><h2>Test Driven Development</h2><div class="ulist"><ul><li><p>TDD: Écrire les tests unitaires <strong>avant</strong> le code</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/tdd.png" alt="tdd" width="400"></div></section><section id="behaviour_driven_development"><h2>Behaviour Driven Development</h2><div class="ulist"><ul><li><p>BDD: Privilégier language naturel et interactions</p><div class="ulist"><ul><li><p>"Given, When, Then"</p></li><li><p>Moins de technique. Valeur ajoutée pour l&#8217;utilisateur.</p></li></ul></div></li></ul></div>
+<div class="imageblock" style=""><img src="images/bdd.png" alt="bdd" width="500"></div></section><section id="pour_aller_plus_loin_2"><h2>Pour aller plus loin&#8230;&#8203;</h2><div class="ulist"><ul><li><p>(FR) <a href="http://douche.name/blog/nomenclature-des-tests-logiciels/" class="bare">http://douche.name/blog/nomenclature-des-tests-logiciels/</a></p></li><li><p><a href="http://martinfowler.com/bliki/UnitTest.html" class="bare">http://martinfowler.com/bliki/UnitTest.html</a></p></li><li><p><a href="https://en.wikipedia.org/wiki/Software_testing" class="bare">https://en.wikipedia.org/wiki/Software_testing</a></p></li><li><p><a href="http://martinfowler.com/tags/testing.html" class="bare">http://martinfowler.com/tags/testing.html</a></p></li><li><p><a href="http://martinfowler.com/bliki/TestCoverage.html" class="bare">http://martinfowler.com/bliki/TestCoverage.html</a></p></li><li><p><a href="http://martinfowler.com/bliki/TestDrivenDevelopment.html" class="bare">http://martinfowler.com/bliki/TestDrivenDevelopment.html</a></p></li></ul></div></section></section>
+<section><section id="continuous_everything" data-background-color="hsl(50, 89%, 74%)"><h2>"Continuous Everything"</h2></section><section id="qu_est_ce_que_l_intgration_continue"><h2>Qu&#8217;est ce que l&#8217;Intégration Continue ?</h2><div class="quoteblock"><blockquote><div class="paragraph"><p>Continuous Integration is a software development <strong>practice</strong> where members of a team
+integrate their work <strong>frequently</strong>. Usually each person integrates at least daily -
+leading to <strong>multiple</strong> integrations per day.</p></div></blockquote><div class="attribution">&#8212; Martin Fowler - Continuous Integration</div></div></section><section id="intgration_continue_ci"><h2>Intégration Continue (CI)</h2><div class="imageblock" style=""><img src="images/fail-fast-continuous-integration.png" alt="fail fast continuous integration" height="250"></div>
+<div class="ulist"><ul><li><p>Construire et intégrer le code <strong>en continu</strong></p></li><li><p>Le code est intégré <strong>souvent</strong>, au moins quotidiennement pour que
+l&#8217;intégration soit un <em>non-évenement</em></p></li><li><p>Chaque intégration est validée par une construction
+<strong>automatisée</strong> avec tests</p></li></ul></div></section><section id="pourquoi_la_ci"><h2>Pourquoi la CI ?</h2><div class="paragraph"><p><strong>But :</strong> Détecter les fautes au plus tôt</p></div>
+<div class="imageblock" style=""><a class="image" href="http://cartoontester.blogspot.be/2010/01/big-bugs.html"><img src="images/big-bugs.jpg" alt="big bugs" width="500"></a></div>
+<div class="quoteblock"><blockquote><div class="paragraph"><p>Continuous Integration doesn’t get rid of bugs, but it does make them
+dramatically easier to find and remove.</p></div></blockquote><div class="attribution">&#8212; Martin Fowler</div></div></section><section id="livraison_continue"><h2>Livraison Continue</h2><div class="paragraph"><p>Continous Delivery (CD)</p></div></section><section id="pourquoi_la_livraison_continue"><h2>Pourquoi la Livraison Continue ?</h2><div class="ulist"><ul><li><p>Diminuer les risque liés au déploiement</p></li><li><p>Permettre de récolter des retours utilisateurs plus souvent</p></li><li><p>Rendre l&#8217;avancement visible par <strong>tous</strong></p></li></ul></div>
+<div class="quoteblock"><blockquote><div class="paragraph"><p>How long would it take to your organization to deploy a change that
+involves just one single line of code?</p></div></blockquote><div class="attribution">&#8212; Mary and Tom Poppendieck</div></div></section><section id="qu_est_ce_que_la_livraison_continue"><h2>Qu&#8217;est ce que la Livraison Continue ?</h2><div class="ulist"><ul><li><p>Suite logique de l&#8217;intégration continue:</p><div class="ulist"><ul><li><p>Chaque changement est <strong>potentiellement</strong> déployable en production</p></li><li><p>Le déploiement peut donc être effectué à <strong>tout</strong> moment</p></li></ul></div></li></ul></div>
+<div class="quoteblock"><blockquote><div class="paragraph"><p>Your team prioritizes keeping the software <strong>deployable</strong> over working on new features</p></div></blockquote><div class="attribution">&#8212; Martin Fowler</div></div></section><section id="dploiement_continu"><h2>Déploiement Continu</h2><div class="paragraph"><p>Continuous Deployment</p></div></section><section id="qu_est_ce_que_le_dploiement_continu"><h2>Qu&#8217;est ce que le Déploiement Continu ?</h2><div class="ulist"><ul><li><p>Version "avancée" de la livraison continue:</p><div class="ulist"><ul><li><p>Chaque changement <strong>est</strong> déployé en production, de manière <strong>automatique</strong></p></li></ul></div></li><li><p>Question importante: En avez-vous besoin ?</p><div class="ulist"><ul><li><p>Avez-vous les mêmes besoin que Amazon Google ou Netflix ?</p></li></ul></div></li></ul></div></section><section id="continuous_delivery_versus_deployment"><h2>Continuous Delivery versus Deployment</h2><div class="imageblock" style=""><a class="image" href="http://blog.crisp.se/2013/02/05/yassalsundman/continuous-delivery-vs-continuous-deployment"><img src="images/continuous-depl-vs-delivery.jpg" alt="continuous depl vs delivery" width="700"></a></div></section><section id="pour_aller_plus_loin_3"><h2>Pour aller plus loin&#8230;&#8203;</h2><div class="ulist"><ul><li><p><a href="http://martinfowler.com/articles/continuousIntegration.html" class="bare">http://martinfowler.com/articles/continuousIntegration.html</a></p></li><li><p><a href="http://martinfowler.com/bliki/ContinuousDelivery.html" class="bare">http://martinfowler.com/bliki/ContinuousDelivery.html</a></p></li><li><p><a href="https://jaxenter.com/implementing-continuous-delivery-117916.html" class="bare">https://jaxenter.com/implementing-continuous-delivery-117916.html</a></p></li><li><p><a href="https://technologyconversations.com/2014/04/29/continuous-delivery-introduction-to-concepts-and-tools/" class="bare">https://technologyconversations.com/2014/04/29/continuous-delivery-introduction-to-concepts-and-tools/</a></p></li><li><p><a href="http://blog.arungupta.me/continuous-integration-delivery-deployment-maturity-model" class="bare">http://blog.arungupta.me/continuous-integration-delivery-deployment-maturity-model</a></p></li><li><p><a href="http://blog.crisp.se/2013/02/05/yassalsundman/continuous-delivery-vs-continuous-deployment" class="bare">http://blog.crisp.se/2013/02/05/yassalsundman/continuous-delivery-vs-continuous-deployment</a></p></li></ul></div></section></section>
+<section><section id="chane_logistique_du_logiciel" data-background-color="hsl(50, 89%, 74%)"><h2>Chaîne Logistique du Logiciel</h2><div class="paragraph"><p>"Software Supply Chain"</p></div></section><section id="la_boucle_de_rtroaction"><h2>La boucle de rétroaction</h2><div class="paragraph"><p>"Feedback loop" / "Boucle de feedback"</p></div></section><section id="pourquoi_de_la_rtroaction"><h2>Pourquoi de la rétroaction ?</h2><div class="ulist"><ul><li><p><em>Problèmatique :</em> réagir <strong>rapidement</strong> pour corriger une faute</p><div class="ulist"><ul><li><p>"Au plus tôt, au moins cher"</p></li></ul></div></li><li><p>Problème #1: Avoir un retour</p></li><li><p>Problème #2: Réagir <strong>systématiquement</strong> sur un retour</p></li><li><p>Problème #3: Avoir <strong>confiance</strong></p></li></ul></div></section><section id="qu_est_ce_qu_une_boucle_de_feedback"><h2>Qu&#8217;est ce qu&#8217;une boucle de Feedback ?</h2><div class="imageblock" style=""><img src="images/feedback-loop.png" alt="feedback loop"></div></section><section id="comment_implmenter_la_rtroaction"><h2>Comment implémenter la rétroaction ?</h2><div class="ulist"><ul><li><p>Quels <strong>acteurs</strong> du système ?</p></li><li><p>Quel médium de <strong>communication</strong> ?</p></li><li><p>Quel déclencheurs et quelles limites ?</p></li><li><p><strong>Culture à construire</strong>, les outils suivent facilement</p></li></ul></div></section><section id="chane_logistique_du_logiciel_2"><h2>Chaîne Logistique du Logiciel</h2><div class="imageblock" style=""><img src="images/supply-chain.png" alt="supply chain" height="600"></div></section><section id="the_pipeline"><h2>The Pipeline</h2><div class="imageblock" style=""><img src="images/pipeline.png" alt="pipeline" height="600"></div></section><section id="qu_est_ce_qu_un_pipeline"><h2>Qu&#8217;est ce qu&#8217;un Pipeline ?</h2><div class="ulist"><ul><li><p><strong>Industrialisation</strong> du <strong>logiciel</strong></p></li><li><p>Modélisation de la chaîne de valeur ("Value Stream Mapping")</p></li><li><p>"Fast is cheap": Piloté par le concept de la défaillance rapide
+("fail fast")</p></li></ul></div></section><section id="anatomie_d_un_pipeline_1_2"><h2>Anatomie d&#8217;un "Pipeline" 1/2</h2><div class="ulist"><ul><li><p><strong>Stage</strong> ("étape"): Élément de base</p><div class="ulist"><ul><li><p>Abstraction <strong>atomiques</strong> d&#8217;un ensemble d&#8217;actions</p></li><li><p>Exemple: "Build", "Run Unit Tests"</p></li><li><p>Possibilité de parallèlisation</p></li></ul></div></li><li><p><strong>Gate</strong> ("Porte"): Transition entre 2 étapes</p><div class="ulist"><ul><li><p>Manuel ou automatique</p></li><li><p>Peuvent être conditionnelles</p></li></ul></div></li></ul></div></section><section id="anatomie_d_un_pipeline_2_2"><h2>Anatomie d&#8217;un "Pipeline" 2/2</h2><div class="ulist"><ul><li><p><strong>Déclenchement initial :</strong> un changement dans la base de code</p></li><li><p>Chaque étape <em>peut</em> produire des livrables:
+on parlera d'<strong>Artefacts</strong> dans ce cours</p></li></ul></div></section><section id="etapes_de_deploiement"><h2>Etapes de "Deploiement"</h2><div class="ulist"><ul><li><p>Le <strong>déploiement</strong> est ce qui permet de rendre le logiciel
+prêt à l&#8217;usage</p></li><li><p>Un "déploiement" est exécuté vers un <strong>environnement</strong></p><div class="ulist"><ul><li><p>Production</p></li><li><p>Préproduction ("staging") / recette ("qualification")</p></li><li><p>Tests</p></li><li><p>"Disaster Recovery Environment"</p></li></ul></div></li></ul></div></section><section id="un_example_de_pipeline"><h2>Un example de Pipeline</h2><div class="imageblock" style=""><img src="images/cd-pipeline-example.jpg" alt="cd pipeline example"></div></section><section id="comment_faire_des_bons_pipelines"><h2>Comment faire des "bons" Pipelines ?</h2><div class="ulist"><ul><li><p>Commencer par un "Produit Minimum Viable" (MVP) puis itérer</p></li><li><p>S&#8217;efforcer d&#8217;appliquer les bonne pratiques</p></li><li><p>Optimiser le Pipeline (lors des itérations)</p></li></ul></div></section><section id="bonnes_pratiques"><h2>Bonnes Pratiques</h2><div class="ulist"><ul><li><p>Réutilisation des artefacts: <em>"Only Build Your Binaries Once"</em></p></li><li><p>Arrêt du Pipeline dès qu&#8217;une faute est identifiée: <em>"Fail Fast"</em></p><div class="ulist"><ul><li><p><strong>Identifier</strong> si un artefacts n&#8217;est pas déployable (tests&#8230;&#8203;)</p></li></ul></div></li><li><p>S&#8217;assurer qu&#8217;une même version de la base de code
+est utilisée à tout moment pour un Pipeline donnée</p></li></ul></div></section><section id="optimiser_le_pipeline"><h2>Optimiser le Pipeline</h2><div class="imageblock" style=""><img src="images/cd-pipeline-wait.jpg" alt="cd pipeline wait" width="250"></div>
+<div class="ulist"><ul><li><p>Paralléliser les étapes</p><div class="ulist"><ul><li><p>Arrêt du Pipeline si une "branche" est en erreur</p></li><li><p>Sinon: étape inutile à supprimer</p></li></ul></div></li><li><p>Les "gates" manuelles peuvent également être paralleliser</p><div class="ulist"><ul><li><p>relation "1-N": <em>N</em> "gates" manuelles déclencheront <em>N</em> étapes parallèles</p></li></ul></div></li></ul></div></section><section id="exemple_de_pipeline_optimis"><h2>Exemple de Pipeline optimisé</h2><div class="imageblock" style=""><img src="images/cd-pipeline-optimized-example.png" alt="cd pipeline optimized example"></div></section><section id="pour_aller_plus_loin_4"><h2>Pour aller plus loin&#8230;&#8203;</h2><div class="paragraph"><p>Un peu de lecture :</p></div>
+<div class="ulist"><ul><li><p><a href="http://devops.com/2014/07/29/continuous-delivery-pipeline/" class="bare">http://devops.com/2014/07/29/continuous-delivery-pipeline/</a></p></li><li><p><a href="http://martinfowler.com/bliki/DeploymentPipeline.html" class="bare">http://martinfowler.com/bliki/DeploymentPipeline.html</a></p></li><li><p><a href="http://www.informit.com/articles/article.aspx?p=1621865" class="bare">http://www.informit.com/articles/article.aspx?p=1621865</a></p></li><li><p><a href="https://www.thoughtworks.com/insights/blog/architecting-continuous-delivery" class="bare">https://www.thoughtworks.com/insights/blog/architecting-continuous-delivery</a></p></li></ul></div></section></section>
+<section><section id="scurit_basiques" data-background-color="hsl(50, 89%, 74%)"><h2>Sécurité: Basiques</h2></section><section id="pourquoi_la_scurit"><h2>Pourquoi la Sécurité ?</h2><div class="ulist"><ul><li><p>Votre organisation utilise l'<em>information</em> pour créer de la valeur</p></li><li><p>L&#8217;information doit donc être:</p><div class="ulist"><ul><li><p>Confidentielle</p></li><li><p>Intègre</p></li><li><p>Disponible</p></li></ul></div></li></ul></div></section><section id="qu_est_ce_que_la_scurit"><h2>Qu&#8217;est ce que la Sécurité ?</h2><div class="ulist"><ul><li><p>C&#8217;est l&#8217;ensemble des pratiques et des outils
+permettant de prévenir et combattre les menaces sur l&#8217;organisation</p></li><li><p>4 piliers:</p><div class="ulist"><ul><li><p><strong>Connaissance du sytème</strong></p></li><li><p><strong>Least Privilege</strong></p></li><li><p><strong>Défense en profondeur</strong></p></li><li><p><strong>Mieux vaut prévenir que guérir</strong></p></li></ul></div></li></ul></div></section><section id="aaa"><h2>AAA</h2><div class="ulist"><ul><li><p><strong>AAA</strong> signifie :</p><div class="ulist"><ul><li><p>Authentification</p></li><li><p>Authorisation</p></li><li><p>Accounting (comptabilisation)</p></li></ul></div></li></ul></div></section><section id="authentification"><h2>Authentification</h2><div class="ulist"><ul><li><p>C&#8217;est l&#8217;ensemble des procédures et outils pour <strong>identifier</strong>
+un acteur avec une <strong>confiance suffisante</strong></p></li></ul></div>
+<div class="imageblock" style=""><img src="images/security-authentication.jpg" alt="security authentication" height="500"></div></section><section id="authorisation"><h2>Authorisation</h2><div class="ulist"><ul><li><p>Une fois l&#8217;acteur identifié avec confiance,
+il faut contrôler ses droit en terme de manipulations</p></li><li><p>Nomenclature :</p><div class="ulist"><ul><li><p><strong>Ressources:</strong> Tâches ou objets manipulables et accessibles</p></li><li><p><strong>Rôles:</strong> Ensemble de droits regroupés par commodité</p></li><li><p><strong>Requêteurs:</strong> Acteur souhaitant manipuler des ressources</p></li></ul></div></li></ul></div></section><section id="accounting_comptabilisation"><h2>Accounting (Comptabilisation)</h2><div class="ulist"><ul><li><p>Etre <em>autorisé</em> à manipuler des ressources ne garantie
+pas l&#8217;effection à 100%</p><div class="ulist"><ul><li><p>Limites du système (mémoire, disque, consommation, temps, etc.)</p></li><li><p>Erreurs, pannes et fautes</p></li></ul></div></li><li><p>L'"accounting" permet de mesurer et contrôler les manipulations</p><div class="ulist"><ul><li><p>Respect des limites</p></li><li><p>Reprises sur erreur</p></li><li><p><strong>Capacity planning</strong></p></li></ul></div></li></ul></div></section><section id="pour_aller_plus_loin_5"><h2>Pour aller plus loin&#8230;&#8203;</h2><div class="paragraph"><p>Un peu de lecture :</p></div>
+<div class="ulist"><ul><li><p><a href="https://www.owasp.org/index.php/Main_Page" class="bare">https://www.owasp.org/index.php/Main_Page</a></p></li><li><p><a href="https://danielmiessler.com/study/infosecconcepts/" class="bare">https://danielmiessler.com/study/infosecconcepts/</a></p></li><li><p><a href="http://searchsecurity.techtarget.com/definition/authentication-authorization-and-accounting" class="bare">http://searchsecurity.techtarget.com/definition/authentication-authorization-and-accounting</a></p></li><li><p><a href="http://www.nap.edu/read/1581/chapter/1" class="bare">http://www.nap.edu/read/1581/chapter/1</a></p></li><li><p><a href="https://cryptome.org/2013/09/infosecurity-cert.pdf" class="bare">https://cryptome.org/2013/09/infosecurity-cert.pdf</a></p></li><li><p><a href="https://danielmiessler.com/study/infosecconcepts/" class="bare">https://danielmiessler.com/study/infosecconcepts/</a></p></li></ul></div></section></section>
+<section><section id="dmarrer_le_lab" data-background-color="hsl(50, 89%, 74%)"><h2>Démarrer le Lab</h2></section><section id="pr_requis"><h2>Pré-requis</h2><div class="ulist"><ul><li><p>VirtualBox (5.1.30+)</p><div class="ulist"><ul><li><p>Check: <code>VboxManage -v</code></p></li></ul></div></li><li><p>Vagrant (2.0.1+)</p><div class="ulist"><ul><li><p>Check: <code>vagrant -v</code></p></li></ul></div></li><li><p>Pour le proxy HTTP:</p><div class="ulist"><ul><li><p><a href="https://github.com/tmatilai/vagrant-proxyconf" class="bare">https://github.com/tmatilai/vagrant-proxyconf</a></p><div class="ulist"><ul><li><p><code>export VAGRANT_HTTP_PROXY=&#8230;&#8203; &amp;&amp; vagrant &#8230;&#8203;</code></p></li></ul></div></li><li><p>et/ou <a href="https://github.com/AlbanMontaigu/docker-transparent-proxy" class="bare">https://github.com/AlbanMontaigu/docker-transparent-proxy</a></p></li></ul></div></li></ul></div></section><section id="obtenir_le_template_de_la_vm"><h2>Obtenir Le template de la VM</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">vagrant box add jenkins-lab-demo http://bit.ly/2Bl1hfI</code></pre></div></div></section><section id="initialiser_l_environnement"><h2>Initialiser l&#8217;environnement</h2><div class="ulist"><ul><li><p>Créer un dossier de travail nommé <code>jenkins-lab-demo</code>
+dans votre HOME utilisateur</p></li><li><p>Se positionner dans ce dossier</p></li><li><p>Exécuter <code>vagrant init</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">mkdir ~/jenkins-lab-demo
+cd ~/jenkins-lab-demo
+vagrant init -m -f jenkins-lab-demo</code></pre></div></div></section><section id="dmarrer_arrter_le_lab"><h2>Démarrer / Arrêter le Lab</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">vagrant up # Démarrer la VM
+vagrant suspend # Suspendre la VM
+vagrant resume # Relancer la VM
+vagrant halt # Arrêter "proprement la VM"
+vagrant destroy # Détruire la VM (BRUTAL)</code></pre></div></div></section><section id="accder_au_lab"><h2>Accéder au Lab</h2><div class="ulist"><ul><li><p>Dans votre navigateur, ouvrir <a href="http://localhost:10000" target="_blank">http://localhost:10000</a></p></li><li><p>Bienvenue sur la page d&#8217;accueil du Lab:</p><div class="ulist"><ul><li><p>Le lien <strong>Workshop Slides</strong> vous permettra d&#8217;accéder au slides</p></li></ul></div></li></ul></div></section><section id="accder_au_code_source"><h2>Accéder au Code Source</h2><div class="ulist"><ul><li><p>Cliquer sur le lien <strong>Git Server</strong> sur la page d&#8217;accueil du Lab</p><div class="ulist"><ul><li><p><a href="http://localhost:10000/gitserver" target="_blank">Lien direct</a></p></li><li><p><strong>S&#8217;authentifier</strong> en tant que <strong><code>butler</code></strong> (mot de passe <code>butler</code>)</p></li></ul></div></li><li><p>Cliquer sur <strong>Explore</strong> (en haut)</p><div class="ulist"><ul><li><p>Cliquer sur <strong>butler/demoapp</strong></p><div class="ulist"><ul><li><p><a href="http://localhost:10000/gitserver/butler/demoapp" target="_blank">Lien direct</a></p></li></ul></div></li></ul></div></li></ul></div></section></section>
+<section><section id="demo_application" data-background-color="hsl(50, 89%, 74%)"><h2>Demo Application</h2></section><section id="pourquoi"><h2>Pourquoi ?</h2><div class="ulist"><ul><li><p><strong>But :</strong> Illustrer un exemple de "Software Supply Chain"</p></li><li><p><strong>Problématique :</strong> Quel language/framewor/outil choisir ?</p></li><li><p><strong>Solution:</strong></p><div class="ulist"><ul><li><p><em>"Opinionated"</em> demo application</p></li><li><p>Tout le monde sur le même pied</p></li></ul></div></li></ul></div></section><section id="demo_application_2"><h2>Demo Application</h2><div class="ulist"><ul><li><p>Application Web</p></li><li><p>Page d&#8217;accueil affichant "Greetings from Spring Boot!"</p></li></ul></div></section><section id="demo_application_technical_stack"><h2>Demo Application : Technical Stack</h2><div class="ulist"><ul><li><p>C&#8217;est un des exemples de
+<a href="https://spring.io/guides/gs/spring-boot/" target="_blank">Spring Boot Starter</a></p></li><li><p>Langage: <strong>Java</strong> (OpenJDK 8)</p></li><li><p>Toolchain: <strong>Maven</strong> (Maven &gt;= 3.3)</p></li><li><p>Code source stocké dans un dépôt <strong>Git</strong></p></li></ul></div></section><section id="demo_application_check_it"><h2>Demo Application : Check it</h2><div class="ulist"><ul><li><p>Configuration Maven: <code>pom.xml</code></p></li><li><p>Code source de l&#8217;application: <code>src/main/java/</code></p></li><li><p>Code source des tests: <code>src/test</code></p></li><li><p>Script utilitaires: <code>scripts</code></p></li></ul></div></section><section id="web_command_line"><h2>Web Command Line</h2><div class="ulist"><ul><li><p>Ouvrir la console <strong>DevBox</strong></p><div class="ulist"><ul><li><p><a href="http://localhost:10000/devbox" target="_blank">Lien direct</a></p></li><li><p>WebSockets doit être autorisé</p></li></ul></div></li></ul></div></section><section id="command_line_tricks"><h2>Command Line Tricks</h2><div class="ulist"><ul><li><p>Clean the window: <code>clear</code></p></li><li><p>Show command history: <code>history</code></p></li><li><p><code>CTRL + R</code>: search the command history interactively</p></li><li><p><code>CTRL + C</code>: cancel current command and clean line buffer</p></li><li><p><code>CTRL + A</code>: jump to beginning of line</p></li><li><p><code>CTRL + E</code>: jump to end of line</p></li></ul></div></section><section id="quelques_commandes"><h2>Quelques Commandes</h2><div class="ulist"><ul><li><p><code>cat</code> (concatenate)</p></li><li><p><code>ls</code> (list)</p></li><li><p><code>cd</code> (change directory)</p></li><li><p><code>pwd</code> (print working directory)</p></li><li><p><code>man</code> (manual)</p></li><li><p><code>rm</code> (remove)</p></li><li><p><code>mkdir</code> (make directory)</p></li><li><p><code>touch</code> (create an empty file)</p></li></ul></div></section><section id="obtenir_le_code_de_la_demo"><h2>Obtenir le code de la demo</h2><div class="ulist"><ul><li><p>Obtenir l&#8217;adresse HTTP du dépôt depuis le <strong>GitServer</strong></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash"># Get the git repository
+git clone http://localhost:10000/gitserver/butler/demoapp
+# Browse to the local repository
+cd ./demoapp
+# Check source code
+ls -l</code></pre></div></div></section><section id="demo_application_maven"><h2>Demo Application : Maven</h2><div class="ulist"><ul><li><p>Maven TL;DR:</p><div class="ulist"><ul><li><p><strong>Workflow</strong> standardisé</p></li><li><p><code>pom.xml</code> décrit l&#8217;application (Project Object Model)</p></li></ul></div></li><li><p>Maven Command line : <code>mvn</code>, attends des <strong>goals</strong> en argument</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>mvn dependency:list</code></pre></div></div></li><li><p>Accepte des <strong>flags</strong></p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>mvn dependency:list -fn</code></pre></div></div></li></ul></div></section><section id="demo_application_compiler"><h2>Demo Application : Compiler</h2><div class="ulist"><ul><li><p>Goal <strong><code>compile</code></strong></p><div class="ulist"><ul><li><p>Résolution des dépendances</p></li><li><p>Pré-traitement du code source</p></li><li><p>Compilation des classes</p></li></ul></div></li><li><p>Résultats dans le dossier <strong><code>./target</code></strong>:</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>mvn compile
+ls -l ./target</code></pre></div></div></li></ul></div></section><section id="demo_application_tests_unitaires"><h2>Demo Application : Tests Unitaires</h2><div class="ulist"><ul><li><p>Goal <strong><code>test</code></strong></p><div class="ulist"><ul><li><p>Exécute le goal <code>compile</code></p></li><li><p>Compilation des tests unitaires</p></li><li><p>Exécution des tests unitaires</p></li></ul></div></li><li><p>Rapports de tests dans <strong><code>./target/surefire-reports</code></strong> :</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>mvn test
+ls -l ./target/surefire-reports</code></pre></div></div></li></ul></div></section><section id="demo_application_construire"><h2>Demo Application : Construire</h2><div class="ulist"><ul><li><p>goal <strong><code>package</code></strong></p><div class="ulist"><ul><li><p>Exécute les goals <code>compile</code> et <code>test</code></p></li><li><p>Paquetage de l&#8217;application</p></li></ul></div></li><li><p>Résultat dans <code>./target</code></p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>mvn package
+ls -lrh ./target/</code></pre></div></div></li></ul></div></section><section id="demo_application_excution"><h2>Demo Application : Exécution</h2><div class="ulist"><ul><li><p>Spring Boot demo exécutée comme un <strong>"Über-Jar"</strong></p></li><li><p>Exécution avec la commande java:</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>java -jar ./target/demoapp-1.0.0.jar</code></pre></div></div></li><li><p>Ouvrir une autre instance de <strong>DevBox</strong> et vérifier
+<a href="http//localhost:8080" class="bare">http//localhost:8080</a> avec <code>curl</code></p></li></ul></div></section><section id="demo_application_tests_d_intgration"><h2>Demo Application : Tests d&#8217;intégration</h2><div class="ulist"><ul><li><p>Goal <strong><code>verify</code></strong></p><div class="ulist"><ul><li><p>Exécute <code>compile</code>, <code>test</code> et <code>package</code></p></li><li><p>Compile et exécute les tests d&#8217;intégration
+sur l&#8217;application empaquetée</p></li></ul></div></li><li><p>Rapport de tests dans <strong><code>./target/failsafe-reports</code></strong>:</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>mvn verify # 1 test failure expected
+ls -l ./target/failsafe-reports</code></pre></div></div></li></ul></div></section></section>
+<section><section id="demo_pipeline" data-background-color="hsl(50, 89%, 74%)"><h2>Demo Pipeline</h2></section><section id="discussion"><h2>Discussion</h2><div class="ulist"><ul><li><p>Définissons ensemble un pipeline</p></li></ul></div></section><section id="scripts"><h2>Scripts</h2><div class="ulist"><ul><li><p>Etudier le contenu du dossier <code>scripts</code></p></li></ul></div></section></section>
+<section><section id="jenkins" data-background-color="hsl(50, 89%, 74%)"><h2>Jenkins</h2></section><section id="meet_jenkins" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Meet Jenkins</h2>
+<div class="quoteblock"><blockquote><div class="paragraph"><p>Jenkins is an open source automation server which enables developers
+around the world to reliably build, test, and deploy their software.</p></div></blockquote></div>
+<div class="imageblock" style=""><img src="images/jenkins_logo.png" alt="jenkins logo"></div></section><section id="jenkins_2" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Jenkins</h2>
+<div class="ulist"><ul><li><p>Orchestrateur de tâches Open Source</p></li><li><p>#1 Serveur Intégration Continue Integration</p></li><li><p>Un des tout premiers moteur d&#8217;intégration continue</p><div class="ulist"><ul><li><p>Créé par Kohsuke Kawaguchi en <em>2006</em></p></li></ul></div></li><li><p>Architecture orientée plugins</p></li></ul></div></section><section id="communaut_jenkins" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Communauté Jenkins</h2>
+<div class="ulist"><ul><li><p>Une communauté <strong>indépendant</strong> et <strong>active</strong>
+(<a href="http://jenkins.io" target="_blank">jenkins.io</a>)</p><div class="ulist"><ul><li><p>Projet original: "Hudson", renommé "Jenkins" en 2011</p></li><li><p>500+ releases</p></li><li><p>150,000+ installations actives</p></li><li><p>1,200+ plugins</p></li></ul></div></li></ul></div></section><section id="un_outil_populaire" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Un Outil Populaire</h2>
+<div class="imageblock" style=""><img src="images/ci-usage-rebel-lab-2016.jpg" alt="ci usage rebel lab 2016" width="400"></div>
+<div class="paragraph footer"><p>Source : <a href="http://pages.zeroturnaround.com/RebelLabs-Developer-Productivity-Report-2016.html" target="_blank">RebelLabs Tools and Technologies Leaderboard 2016</a></p></div></section><section id="jenkins_en_2016_jenkins_strong_2_strong" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Jenkins en 2016 : Jenkins <strong>2</strong></h2>
+<div class="ulist"><ul><li><p><strong>But :</strong> CI &#8594; CD</p></li><li><p>Pas de "cassure" depuis Jenkins 1</p></li><li><p>Expérience "premièr démarrage" améliorée</p></li><li><p><strong>Pipeline-as-Code:</strong></p><div class="ulist"><ul><li><p>Syntaxe "scriptée" : "Code your Pipeline"</p></li></ul></div></li></ul></div></section><section id="jenkins_en_2017" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Jenkins en 2017</h2>
+<div class="imageblock" style=""><img src="images/BlueOcean.png" alt="BlueOcean"></div></section><section id="blue_ocean"><h2>Blue Ocean</h2><div class="ulist"><ul><li><p>Pierre angulaire de l&#8217;évolution de Jenkins</p></li><li><p>Visualisation et manipulation de "Pipelines"</p></li><li><p>GUI moderne, se concentrant sur les actions principales</p></li></ul></div></section><section id="jenkins_pipeline"><h2>Jenkins Pipeline</h2><div class="ulist"><ul><li><p>Un outil pour définir votre "Pipeline" dans Jenkins</p></li><li><p>Le Pipeline est décrit dans un fichier texte: le <code>JenkinsFile</code></p><div class="ulist"><ul><li><p>DSL spécifique</p></li><li><p>Stocké dans un SCM</p></li></ul></div></li></ul></div></section><section id="dbuter_avec_les_pipelines"><h2>Débuter avec les Pipelines</h2><div class="ulist"><ul><li><p>"Pipeline-as-code" : Nous avons besoin d&#8217;un <code>Jenkinsfile</code></p></li><li><p>Par où commencer ?</p><div class="ulist"><ul><li><p><a href="https://jenkins.io/doc/pipeline/tour/hello-world/" target="_blank">Getting Started with Pipeline</a></p></li><li><p><a href="https://jenkins.io/doc/pipeline">Pipeline "Handbook"</a></p></li><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/">Pipeline Syntax Reference</a></p></li><li><p><a href="https://jenkins.io/doc/pipeline/steps/">Pipeline Steps Reference</a></p></li></ul></div></li></ul></div></section><section id="syntaxe_dclarative_ou_scripte"><h2>Syntaxe Déclarative ou Scriptée ?</h2><div class="ulist"><ul><li><p><strong>Declarative</strong></p><div class="ulist"><ul><li><p>Syntaxe par défaut</p></li><li><p>S&#8217;utilise avec Blue Ocean</p></li></ul></div></li><li><p>Scripted</p><div class="ulist"><ul><li><p>Syntaxe originale (~3 ans)</p></li><li><p>"Great Power == Great Responsibility"</p></li><li><p>À utiliser lorsque le Déclaratif commence à être <strong>bizarre</strong></p></li></ul></div></li></ul></div></section><section id="blue_ocean_pipeline_editor"><h2>Blue Ocean Pipeline Editor</h2><div class="ulist"><ul><li><p>Fourni le cycle ("round trip") <strong>complet</strong> avec le SCM</p></li><li><p>Pas de Pipeline ? "Suivez le guide".</p></li><li><p>Le Pipeline existe déjà ? Edit, commit, et exécutez le</p></li></ul></div></section></section>
+<section><section id="simple_jenkins_pipeline" data-background-color="hsl(50, 89%, 74%)"><h2>Simple Jenkins Pipeline</h2></section><section id="accder__jenkins"><h2>Accéder à Jenkins</h2><div class="ulist"><ul><li><p>Cliquez sur le lien "Jenkins" sur la page d&#8217;accueil du lab</p><div class="ulist"><ul><li><p><a href="http://localhost:10000/jenkins" target="_blank">Lien direct</a></p></li><li><p>Authentifiez vous en tant que <strong><code>butler</code></strong>
+(le mot de passe est <code>butler</code>)</p></li></ul></div></li></ul></div></section><section id="blue_ocean_2"><h2>Blue Ocean</h2><div class="ulist"><ul><li><p>Passez à l&#8217;interface Blue Ocean:</p><div class="ulist"><ul><li><p><a href="http://localhost:10000/jenkins/blue" target="_blank">Lien direct</a></p></li><li><p><em>Ou</em> cliquez sur le lien "Open Blue Ocean" à gauche</p></li></ul></div></li></ul></div></section><section id="exercice_configurer_le_projet_dans_jenkins"><h2>Exercice : Configurer le projet dans Jenkins</h2><div class="ulist"><ul><li><p>Créer un nouveau Pipeline, avec les réglages suivants :</p><div class="ulist"><ul><li><p>Stocké dans <strong>Git</strong></p></li><li><p>Utilisez l&#8217;URL en <strong>SSH</strong></p></li><li><p>Configurez Gitea pour que Jenkins puisse accéder au code :</p><div class="ulist"><ul><li><p>Dans Gitea, cliquez en haut à droite sur le drop-down</p></li><li><p>Allez dans "Settings" &#8594; "SSH/GPG Keys"</p></li><li><p>Ajoutez la clef SSH publique générée par Jenkins</p></li></ul></div></li></ul></div></li></ul></div></section><section id="exercice_votre_premier_pipeline"><h2>Exercice : Votre Premier Pipeline</h2><div class="ulist"><ul><li><p>Cliquez sur le bouton <strong>Create a Pipeline</strong></p></li><li><p>Utilisez <strong>Blue Ocean Pipeline Editor</strong> et le serveur <strong>Gitea</strong></p></li><li><p>Créez un pipeline avec 3 "stages" : <strong>Build</strong>, <strong>Test</strong> et <strong>Deploy</strong></p></li><li><p>Chaque "stage" doit avoir 1 "step" qui affiche un message</p><div class="ulist"><ul><li><p>"Building&#8230;&#8203;" pour <strong>Build</strong>, "Testing&#8230;&#8203;" pour <strong>Test</strong> &#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="solution_votre_premier_pipeline"><h2>Solution : Votre Premier Pipeline</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Build'
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'Test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploy'
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="exercice_excuter_des_tches"><h2>Exercice : Exécuter des tâches</h2><div class="ulist"><ul><li><p>En utilisant <strong>Blue Ocean Pipeline Editor</strong>:</p><div class="ulist"><ul><li><p>Modifiez les 3 stages du pipeline actuel</p></li><li><p>Les scripts sont stockés dans le dossier <code>./scripts</code></p></li><li><p>Utilisez la "step" <strong>Shell Script</strong> (mot clef <code>sh</code>)</p></li><li><p>Supprimez les steps <code>echo</code></p></li></ul></div></li></ul></div></section><section id="solution_excuter_des_tches"><h2>Solution : Exécuter des tâches</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh './scripts/build.sh'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh './scripts/test.sh'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="exercice_archives_et_tests"><h2>Exercice : Archives et Tests</h2><div class="ulist"><ul><li><p>En utilisant le <strong>Blue Ocean Pipeline Editor</strong>:</p><div class="ulist"><ul><li><p>Modifiez le pipeline actuel</p></li><li><p>La "stage" <strong>Build</strong> doit archiver tous les fichier ".jar" générés</p><div class="ulist"><ul><li><p><em>Indices :</em> Dans le dossier <code>target</code>, motif <code>*.jar</code></p></li></ul></div></li><li><p>La "stage" <strong>Test</strong> doit publier les rapports de test <code>junit</code></p><div class="ulist"><ul><li><p><em>Indices :</em> Dans le dossier <code>target</code>, motif <code>**/*.xml</code></p></li></ul></div></li></ul></div></li><li><p>Le Pipeline doit être <strong>UNSTABLE</strong></p></li></ul></div></section><section id="solution_archives_et_tests"><h2>Solution : Archives et Tests</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh './scripts/build.sh'
+        archiveArtifacts 'target/*.jar'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh './scripts/test.sh'
+        junit 'target/**/*.xml'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section></section>
+<section><section id="amlioration_du_pipeline" data-background-color="hsl(50, 89%, 74%)"><h2>Amélioration du Pipeline</h2></section><section id="exercise_rparer_le_build"><h2>Exercise: Réparer le build</h2><div class="ulist"><ul><li><p>Le build est en état <code>UNSTABLE</code> (jaune)</p></li><li><p><strong>Priorité:</strong> réparer le build</p></li><li><p>Utiliser <strong>Gitea git server</strong></p></li><li><p>Les tests d&#8217;intégration sont dans <code>src/test/java/hello</code></p></li><li><p>Indices:</p><div class="ulist"><ul><li><p><em>Integration Tests:</em> == <strong>IT</strong></p></li></ul></div></li></ul></div></section><section id="solution_rparer_le_build"><h2>Solution: Réparer le build</h2><div class="ulist"><ul><li><p>Depuis
+<a href="http://localhost:10000/gitserver/butler/demoapp/src/master/src/test/java/hello/HelloControllerIT.java">src/test/java/hello/HelloControllerIT.java</a></p><div class="ulist"><ul><li><p>Cliquer sur "Edit"</p></li></ul></div></li><li><p>Commenter la ligne 39</p></li><li><p><strong>Dé</strong>-commenter la ligne 40</p></li><li><p><strong>Commit</strong> avec un message (push automatique)</p></li><li><p>Lancer le build manuellement dans Blue Ocean</p></li><li><p>Le build doit être vert (<strong>Stable</strong>)</p></li></ul></div></section><section id="webhooks_pour_un_retour_plus_rapide"><h2>Webhooks pour un retour plus rapide</h2><div class="ulist"><ul><li><p>Nous avons dû lancer le build manuellement</p></li><li><p>IC: Retours <strong>rapides</strong> !</p><div class="ulist"><ul><li><p>Lancer le build dès que le code est poussé</p></li></ul></div></li></ul></div></section><section id="exercise_webhooks"><h2>Exercise: Webhooks</h2><div class="ulist"><ul><li><p>Configurons un <strong>"Webhook"</strong> :</p><div class="ulist"><ul><li><p>Depuis <strong>Gitea git server</strong> &#8594; <strong>Settings</strong> &#8594; <strong>Webhooks</strong></p><div class="ulist"><ul><li><p><a href="http://localhost:10000/gitserver/butler/demoapp/settings/hooks" target="_blank">Lien direct vers la configuration de Webhooks</a></p></li></ul></div></li></ul></div></li><li><p>Ajouter un nouveau webhook:</p><div class="ulist"><ul><li><p>Type: <strong>Gitea</strong></p></li><li><p>When should this webhook be triggered?: <strong>I need everything</strong></p></li><li><p>Payload URL:
+<a href="http://localhost:10000/jenkins/job/demoapp/build?delay=0" target="_blank">http://localhost:10000/jenkins/job/demoapp/build?delay=0</a></p></li></ul></div></li></ul></div></section><section id="solution_webhooks"><h2>Solution: Webhooks</h2><div class="ulist"><ul><li><p>Ajoutez un commentaire dans le Jenkinsfile
+depuis <strong>Gitea git server</strong></p><div class="ulist"><ul><li><p>Un build va démarrer</p></li><li><p>Validez dans l&#8217;onglet "Changes"</p></li></ul></div></li></ul></div></section><section id="aller_plus_loin"><h2>Aller plus loin&#8230;&#8203;</h2><div class="ulist"><ul><li><p>Dans l&#8217;éditeur <strong>Blue Ocean</strong>, voir la version textuelle:</p><div class="ulist"><ul><li><p>Combinaison <code>CTRL + S</code> (On Mac: <code>CMD +S</code>)</p></li><li><p>Bi-directionnel: essayez de charger une solution de pipeline</p></li></ul></div></li><li><p>Le <strong>Pipeline Syntax Snippet Generator</strong> comme acolyte:</p><div class="ulist"><ul><li><p>Génération dynamique en fonction de vos plugins</p></li><li><p>Depuis l&#8217;interface "ancienne" de Jenkins</p></li><li><p>Menu de gauche de votre job "Pipeline" (ou MultiBranch)</p><div class="ulist"><ul><li><p><a href="http://localhost:10000/jenkins/job/demoapp/pipeline-syntax/" target="_blank">http://localhost:10000/jenkins/job/demoapp/pipeline-syntax/</a></p></li></ul></div></li></ul></div></li></ul></div></section><section id="exercise_rutilisation_binaire"><h2>Exercise - Réutilisation Binaire</h2><div class="ulist"><ul><li><p>But: réutiliser les binaires générés dans <strong>Build</strong></p></li><li><p>Action: "mise sur étagère": <strong>Stash / Unstash</strong></p></li><li><p>Modifier le Pipeline pour :</p><div class="ulist"><ul><li><p>"Stasher" le dossier <code>target</code>, à la fin de la phase <strong>Build</strong></p></li><li><p>"Unstasher" au début de la phase <strong>Test</strong></p></li></ul></div></li><li><p><em>Attention</em>, une limite de l&#8217;éditeur <strong>Blue Ocean</strong>
+va être atteinte</p></li></ul></div></section><section id="solution_rutilisation_binaire"><h2>Solution - Réutilisation Binaire</h2><div class="ulist"><ul><li><p>L&#8217;éditeur Blue Ocean ne supporte pas encore
+le ré-ordonnancement de "stages"</p><div class="ulist"><ul><li><p>Mode textuel et/ou <strong>Snippet Generator</strong> à utiliser</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh './scripts/build.sh'
+        archiveArtifacts 'target/*.jar'
+        stash(name: 'build-result', includes: 'target/**/*')
+      }
+    }
+    stage('Test') {
+      steps {
+        unstash 'build-result'
+        sh './scripts/test.sh'
+        junit 'target/**/*.xml'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="post_stage"><h2>Post-Stage</h2><div class="ulist"><ul><li><p>Section <code>post</code> :</p><div class="ulist"><ul><li><p>Contient des "steps" à exécuter
+à la fin du Pipeline <strong>ou</strong> après une "stage"</p></li><li><p>Divisé en "condition d&#8217;états":
+<code>always</code>, <code>success</code>, <code>failure</code>, <code>changed</code></p></li></ul></div></li><li><p>Chaque condition contient ses propres "steps"</p></li><li><p>Pas <em>encore</em> intégré dans l&#8217;éditeur Blue Ocean</p></li></ul></div></section><section id="exercice_rapport_de_tests_unitaires"><h2>Exercice - Rapport de Tests Unitaires</h2><div class="ulist"><ul><li><p>Si le "stage" <strong>Build</strong> échoue,
+alors la tâche "archiveArtifacts" ne devrait pas être exécutée</p><div class="ulist"><ul><li><p>Même chose pour <code>stash</code></p></li></ul></div></li><li><p>Les rapports de tests unitaires doivent être
+publiés dans <strong>tous</strong> les cas après la phase <strong>Build</strong></p><div class="ulist"><ul><li><p>Format Junit</p></li><li><p>Stockés dans <code>target/**/*.xml</code></p></li></ul></div></li><li><p>Utiliser la documentation:</p><div class="ulist"><ul><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/#post">Post section on docs.jenkins.io</a></p></li></ul></div></li></ul></div></section><section id="solution_rapport_de_tests_unitaires"><h2>Solution - Rapport de Tests Unitaires</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+        always {
+          junit 'target/**/*.xml'
+        }
+      }
+    }
+    stage('Test') {
+      steps {
+        unstash 'build-result'
+        sh './scripts/test.sh'
+        junit 'target/**/*.xml'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section></section>
+<section><section id="agents" data-background-color="hsl(50, 89%, 74%)"><h2>Agents</h2></section><section id="qu_est_ce_qu_un_agent"><h2>Qu&#8217;est ce qu&#8217;un Agent?</h2><div class="ulist"><ul><li><p>Un noeud (ou <strong>node</strong>) est une machine prête à recevoir
+des <em>builds</em></p></li><li><p>Step <code>agent</code> spécifie sur quel "noeud" exécuter des "stages".</p></li><li><p>Une section <code>agent</code> globale <strong>doit</strong> être définie
+(au niveau du block <code>pipeline</code>)</p></li><li><p>On peut aussi définire des sections <code>agent</code> par "stage"</p></li></ul></div></section><section id="exercice_agents"><h2>Exercice : Agents</h2><div class="ulist"><ul><li><p>Exécuter l&#8217;étape <strong>Build</strong> sur un agent
+configuré avec le label <code>maven-jdk8</code></p></li><li><p>Exécuter l&#8217;étape <strong>Test</strong> sur un agent
+configuré avec le label <code>java8</code></p></li><li><p>L&#8217;éditeur Blue Ocean est utilisable</p></li></ul></div></section><section id="solution_agents"><h2>Solution : Agents</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      agent {
+        node {
+          label 'maven-java8'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      agent {
+        node {
+          label 'java8'
+        }
+      }
+      steps {
+        unstash 'build-result'
+        sh './scripts/test.sh'
+        junit 'target/**/*.xml'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="exercice_tests_parallles"><h2>Exercice : Tests Parallèles</h2><div class="ulist"><ul><li><p><strong>But:</strong> Tester en parallèle l&#8217;application
+sur java 7 et 8</p></li><li><p>Mot clef <code>parallel</code> définissant un block contenant
+des "stages"</p></li><li><p>Agent <code>java7</code> pour le Test Java 7</p></li><li><p>L&#8217;éditeur Blue Ocean est utilisable (et recommandé)</p></li></ul></div></section><section id="solution_tests_parallles"><h2>Solution : Tests Parallèles</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      agent {
+        node {
+          label 'maven-java8'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            node {
+              label 'java8'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="agents_avec_docker"><h2>Agents avec Docker</h2><div class="ulist"><ul><li><p><strong>But:</strong> Usage de Docker pour faciliter la définition
+des environements de build</p></li><li><p>Le mot clef <code>agent</code> permet d&#8217;exécuter les "stages" dans
+un container Docker, depuis une "image Docker",
+ou depuis un <code>Dockerfile</code> (recette maison d&#8217;image Docker)</p><div class="ulist"><ul><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/#agent">Directive Agent sur jenkins.io</a></p></li></ul></div></li></ul></div></section><section id="exercice_agent_docker"><h2>Exercice : Agent Docker</h2><div class="ulist"><ul><li><p>Exécuter le <strong>Build</strong> dans un containeur
+basé sur le fichier <code>Dockerfile.build</code></p></li><li><p>Exécuter le <strong>Test Java 8</strong> dans un containeur
+basé sur les images <code>maven:3-jdk-8-alpine</code></p></li><li><p>Trick: documentation manquante sur <code>filename</code>,
+dans un block <code>dockerfile</code></p></li></ul></div></section><section id="solution_agent_docker"><h2>Solution : Agent Docker</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.build'
+          label 'docker'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            docker {
+              image 'maven:3-jdk-8-alpine'
+              label 'docker'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section></section>
+<section><section id="pipeline_avancs" data-background-color="hsl(50, 89%, 74%)"><h2>Pipeline Avancés</h2></section><section id="input"><h2>Input</h2><div class="ulist"><ul><li><p>Jenkins permet de "mettre en pause" l&#8217;exécution
+d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuous Delivery / Deployment</p></li><li><p>Mot-clef <code>input</code>, c&#8217;est une "step" Pipeline</p><div class="ulist"><ul><li><p>Hautement configurable:
+<a href="https://jenkins.io/doc/pipeline/steps/pipeline-input-step/">Documentation Step Input</a></p></li></ul></div></li><li><p>Généralement utilisé dans un "stage" dédié.</p><div class="ulist"><ul><li><p>Obligatoirement avec <code>agent none</code> (pas d&#8217;exécuteur, pas de workspace)</p></li></ul></div></li></ul></div></section><section id="exercice_validation_humaine"><h2>Exercice : Validation Humaine</h2><div class="ulist"><ul><li><p>Ajouter une stage "approval" avant le déploiement</p></li></ul></div></section><section id="solution_validation_humaine"><h2>Solution : Validation Humaine</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.build'
+          label 'docker'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            docker {
+              image 'maven:3-jdk-8-alpine'
+              label 'docker'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Approval') {
+      agent none
+      steps {
+        input(message: 'Deploy Application?', ok: 'Yes Deploy!')
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="conditionnal_stage"><h2>Conditionnal Stage</h2><div class="ulist"><ul><li><p>Définir l&#8217;exécution conditionnelle d&#8217;une "stage"</p></li><li><p>Mot clef <code>when</code></p></li><li><p>Doit contenir au moins une condition parmi:</p><div class="ulist"><ul><li><p><code>branch</code></p></li><li><p><code>environment</code></p></li><li><p><code>expression</code></p></li><li><p>Logique "built-in": <code>allOf</code>, <code>anyOf</code>, etc.</p></li></ul></div></li><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/#when">When Documentation</a></p></li></ul></div></section><section id="variables_d_environments"><h2>Variables d&#8217;environments</h2><div class="ulist"><ul><li><p>Définir des collections de clé-valeurs,
+en tant que variables d&#8217;environement:</p><div class="ulist"><ul><li><p>Définition globale ou par "stage"</p></li><li><p>Ou en utilisant <code>withEnv</code> dans un block <code>steps</code>
+pour une instruction spécifique</p></li></ul></div></li></ul></div></section><section id="exercice_dploiement_conditionnel"><h2>Exercice : Déploiement Conditionnel</h2><div class="ulist"><ul><li><p>N&#8217;éxecuter les "stages" <strong>Approval</strong> et <strong>Deploy</strong> que:</p><div class="ulist"><ul><li><p><strong>Si</strong> on se trouve sur la branche <code>master</code></p></li><li><p><strong>Ou si</strong> la variable <code>FORCE_DEPLOY</code> est à <code>true</code></p></li></ul></div></li></ul></div></section><section id="solution_dploiement_conditionnel"><h2>Solution : Déploiement Conditionnel</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  environment {
+    FORCE_DEPLOY = 'false'
+  }
+  stages {
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.build'
+          label 'docker'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            docker {
+              image 'maven:3-jdk-8-alpine'
+              label 'docker'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Approval') {
+      agent none
+      steps {
+        input(message: 'Deploy Application?', ok: 'Yes Deploy!')
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="paramtres"><h2>Paramètres</h2><div class="ulist"><ul><li><p>Directive <code>parameters</code> : l&#8217;utilisateur fournit des argument
+au pipeline</p></li><li><p>Disponible en tant que variables accessibles dans l&#8217;objet <code>params</code></p></li><li><p>Oeuf &amp; Poule : Jenkins ne peut accéder au paramètre lors dur 1er build</p></li></ul></div></section><section id="exercice_paramtres"><h2>Exercice : Paramètres</h2><div class="ulist"><ul><li><p>Ajouter un paramètre <code>DEPLOY_MESSAGE</code>
+dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètre est utilisé dans le <code>input</code></p></li></ul></div></section><section id="solution_paramtres"><h2>Solution : Paramètres</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  parameters {
+    string(name: 'DEPLOY_MESSAGE', defaultValue: 'Deploy ?', description: 'Message de déploiement')
+  }
+  environment {
+    FORCE_DEPLOY = 'false'
+  }
+  stages {
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.build'
+          label 'docker'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            docker {
+              image 'maven:3-jdk-8-alpine'
+              label 'docker'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Approval') {
+      agent none
+      steps {
+        input(message: params.DEPLOY_MESSAGE, ok: 'Yes Deploy!')
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="options_configurations"><h2>Options &amp; Configurations</h2><div class="ulist"><ul><li><p><strong>Options:</strong> Configurer un "job" depuis le Pipeline</p></li><li><p><strong>Configuration:</strong> Même chose dans la GUI "Legacy"</p></li><li><p>Mot clef <code>options</code></p></li><li><p>Documentation des options:
+<a href="https://jenkins.io/doc/book/pipeline/syntax/#options" class="bare">https://jenkins.io/doc/book/pipeline/syntax/#options</a></p></li><li><p>Certaines options comme <code>timeout</code> peuvent être appliquée
+dans un bloc <code>step</code></p></li></ul></div></section><section id="exercice_options_timeout_approval"><h2>Exercice : Options &amp; Timeout Approval</h2><div class="ulist"><ul><li><p>On souhaite que la "stage" <strong>Approval</strong> attende 3 minute
+avant d&#8217;arrêter le pipeline</p></li><li><p>On ne veut conserver que les 5 derniers builds d&#8217;un
+pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id="solution_options_timeout_approval"><h2>Solution : Options &amp; Timeout Approval</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  parameters {
+    string(name: 'DEPLOY_MESSAGE', defaultValue: 'Deploy ?', description: 'Message de déploiement')
+  }
+  environment {
+    FORCE_DEPLOY = 'false'
+  }
+  stages {
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.build'
+          label 'docker'
+        }
+      }
+      steps {
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            docker {
+              image 'maven:3-jdk-8-alpine'
+              label 'docker'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Approval') {
+      agent none
+      steps {
+        timeout(time: 3, unit: 'MINUTES') {
+          input(message: params.DEPLOY_MESSAGE, ok: 'Yes Deploy!')
+        }
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+  }
+}</code></pre></div></div></section><section id="shared_libraries"><h2>Shared Libraries</h2></section><section id="exercice_shared_libraries"><h2>Exercice : Shared Libraries</h2><div class="ulist"><ul><li><p>Create a repository <code>jenkins-libs</code></p><div class="ulist"><ul><li><p>Init with a file <code>vars/runPipeline.groovy</code>:</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">def call(String MESSAGE) {
+  echo "Lib: ${MESSAGE}"
+}</code></pre></div></div></li></ul></div></li><li><p>Switch to legacy UI, configure the Multibranch job</p><div class="ulist"><ul><li><p>Add the shared library</p></li></ul></div></li><li><p>Adapt the pipeline to run the function in Build stage</p></li></ul></div></section><section id="solution_shared_libraries"><h2>Solution : Shared Libraries</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+  agent any
+  libraries {
+    lib('jenkins-libs@master')
+  }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  parameters {
+    string(name: 'DEPLOY_MESSAGE', defaultValue: 'Deploy ?', description: 'Message de déploiement')
+  }
+  environment {
+    FORCE_DEPLOY = 'false'
+  }
+  stages {
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.build'
+          label 'docker'
+        }
+      }
+      steps {
+        runPipeline('Salut')
+        sh './scripts/build.sh'
+      }
+      post {
+        always {
+          junit 'target/**/*.xml'
+        }
+        success {
+          archiveArtifacts 'target/*.jar'
+          stash(name: 'build-result', includes: 'target/**/*')
+        }
+      }
+    }
+    stage('Test') {
+      parallel {
+        stage('Test Java 8') {
+          agent {
+            docker {
+              image 'maven:3-jdk-8-alpine'
+              label 'docker'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+        stage('Test Java 7') {
+          agent {
+            node {
+              label 'java7'
+            }
+          }
+          steps {
+            unstash 'build-result'
+            sh './scripts/test.sh'
+            junit 'target/**/*.xml'
+          }
+        }
+      }
+    }
+    stage('Approval') {
+      agent none
+      steps {
+        timeout(time: 3, unit: 'MINUTES') {
+          input(message: params.DEPLOY_MESSAGE, ok: 'Yes Deploy!')
+        }
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './scripts/deploy.sh'
+      }
+      when {
+        anyOf {
+          branch 'master'
+          environment name: 'FORCE_DEPLOY', value: 'true'
+        }
+      }
+    }
+  }
+}</code></pre></div></div></section></section>
+<section><section id="aller_plus_loin_2" data-background-color="hsl(50, 89%, 74%)"><h2>Aller plus loin</h2></section><section id="industrie_ci_cd"><h2>Industrie CI/CD</h2><div class="ulist"><ul><li><p>Industrialisation du logiciel :
+secteur balbutiant et très dynamique</p></li><li><p>Beaucoup de solutions !</p></li></ul></div></section><section id="analyse_du_besoin"><h2>Analyse du besoin</h2><div class="ulist"><ul><li><p>Hébergement du Service ?</p></li><li><p>Existant ?</p></li><li><p>Profil des utilisateurs ?</p></li><li><p>Criticité ?</p></li><li><p>CI seul ou "plus large" ?</p></li><li><p>Topologie de facturation ?</p></li></ul></div></section><section id="de_nombreux_outils_1_2"><h2>De nombreux outils 1/2</h2><div class="ulist"><ul><li><p>SaaS (modèles gratuits et/ou Enterprise) :</p><div class="ulist"><ul><li><p>TravisCI</p></li><li><p>CircleCI</p></li><li><p>CodeShip</p></li><li><p>GitLab.com</p></li><li><p>Microsoft VSTS</p></li><li><p>Amazon Pipeline</p></li><li><p>BitBucket Pipeline</p></li></ul></div></li></ul></div></section><section id="de_nombreux_outils_2_2"><h2>De nombreux outils 2/2</h2><div class="ulist"><ul><li><p>A héberger soit-même :</p><div class="ulist"><ul><li><p>Jenkins</p></li><li><p>CloudBees Jenkins Enteprise</p></li><li><p>GitLab</p></li><li><p>Microsoft VSTS</p></li><li><p>Atlassian Bamboo (BitBucket Pipeline)</p></li></ul></div></li></ul></div></section><section id="le_futur"><h2>Le Futur</h2><div class="ulist"><ul><li><p>"Serverless": <a href="https://github.com/lambci" class="bare">https://github.com/lambci</a></p></li><li><p>Glisser vers la production (OpenShift Pipelines)</p></li></ul></div></section></section></div></div><script src="./reveal.js/lib/js/head.min.js"></script><script src="./reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Set a per-slide timing for speaker notes, null means none
+  defaultTiming: null,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Randomizes the order of slides each time the presentation loads
+  shuffle: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Flags if we should show a help overlay when the questionmark
+  // key is pressed
+  help: true,
+  // Flags if speaker notes should be visible to all viewers
+  showNotes: false,
+  // Global override for autolaying embedded media (video/audio/iframe)
+  // - null: Media will only autoplay if data-autoplay is present
+  // - true: All media will autoplay, regardless of individual setting
+  // - false: No media will autoplay, regardless of individual setting
+  autoPlayMedia: null,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 1280,
+  height: 800,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
+      { src: './reveal.js/plugin/notes/notes.js', async: true }
+  ]
+});</script></body></html>
