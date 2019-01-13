@@ -32,7 +32,7 @@ permettant de prévenir et combattre les menaces sur l'organisation
 * C'est l'ensemble des procédures et outils pour *identifier*
 un acteur avec une *confiance suffisante*
 
-image::{imagedir}/security-authentication.jpg[caption="Authentication",height=500]
+image::security-authentication.jpg[caption="Authentication",height=500]
 
 == Authorisation
 

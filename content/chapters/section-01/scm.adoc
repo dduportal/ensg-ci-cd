@@ -33,7 +33,7 @@ On parle de source unique de vérité (_Single Source of Truth_)
 
 == SCM Locaux
 
-image::{imagedir}/scm-local.png[caption="Local SCM",float="right",width=300]
+image::scm-local.png[caption="Local SCM",float="right",width=300]
 
 * Plus vieux type, ancêtre de tous les autres
 * *Uniquement* historique de modification
@@ -50,7 +50,7 @@ image::{imagedir}/scm-local.png[caption="Local SCM",float="right",width=300]
 ** La "base de données de versions" est stockée sur un serveur central
 * Chaque client ne possède qu'*une seule* version du code
 
-image::{imagedir}/scm-centralized.png[caption="Centralized SCM",width=300]
+image::scm-centralized.png[caption="Centralized SCM",width=300]
 
 * Apprentissage très facile, limité sur la résolution de conflits
 * Exemples: CVS, SVN, Perforce, TFS
@@ -62,7 +62,7 @@ image::{imagedir}/scm-centralized.png[caption="Centralized SCM",width=300]
 *duplication sur chaque noeud*
 * Exemples: Git, Mercurial, Bazaar, Monotone
 
-image::{imagedir}/scm-distributed.png[caption="Centralized SCM",width=300]
+image::scm-distributed.png[caption="Centralized SCM",width=300]
 
 == Comment héberger son SCM ?
 
@@ -102,30 +102,30 @@ des versions.
 
 * Le dernier commit dans l'historique est aliasé comme _"HEAD"_
 
-image::{imagedir}/scm-basics-legend.png[caption="Legends for basics of SCM"]
+image::scm-basics-legend.png[caption="Legends for basics of SCM"]
 
-image::{imagedir}/scm-basics-history.png[caption="Basics about SCM"]
+image::scm-basics-history.png[caption="Basics about SCM"]
 
 == Terminologie des SCM : Branches
 
 * Abstraction d'une version "isolée" du code
 * Concrètement, une *branche* est un alias pointant vers un "commit"
 
-image::{imagedir}/scm-branches.png[caption="SCM branches"]
+image::scm-branches.png[caption="SCM branches"]
 
 == Terminologie des SCM : Merge
 
 * On intègre une branche dans une autre en effectuant un *merge*
 ** Un nouveau commit est créé, fruit de la combinaison de 2 autres commits
 
-image::{imagedir}/scm-merge.png[caption="SCM Merge"]
+image::scm-merge.png[caption="SCM Merge"]
 
 == Terminologie des SCM : Pull Request
 
 * Une *Pull Request* (ou "Merge Request") est une procédure de
 revue de code avant intégration
 
-image::{imagedir}/scm-pull-request.png[caption="Pull Request"]
+image::scm-pull-request.png[caption="Pull Request"]
 
 [NOTE.speaker]
 ====
@@ -146,7 +146,7 @@ Voici quelques motifs d'utilisation des SCMs :
 
 == Centralized Flow
 
-image::{imagedir}/scm-centralized-flow-how-to.jpg[caption="Centralized SCM Workflow",width=800]
+image::scm-centralized-flow-how-to.jpg[caption="Centralized SCM Workflow",width=800]
 
 [NOTE.speaker]
 ====
@@ -161,7 +161,7 @@ image::{imagedir}/scm-centralized-flow-how-to.jpg[caption="Centralized SCM Workf
 
 * *Une seule* branche *par* fonctionnalité
 
-image::{imagedir}/scm-feature-branch-workflow.png[caption="Feature Branch SCM Workflow",link=https://twitter.com/jay_gee/status/702638177471873024]
+image::scm-feature-branch-workflow.png[caption="Feature Branch SCM Workflow",link=https://twitter.com/jay_gee/status/702638177471873024]
 
 [NOTE.speaker]
 ====
@@ -173,7 +173,7 @@ image::{imagedir}/scm-feature-branch-workflow.png[caption="Feature Branch SCM Wo
 
 == Git Flow
 
-image::{imagedir}/scm-git-workflow.png[caption="SCM Git Workflow",width=800]
+image::scm-git-workflow.png[caption="SCM Git Workflow",width=800]
 
 [NOTE.speaker]
 ====
@@ -186,7 +186,7 @@ image::{imagedir}/scm-git-workflow.png[caption="SCM Git Workflow",width=800]
 
 == GitHub Flow
 
-image::{imagedir}/github_flow.png[caption="GitHub Workflow",height=600]
+image::github_flow.png[caption="GitHub Workflow",height=600]
 
 == Résoudre des problèmes avec le SCM
 

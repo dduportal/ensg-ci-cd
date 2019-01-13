@@ -13,7 +13,7 @@ ____
 
 == Intégration Continue (CI)
 
-image::{imagedir}/fail-fast-continuous-integration.png[height=250]
+image::fail-fast-continuous-integration.png[height=250]
 
 * Construire et intégrer le code *en continu*
 * Le code est intégré *souvent*, au moins quotidiennement pour que
@@ -25,7 +25,7 @@ l'intégration soit un _non-évenement_
 
 *But :* Détecter les fautes au plus tôt
 
-image::{imagedir}/big-bugs.jpg[caption="Big Bugs",width=500,link=http://cartoontester.blogspot.be/2010/01/big-bugs.html]
+image::big-bugs.jpg[caption="Big Bugs",width=500,link=http://cartoontester.blogspot.be/2010/01/big-bugs.html]
 
 [quote, Martin Fowler]
 ____
@@ -74,7 +74,7 @@ Continuous Deployment
 
 == Continuous Delivery versus Deployment
 
-image::{imagedir}/continuous-depl-vs-delivery.jpg[caption=Continuous Delivery vs Deployment,width=700,link=http://blog.crisp.se/2013/02/05/yassalsundman/continuous-delivery-vs-continuous-deployment]
+image::continuous-depl-vs-delivery.jpg[caption=Continuous Delivery vs Deployment,width=700,link=http://blog.crisp.se/2013/02/05/yassalsundman/continuous-delivery-vs-continuous-deployment]
 
 == Pour aller plus loin...
 

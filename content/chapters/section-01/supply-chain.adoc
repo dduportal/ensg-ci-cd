@@ -18,7 +18,7 @@
 
 == Qu'est ce qu'une boucle de Feedback ?
 
-image::{imagedir}/feedback-loop.png[caption="Feedback Loop"]
+image::feedback-loop.png[caption="Feedback Loop"]
 
 == Comment implémenter la rétroaction ?
 
@@ -30,12 +30,12 @@ image::{imagedir}/feedback-loop.png[caption="Feedback Loop"]
 
 == Chaîne Logistique du Logiciel
 
-image::{imagedir}/supply-chain.png[height=600]
+image::supply-chain.png[height=600]
 
 
 == The Pipeline
 
-image::{imagedir}/pipeline.png[height=600]
+image::pipeline.png[height=600]
 
 == Qu'est ce qu'un Pipeline ?
 
@@ -72,7 +72,7 @@ prêt à l'usage
 
 == Un example de Pipeline
 
-image::{imagedir}/cd-pipeline-example.jpg[caption="A Pipeline Example"]
+image::cd-pipeline-example.jpg[caption="A Pipeline Example"]
 
 == Comment faire des "bons" Pipelines ?
 
@@ -90,7 +90,7 @@ est utilisée à tout moment pour un Pipeline donnée
 
 == Optimiser le Pipeline
 
-image::{imagedir}/cd-pipeline-wait.jpg[caption="Waiting for the pipeline build",width=250]
+image::cd-pipeline-wait.jpg[caption="Waiting for the pipeline build",width=250]
 
 * Paralléliser les étapes
 ** Arrêt du Pipeline si une "branche" est en erreur
@@ -100,7 +100,7 @@ image::{imagedir}/cd-pipeline-wait.jpg[caption="Waiting for the pipeline build",
 
 == Exemple de Pipeline optimisé
 
-image::{imagedir}/cd-pipeline-optimized-example.png[caption="An optimized deployment Pipeline Example"]
+image::cd-pipeline-optimized-example.png[caption="An optimized deployment Pipeline Example"]
 
 == Pour aller plus loin...
 

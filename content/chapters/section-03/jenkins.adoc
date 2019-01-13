@@ -3,7 +3,7 @@
 = Jenkins
 
 == Meet Jenkins
-image::{imagedir}/jenkins-background.jpg[background, size=cover]
+image::jenkins-background.jpg[background, size=cover]
 
 [quote]
 --
@@ -11,10 +11,10 @@ Jenkins is an open source automation server which enables developers
 around the world to reliably build, test, and deploy their software.
 --
 
-image::{imagedir}/jenkins_logo.png[caption="Jenkins Logo"]
+image::jenkins_logo.png[caption="Jenkins Logo"]
 
 == Jenkins
-image::{imagedir}/jenkins-background.jpg[background, size=cover]
+image::jenkins-background.jpg[background, size=cover]
 
 * Orchestrateur de tâches Open Source
 * #1 Serveur Intégration Continue Integration
@@ -23,7 +23,7 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 * Architecture orientée plugins
 
 == Communauté Jenkins
-image::{imagedir}/jenkins-background.jpg[background, size=cover]
+image::jenkins-background.jpg[background, size=cover]
 
 * Une communauté *indépendant* et *active*
 (link:http://jenkins.io[jenkins.io,window=_blank])
@@ -33,15 +33,15 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 ** 1,200+ plugins
 
 == Un Outil Populaire
-image::{imagedir}/jenkins-background.jpg[background, size=cover]
+image::jenkins-background.jpg[background, size=cover]
 
-image::{imagedir}/ci-usage-rebel-lab-2016.jpg[width=400]
+image::ci-usage-rebel-lab-2016.jpg[width=400]
 
 [.footer]
 Source : link:http://pages.zeroturnaround.com/RebelLabs-Developer-Productivity-Report-2016.html[RebelLabs Tools and Technologies Leaderboard 2016,window=_blank]
 
 == Jenkins en 2016 : Jenkins *2*
-image::{imagedir}/jenkins-background.jpg[background, size=cover]
+image::jenkins-background.jpg[background, size=cover]
 
 * *But :* CI -> CD
 * Pas de "cassure" depuis Jenkins 1
@@ -50,9 +50,9 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 ** Syntaxe "scriptée" : "Code your Pipeline"
 
 == Jenkins en 2017
-image::{imagedir}/jenkins-background.jpg[background, size=cover]
+image::jenkins-background.jpg[background, size=cover]
 
-image::{imagedir}/BlueOcean.png[]
+image::BlueOcean.png[]
 
 == Blue Ocean
 * Pierre angulaire de l'évolution de Jenkins

@@ -4,7 +4,7 @@
 
 == Damien DUPORTAL
 [.right.text-center]
-image::{imagedir}/damien.jpg[height="400",float="left"]
+image::damien.jpg[height="400",float="left"]
 
 * *Training Engineer* @ CloudBees
 ** Docker & Apple fanboy.
@@ -17,4 +17,4 @@ image::{imagedir}/damien.jpg[height="400",float="left"]
 
 == Et vous ?
 [.left.text-center]
-image::{imagedir}/commitstrip.png[width="400"]
+image::commitstrip.png[width="400"]

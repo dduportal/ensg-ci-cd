@@ -1,0 +1,40 @@
+[%notitle]
+= Introduction au CI/CD - ENSG - Décembre 2017
+include::./attributes.adoc[]
+
+[{invert}]
+== Introduction au CI/CD
+[.title]
+ENSG - Décembre 2017
+
+image::qrcode.png["QRCode to this presentation",height=150]
+
+[.small]
+* Présentation disponible à l'URL link:{presentationUrl}[]
+* This work is licensed under a
+link:http://creativecommons.org/licenses/by/4.0/[Creative Commons Attribution 4.0 International License]
+* link:https://github.com/dduportal/ensg-ci-cd[Source Code]
+
+== Comment utiliser cette présentation ?
+
+* Pour naviguer, utilisez les flèches en bas à droite (ou celles de votre clavier)
+** Gauche/Droite: changer de chapitre
+** Haut/Bas: naviguer dans un chapitre
+* Pour avoir une vue globale : utiliser la touche "o" (pour "*Overview*")
+* Pour voir les notes de l'auteur : utilisez la touche "s" (pour "*Speaker* notes")
+
+// ///// Inclusion of chapters
+
+:leveloffset: +1
+
+include::{chaptersdir}/section-00/index.adoc[]
+
+include::{chaptersdir}/section-01/index.adoc[]
+
+include::{chaptersdir}/section-02/index.adoc[]
+
+include::{chaptersdir}/section-03/index.adoc[]
+
+include::{chaptersdir}/section-04/index.adoc[]
+
+:leveloffset: -1

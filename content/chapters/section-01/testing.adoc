@@ -53,14 +53,14 @@ peuvent être utilisé (liste NON exhaustive) :
 ** Ordre d'exécution non important
 ** Utilisation de *Test Doubles* pour simuler le "reste" en bon fonctionnement
 
-image::{imagedir}/test-unit.png[caption="Unit tests", width=300]
+image::test-unit.png[caption="Unit tests", width=300]
 
 == Tests d'Intégration
 
 * Vérifier l'intégration entre différents sous-systèmes
 * Le SUT est en "boîte blanche"
 
-image::{imagedir}/test-integration.gif[caption="Integration test"]
+image::test-integration.gif[caption="Integration test"]
 
 [NOTE.speaker]
 ====
@@ -74,7 +74,7 @@ Appropriate scope and scale of integration testing is widely debated
 
 == Smoke Testing
 
-image::{imagedir}/test-smoke.jpg[caption="Plumbing Smoke Test",width=200]
+image::test-smoke.jpg[caption="Plumbing Smoke Test",width=200]
 
 * But : *Fail Fast* en "boîte blanche"
 * Valide les fonctions "de base" du système
@@ -99,7 +99,7 @@ __
 * Focalisation sur bug qui ne doit pas revenir
 * Le SUT est en "boîte noire"
 
-image::{imagedir}/test-regression.png[caption="Regression Test", width=200]
+image::test-regression.png[caption="Regression Test", width=200]
 
 [quote, Any developer]
 __
@@ -113,20 +113,20 @@ __
 * Biais de communication inclus
 * Le SUT est en "boîte noire"
 
-image::{imagedir}/test-acceptance.jpg[caption="Acceptance tests",width=300]
+image::test-acceptance.jpg[caption="Acceptance tests",width=300]
 
 == Ordre des Tests
 
 * Fonction des temps d'exécutions, des coûts de corrections,
 et des valeurs ajoutées. *Contextuel*.
 
-image::{imagedir}/test-pyramid.png[caption="The testing Pyramid",width=600]
+image::test-pyramid.png[caption="The testing Pyramid",width=600]
 
 == Test Driven Development
 
 * TDD: Écrire les tests unitaires *avant* le code
 
-image::{imagedir}/tdd.png[caption="TDD",width=400]
+image::tdd.png[caption="TDD",width=400]
 
 == Behaviour Driven Development
 
@@ -134,7 +134,7 @@ image::{imagedir}/tdd.png[caption="TDD",width=400]
 ** "Given, When, Then"
 ** Moins de technique. Valeur ajoutée pour l'utilisateur.
 
-image::{imagedir}/bdd.png[caption="TDD",width=500]
+image::bdd.png[caption="TDD",width=500]
 
 == Pour aller plus loin...
 
