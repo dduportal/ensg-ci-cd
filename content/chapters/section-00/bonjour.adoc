@@ -11,7 +11,7 @@
 link:https://containo.us/[Containous] et Freelancer
 ** Ancien Training Engineer @ CloudBees
 
-* mailto:damien.duportal@gmail.com[icon:envelope[] damien.duportal@gmail.com]
+* mailto:damien.duportal@gmail.com[icon:envelope[]damien.duportal@gmail.com]
 * link:https://twitter.com/DamienDuportal[icon:twitter[] @DamienDuportal]
 * link:https://github.com/dduportal[icon:github[] dduportal]
 
