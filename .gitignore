@@ -1,0 +1,9 @@
+node_modules/
+bower_components/
+.vagrant
+.DS_Store
+Gemfile.lock
+.tmp
+*.log
+~$*
+*.tmp
