@@ -133,7 +133,7 @@ ls -l ./target/failsafe-reports</code></pre></div></div></li></ul></div></sectio
 around the world to reliably build, test, and deploy their software.</p></div></blockquote></div>
 <div class="imageblock" style=""><img src="images/jenkins_logo.png" alt="jenkins logo"></div></section><section id="jenkins_2" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Jenkins</h2>
 <div class="ulist"><ul><li><p>Orchestrateur de tâches Open Source</p></li><li><p>#1 Serveur Intégration Continue Integration</p></li><li><p>Un des tout premiers moteur d&#8217;intégration continue</p><div class="ulist"><ul><li><p>Créé par Kohsuke Kawaguchi en <em>2006</em></p></li></ul></div></li><li><p>Architecture orientée plugins</p></li></ul></div></section><section id="communaut_jenkins" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Communauté Jenkins</h2>
-<div class="ulist"><ul><li><p>Une communauté <strong>indépendant</strong> et <strong>active</strong>
+<div class="ulist"><ul><li><p>Une communauté <strong>indépendante</strong> et <strong>active</strong>
 (<a href="http://jenkins.io" target="_blank">jenkins.io</a>)</p><div class="ulist"><ul><li><p>Projet original: "Hudson", renommé "Jenkins" en 2011</p></li><li><p>500+ releases</p></li><li><p>150,000+ installations actives</p></li><li><p>1,200+ plugins</p></li></ul></div></li></ul></div></section><section id="un_outil_populaire" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Un Outil Populaire</h2>
 <div class="imageblock" style=""><img src="images/ci-usage-rebel-lab-2016.jpg" alt="ci usage rebel lab 2016" width="400"></div></section><section id="jenkins_pipeline" data-background-image="images/jenkins-background.jpg" data-background-size="cover"><h2>Jenkins Pipeline</h2>
 <div class="imageblock" style=""><img src="images/pipeline-picture.jpg" alt="pipeline picture" height="200"></div>
@@ -201,7 +201,7 @@ Le <strong>Blue Ocean Pipeline Editor</strong> s&#8217;ouvre pour en générer u
     }
   }
 }</code></pre></div></div></section></section>
-<section><section id="amlioration_du_pipeline" data-background-color="rgb(248, 228, 130)" data-state="invert"><h2>Amélioration du Pipeline</h2></section><section id="exercise_rparer_le_build"><h2>Exercise: Réparer le build</h2><div class="ulist"><ul><li><p>Le build est en état <code>UNSTABLE</code> (jaune)</p></li><li><p><strong>Priorité:</strong> réparer le build</p></li><li><p>Utiliser <strong>Gitea git server</strong></p></li><li><p>Les tests d&#8217;intégration sont dans <code>src/test/java/hello</code></p></li><li><p>Indices:</p><div class="ulist"><ul><li><p><em>Integration Tests:</em> == <strong>IT</strong></p></li></ul></div></li></ul></div></section><section id="solution_rparer_le_build"><h2>Solution: Réparer le build</h2><div class="ulist"><ul><li><p>Depuis
+<section><section id="amlioration_du_pipeline" data-background-color="rgb(248, 228, 130)" data-state="invert"><h2>Amélioration du Pipeline</h2></section><section id="exercise_rparer_le_build"><h2>Exercise: Réparer le build</h2><div class="ulist"><ul><li><p>Le build est en état <code>UNSTABLE</code> (jaune)</p></li><li><p><strong>Priorité:</strong> réparer le build</p></li><li><p>Utiliser <strong>Gitea git server</strong></p></li><li><p>Les tests d&#8217;intégration sont dans <code>src/test/java/hello</code></p></li><li><p>Indices:</p><div class="ulist"><ul><li><p><em>Integration Tests:</em> == <strong>IT</strong></p></li></ul></div></li><li><p>Pour relancer le build : depuis l&#8217;accueil Blue Ocean, naviguez sur le projet &#8594; Branches, et regardez à droite, dans la ligne correspondant à "master"</p></li></ul></div></section><section id="solution_rparer_le_build"><h2>Solution: Réparer le build</h2><div class="ulist"><ul><li><p>Depuis
 <a href="http://localhost:80/gitserver/butler/demoapp/src/master/src/test/java/hello/HelloControllerIT.java">src/test/java/hello/HelloControllerIT.java</a></p><div class="ulist"><ul><li><p>Cliquer sur "Edit"</p></li></ul></div></li><li><p>Commenter la ligne 39</p></li><li><p><strong>Dé</strong>-commenter la ligne 40</p></li><li><p><strong>Commit</strong> avec un message (push automatique)</p></li><li><p>Lancer le build manuellement dans Blue Ocean</p></li><li><p>Le build doit être vert (<strong>Stable</strong>)</p></li></ul></div></section><section id="webhooks_pour_un_retour_plus_rapide"><h2>Webhooks pour un retour plus rapide</h2><div class="ulist"><ul><li><p>Nous avons dû lancer le build manuellement</p></li><li><p>IC: Retours <strong>rapides</strong> !</p><div class="ulist"><ul><li><p>Lancer le build dès que le code est poussé</p></li></ul></div></li></ul></div></section><section id="exercise_webhooks"><h2>Exercise: Webhooks</h2><div class="ulist"><ul><li><p>Configurons un <strong>"Webhook"</strong> :</p><div class="ulist"><ul><li><p>Depuis <strong>Gitea git server</strong> &#8594; <strong>Settings</strong> &#8594; <strong>Webhooks</strong></p><div class="ulist"><ul><li><p><a href="http://localhost:80/gitserver/butler/demoapp/settings/hooks" target="_blank">Lien direct vers la configuration de Webhooks</a></p></li></ul></div></li></ul></div></li><li><p>Ajouter un nouveau webhook:</p><div class="ulist"><ul><li><p>Type: <strong>Gitea</strong></p></li><li><p>When should this webhook be triggered?: <strong>I need everything</strong></p></li><li><p>Payload URL: <code><a href="http://jenkins:8080/jenkins/git/notifyCommit?url=ssh://git@gitserver:5022/butler/demoapp.git" class="bare">http://jenkins:8080/jenkins/git/notifyCommit?url=ssh://git@gitserver:5022/butler/demoapp.git</a></code></p></li></ul></div></li></ul></div></section><section id="solution_webhooks"><h2>Solution: Webhooks</h2><div class="ulist"><ul><li><p>Ajoutez un commentaire dans le Jenkinsfile
 depuis <strong>Gitea git server</strong></p><div class="ulist"><ul><li><p>Un build va démarrer</p></li><li><p>Validez dans l&#8217;onglet "Changes"</p></li></ul></div></li></ul></div></section><section id="aller_plus_loin"><h2>Aller plus loin&#8230;&#8203;</h2><div class="ulist"><ul><li><p>Dans l&#8217;éditeur <strong>Blue Ocean</strong>, voir la version textuelle:</p><div class="ulist"><ul><li><p>Combinaison <code>CTRL + S</code> (On Mac: <code>CMD +S</code>)</p></li><li><p>Bi-directionnel: essayez de charger une solution de pipeline</p></li></ul></div></li><li><p>Le <strong>Pipeline Syntax Snippet Generator</strong> comme acolyte:</p><div class="ulist"><ul><li><p>Génération dynamique en fonction de vos plugins</p></li><li><p>Depuis l&#8217;interface "ancienne" de Jenkins</p></li><li><p>Menu de gauche de votre job "Pipeline" (ou MultiBranch)</p><div class="ulist"><ul><li><p><a href="http://localhost:80/jenkins/job/demoapp/pipeline-syntax/" target="_blank">http://localhost:80/jenkins/job/demoapp/pipeline-syntax/</a></p></li></ul></div></li></ul></div></li></ul></div></section><section id="exercise_rutilisation_binaire"><h2>Exercise - Réutilisation Binaire</h2><div class="ulist"><ul><li><p>But: réutiliser les binaires générés dans <strong>Build</strong></p></li><li><p>Action: "mise sur étagère": <strong>Stash / Unstash</strong></p></li><li><p>Modifier le Pipeline pour :</p><div class="ulist"><ul><li><p>"Stasher" le dossier <code>target</code>, à la fin de la phase <strong>Build</strong></p></li><li><p>"Unstasher" au début de la phase <strong>Test</strong></p></li></ul></div></li><li><p><em>Attention</em>, une limite de l&#8217;éditeur <strong>Blue Ocean</strong>
 va être atteinte</p></li></ul></div></section><section id="solution_rutilisation_binaire"><h2>Solution - Réutilisation Binaire</h2><div class="ulist"><ul><li><p>L&#8217;éditeur Blue Ocean ne supporte pas encore
@@ -366,13 +366,19 @@ des "stages"</p></li><li><p>Agent <code>java7</code> pour le Test Java 7</p></li
       }
     }
   }
-}</code></pre></div></div></section><section id="agents_avec_docker"><h2>Agents avec Docker</h2><div class="ulist"><ul><li><p><strong>But:</strong> Usage de Docker pour faciliter la définition
-des environements de build</p></li><li><p>Le mot clef <code>agent</code> permet d&#8217;exécuter les "stages" dans
+}</code></pre></div></div></section></section>
+<section><section id="docker"><h2>Docker</h2></section><section id="docker_un_environment_portable"><h2>Docker: un environment portable</h2><div class="ulist"><ul><li><p>Problème courante : Environnements différents entre le poste du dév. et la production</p></li><li><p>Solution: Utiliser Docker pour définir un environment portable</p></li></ul></div></section><section id="exercices_avec_docker"><h2>Exercices avec Docker</h2><div class="ulist"><ul><li><p>Dans <a href="http://localhost:80/gitserver" target="_blank">Gitea</a>, examinez le fichier <code>Dockerfile</code></p></li><li><p>Dans <a href="http://localhost:80/devbox" target="_blank">Devbox</a>, essayez les commandes suivante:</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">## Construire uniquement l'environnement de build
+docker build -t demoapp:build -f Dockerfile.build ./
+
+## Executer un container
+mvn -v
+docker run --rm -ti -v $(pwd):/app --entrypoint="bash" demoapp:build
+bash-4.4# ls -al /app
+bash-4.4# mvn -v # Difference ?</code></pre></div></div></section><section id="agents_avec_docker"><h2>Agents avec Docker</h2><div class="ulist"><ul><li><p><strong>But:</strong> Usage de Docker pour faciliter la définition des environements de build</p></li><li><p>Le mot clef <code>agent</code> permet d&#8217;exécuter les "stages" dans
 un container Docker, depuis une "image Docker",
-ou depuis un <code>Dockerfile</code> (recette maison d&#8217;image Docker)</p><div class="ulist"><ul><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/#agent">Directive Agent sur jenkins.io</a></p></li></ul></div></li></ul></div></section><section id="exercice_agent_docker"><h2>Exercice : Agent Docker</h2><div class="ulist"><ul><li><p>Exécuter le <strong>Build</strong> dans un containeur
-basé sur le fichier <code>Dockerfile.build</code></p></li><li><p>Exécuter le <strong>Test Java 8</strong> dans un containeur
-basé sur les images <code>maven:3-jdk-8-alpine</code></p></li><li><p>Trick: documentation manquante sur <code>filename</code>,
-dans un block <code>dockerfile</code></p></li></ul></div></section><section id="solution_agent_docker"><h2>Solution : Agent Docker</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+ou depuis un <code>Dockerfile</code> (recette maison d&#8217;image Docker)</p><div class="ulist"><ul><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/#agent">Directive Agent sur jenkins.io</a></p></li></ul></div></li></ul></div></section><section id="exercice_agent_docker"><h2>Exercice : Agent Docker</h2><div class="ulist"><ul><li><p>Exécuter l&#8217;étape <strong>Build</strong> dans un containeur
+basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section><section id="solution_agent_docker"><h2>Solution : Agent Docker</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
   agent any
   stages {
     stage('Build') {
@@ -399,9 +405,8 @@ dans un block <code>dockerfile</code></p></li></ul></div></section><section id="
       parallel {
         stage('Test Java 8') {
           agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
+            node {
+              label 'java8'
             }
           }
           steps {
@@ -460,9 +465,8 @@ d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuo
       parallel {
         stage('Test Java 8') {
           agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
+            node {
+              label 'java8'
             }
           }
           steps {
@@ -529,9 +533,8 @@ pour une instruction spécifique</p></li></ul></div></li></ul></div></section><s
       parallel {
         stage('Test Java 8') {
           agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
+            node {
+              label 'java8'
             }
           }
           steps {
@@ -613,9 +616,8 @@ dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètr
       parallel {
         stage('Test Java 8') {
           agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
+            node {
+              label 'java8'
             }
           }
           steps {
@@ -702,102 +704,8 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
       parallel {
         stage('Test Java 8') {
           agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
-            }
-          }
-          steps {
-            unstash 'build-result'
-            sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
-          }
-        }
-        stage('Test Java 12') {
-          agent {
             node {
-              label 'java12'
-            }
-          }
-          steps {
-            unstash 'build-result'
-            sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
-          }
-        }
-      }
-    }
-    stage('Approval') {
-      agent none
-      steps {
-        timeout(time: 3, unit: 'MINUTES') {
-          input(message: params.DEPLOY_MESSAGE, ok: 'Yes Deploy!')
-        }
-      }
-      when {
-        anyOf {
-          branch 'master'
-          environment name: 'FORCE_DEPLOY', value: 'true'
-        }
-      }
-    }
-    stage('Deploy') {
-      steps {
-        sh './scripts/deploy.sh'
-      }
-      when {
-        anyOf {
-          branch 'master'
-          environment name: 'FORCE_DEPLOY', value: 'true'
-        }
-      }
-    }
-  }
-}</code></pre></div></div></section><section id="shared_libraries"><h2>Shared Libraries</h2></section><section id="exercice_shared_libraries"><h2>Exercice : Shared Libraries</h2><div class="ulist"><ul><li><p>Create a repository <code>jenkins-libs</code></p><div class="ulist"><ul><li><p>Init with a file <code>vars/runPipeline.groovy</code>:</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">def call(String MESSAGE) {
-  echo "Lib: ${MESSAGE}"
-}</code></pre></div></div></li></ul></div></li><li><p>Switch to legacy UI, configure the Multibranch job</p><div class="ulist"><ul><li><p>Add the shared library</p></li></ul></div></li><li><p>Adapt the pipeline to run the function in Build stage</p></li></ul></div></section><section id="solution_shared_libraries"><h2>Solution : Shared Libraries</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
-  agent any
-  libraries {
-    lib('jenkins-libs@master')
-  }
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
-  parameters {
-    string(name: 'DEPLOY_MESSAGE', defaultValue: 'Deploy ?', description: 'Message de déploiement')
-  }
-  environment {
-    FORCE_DEPLOY = 'false'
-  }
-  stages {
-    stage('Build') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.build'
-          label 'docker'
-        }
-      }
-      steps {
-        runPipeline('Salut')
-        sh './scripts/build.sh'
-      }
-      post {
-        always {
-          junit 'target/**/*.xml'
-        }
-        success {
-          archiveArtifacts 'target/*.jar'
-          stash(name: 'build-result', includes: 'target/**/*')
-        }
-      }
-    }
-    stage('Test') {
-      parallel {
-        stage('Test Java 8') {
-          agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
+              label 'java8'
             }
           }
           steps {
