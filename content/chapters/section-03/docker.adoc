@@ -1,0 +1,46 @@
+
+= Docker
+
+== Docker: un environment portable
+
+* Problème courante : Environnements différents entre le poste du dév. et la production
+
+* Solution: Utiliser Docker pour définir un environment portable
+
+== Exercices avec Docker
+
+* Dans link:{gitserver-url}[Gitea,window="_blank"], examinez le fichier `Dockerfile`
+* Dans link:{devbox-url}[Devbox,window="_blank"], essayez les commandes suivante:
+
+
+[source,bash,subs="attributes"]
+----
+## Construire uniquement l'environnement de build
+docker build -t demoapp:build -f Dockerfile.build ./
+
+## Executer un container
+mvn -v 
+docker run --rm -ti -v $(pwd):/app --entrypoint="bash" demoapp:build
+bash-4.4# ls -al /app
+bash-4.4# mvn -v # Difference ?
+----
+
+== Agents avec Docker
+
+* *But:* Usage de Docker pour faciliter la définition des environements de build
+* Le mot clef `agent` permet d'exécuter les "stages" dans
+un container Docker, depuis une "image Docker",
+ou depuis un `Dockerfile` (recette maison d'image Docker)
+** link:https://jenkins.io/doc/book/pipeline/syntax/#agent[Directive Agent sur jenkins.io]
+
+== Exercice : Agent Docker
+
+* Exécuter l'étape *Build* dans un containeur
+basé sur le fichier `Dockerfile.build`
+
+== Solution : Agent Docker
+
+[source,groovy,subs="attributes"]
+----
+include::{pipeline-solutions}/08-Jenkinsfile-dockerfile-agents[]
+----

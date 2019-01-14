@@ -25,9 +25,8 @@ pipeline {
       parallel {
         stage('Test Java 8') {
           agent {
-            docker {
-              image 'maven:3-jdk-8-alpine'
-              label 'docker'
+            node {
+              label 'java8'
             }
           }
           steps {

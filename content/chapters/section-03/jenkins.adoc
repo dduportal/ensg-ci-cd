@@ -25,7 +25,7 @@ image::jenkins-background.jpg[background, size=cover]
 == Communauté Jenkins
 image::jenkins-background.jpg[background, size=cover]
 
-* Une communauté *indépendant* et *active*
+* Une communauté *indépendante* et *active*
 (link:http://jenkins.io[jenkins.io,window=_blank])
 ** Projet original: "Hudson", renommé "Jenkins" en 2011
 ** 500+ releases

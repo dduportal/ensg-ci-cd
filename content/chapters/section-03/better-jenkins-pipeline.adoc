@@ -10,6 +10,7 @@
 * Les tests d'intégration sont dans `src/test/java/hello`
 * Indices:
 ** _Integration Tests:_ == *IT*
+* Pour relancer le build : depuis l'accueil Blue Ocean, naviguez sur le projet -> Branches, et regardez à droite, dans la ligne correspondant à "master"
 
 == Solution: Réparer le build
 
