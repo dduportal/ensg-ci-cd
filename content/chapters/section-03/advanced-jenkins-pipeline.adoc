@@ -100,24 +100,33 @@ pipeline: limiter l'usage disque
 include::{pipeline-solutions}/12-Jenkinsfile-options[]
 ----
 
-== Shared Libraries
+// == Shared Libraries
 
-== Exercice : Shared Libraries
+// * Problèmes :
+// ** Comment réutiliser les mêmes morceaux de Pipeline ?
+// ** Comment mettre à jour toute une série de projets ?
 
-* Create a repository `jenkins-libs`
-** Init with a file `vars/runPipeline.groovy`:
-+
-[source,groovy,subs="attributes"]
-----
-include::{pipeline-solutions}/13-shared-library-basic-example[]
-----
-* Switch to legacy UI, configure the Multibranch job
-** Add the shared library
-* Adapt the pipeline to run the function in Build stage
+// * Solution : Librairie de bouts de Pipeline
+// ** Stockée dans un SCM (versions, branches, etc.)
+// ** Combinable
+// ** 
 
-== Solution : Shared Libraries
+// == Exercice : Shared Libraries
 
-[source,groovy,subs="attributes"]
-----
-include::{pipeline-solutions}/14-Jenkinsfile-shared-lib[]
-----
+// * Create a repository `jenkins-libs`
+// ** Init with a file `vars/runPipeline.groovy`:
+// +
+// [source,groovy,subs="attributes"]
+// ----
+// include::{pipeline-solutions}/13-shared-library-basic-example[]
+// ----
+// * Switch to legacy UI, configure the Multibranch job
+// ** Add the shared library
+// * Adapt the pipeline to run the function in Build stage
+
+// == Solution : Shared Libraries
+
+// [source,groovy,subs="attributes"]
+// ----
+// include::{pipeline-solutions}/14-Jenkinsfile-shared-lib[]
+// ----
