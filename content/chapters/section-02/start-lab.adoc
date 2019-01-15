@@ -19,6 +19,9 @@ vagrant plugin install vagrant-proxyconf
 export VAGRANT_HTTP_PROXY=http://10.0.4.2:3128
 export VAGRANT_HTTPS_PROXY="${VAGRANT_HTTP_PROXY}"
 export VAGRANT_NO_PROXY=localhost,127.0.0.1
+
+# Configurer le réseau
+export EXTERNAL_PORT=10000
 ----
 // ** et/ou https://github.com/AlbanMontaigu/docker-transparent-proxy
 
