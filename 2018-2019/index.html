@@ -104,7 +104,10 @@ vagrant plugin install vagrant-proxyconf
 # Configurer le plugin
 export VAGRANT_HTTP_PROXY=http://10.0.4.2:3128
 export VAGRANT_HTTPS_PROXY="${VAGRANT_HTTP_PROXY}"
-export VAGRANT_NO_PROXY=localhost,127.0.0.1</code></pre></div></div></section><section id="obtenir_le_template_de_la_vm"><h2>Obtenir le template de la VM</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">vagrant box add jenkins-lab-demo https://bit.ly/2QIY9xZ</code></pre></div></div></section><section id="initialiser_l_environnement"><h2>Initialiser l&#8217;environnement</h2><div class="ulist"><ul><li><p>Créer un dossier de travail nommé <code>jenkins-lab-demo</code>
+export VAGRANT_NO_PROXY=localhost,127.0.0.1
+
+# Configurer le réseau
+export EXTERNAL_PORT=10000</code></pre></div></div></section><section id="obtenir_le_template_de_la_vm"><h2>Obtenir le template de la VM</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">vagrant box add jenkins-lab-demo https://bit.ly/2QIY9xZ</code></pre></div></div></section><section id="initialiser_l_environnement"><h2>Initialiser l&#8217;environnement</h2><div class="ulist"><ul><li><p>Créer un dossier de travail nommé <code>jenkins-lab-demo</code>
 dans votre HOME utilisateur</p></li><li><p>Se positionner dans ce dossier</p></li><li><p>Exécuter <code>vagrant init</code></p></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">mkdir ~/jenkins-lab-demo
 cd ~/jenkins-lab-demo
