@@ -28,7 +28,7 @@
 :pipeline-solutions: ./pipeline-solutions
 :box-url: https://bit.ly/2QIY9xZ
 :external-domain: localhost
-:external-port: 80
+:external-port: 10000
 :admin-user: butler
 :admin-password: butler
 :homepage-url: http://{external-domain}:{external-port}

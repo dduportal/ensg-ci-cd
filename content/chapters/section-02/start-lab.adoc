@@ -58,7 +58,7 @@ vagrant init -m -f jenkins-lab-demo
 
 [source,bash]
 ----
-vagrant up # Démarrer la VM
+vagrant up # Démarrer la VM. Ignorer une éventuelle erreur à propos de "/etc/default/docker"
 vagrant suspend # Suspendre la VM
 vagrant resume # Relancer la VM
 vagrant halt # Arrêter "proprement la VM"
