@@ -37,7 +37,7 @@ test:
 $(BOX_FILE):
 	cp -r ./docker/ ./$(CUSTOMIZE_DIR)
 	cp ./vagrantfile-box.tpl ./$(GIT_SUBPROJECT)/
-	cd $(GIT_SUBPROJECT) && make all
+	cd $(GIT_SUBPROJECT) && make box
 
 init-lab:
 	vagrant box add --force $(BOX_NAME)-lab $(BOX_FILE)
