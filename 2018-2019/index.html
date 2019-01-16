@@ -317,8 +317,8 @@ configuré avec le label <code>java8</code></p></li><li><p>L&#8217;éditeur Blue
     }
   }
 }</code></pre></div></div></section><section id="exercice_tests_parallles"><h2>Exercice : Tests Parallèles</h2><div class="ulist"><ul><li><p><strong>But:</strong> Tester en parallèle l&#8217;application
-sur java 7 et 8</p></li><li><p>Mot clef <code>parallel</code> définissant un block contenant
-des "stages"</p></li><li><p>Agent <code>java7</code> pour le Test Java 7</p></li><li><p>L&#8217;éditeur Blue Ocean est utilisable (et recommandé)</p></li></ul></div></section><section id="solution_tests_parallles"><h2>Solution : Tests Parallèles</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+sur java 12 et 8</p></li><li><p>Mot clef <code>parallel</code> définissant un block contenant
+des "stages"</p></li><li><p>Agent <code>java12</code> pour le Test Java 12</p></li><li><p>L&#8217;éditeur Blue Ocean est utilisable (et recommandé)</p></li></ul></div></section><section id="solution_tests_parallles"><h2>Solution : Tests Parallèles</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
   agent any
   stages {
     stage('Build') {
