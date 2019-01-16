@@ -282,7 +282,7 @@ configuré avec le label <code>java8</code></p></li><li><p>L&#8217;éditeur Blue
     stage('Build') {
       agent {
         node {
-          label 'maven-java8'
+          label 'maven-jdk8'
         }
       }
       steps {
@@ -324,7 +324,7 @@ des "stages"</p></li><li><p>Agent <code>java12</code> pour le Test Java 12</p></
     stage('Build') {
       agent {
         node {
-          label 'maven-java8'
+          label 'maven-jdk8'
         }
       }
       steps {
