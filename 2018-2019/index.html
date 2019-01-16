@@ -377,7 +377,9 @@ des "stages"</p></li><li><p>Agent <code>java12</code> pour le Test Java 12</p></
 }</code></pre></div></div></section></section>
 <section><section id="docker"><h2>Docker</h2></section><section id="docker_un_environment_portable"><h2>Docker: un environment portable</h2><div class="ulist"><ul><li><p>Problème courante : Environnements différents entre le poste du dév. et la production</p></li><li><p>Solution: Utiliser Docker pour définir un environment portable</p></li></ul></div></section><section id="exercices_avec_docker"><h2>Exercices avec Docker</h2><div class="ulist"><ul><li><p>Dans <a href="http://localhost:10000/gitserver" target="_blank">Gitea</a>, examinez le fichier <code>Dockerfile</code></p></li><li><p>Dans <a href="http://localhost:10000/devbox" target="_blank">Devbox</a>, essayez les commandes suivante:</p></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="bash language-bash">## Construire uniquement l'environnement de build
-docker build -t demoapp:build -f Dockerfile.build ./
+docker build --build-arg HTTP_PROXY=http://10.0.4.2:3128/ \
+    --build-arg HTTPS_PROXY=http://10.0.4.2:3128/  \
+    -t demoapp:build -f Dockerfile.build ./
 
 ## Executer un container
 mvn -v
