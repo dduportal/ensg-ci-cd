@@ -68,8 +68,8 @@ include::{pipeline-solutions}/02-Jenkinsfile-base[]
 ** Modifiez le pipeline actuel
 ** La "stage" *Build* doit archiver tous les fichier ".jar" générés
 *** _Indices :_ Dans le dossier `target`, motif `{asterisk}.jar`
-** La "stage" *Test* doit publier les rapports de test `junit`
-*** _Indices :_ Dans le dossier `target`, motif `{asterisk}{asterisk}/{asterisk}.xml`
+** La "stage" *Test* doit publier les rapports de test d'intégration au format `junit`
+*** _Indices :_ Dans le dossier `target/failsafe-reports`, motif `{asterisk}{asterisk}/{asterisk}.xml`
 * Le Pipeline doit être *UNSTABLE*
 
 == Solution : Archives et Tests
