@@ -16,7 +16,9 @@
 [source,bash,subs="attributes"]
 ----
 ## Construire uniquement l'environnement de build
-docker build -t demoapp:build -f Dockerfile.build ./
+docker build --build-arg HTTP_PROXY=http://10.0.4.2:3128/ \
+    --build-arg HTTPS_PROXY=http://10.0.4.2:3128/  \
+    -t demoapp:build -f Dockerfile.build ./
 
 ## Executer un container
 mvn -v 
