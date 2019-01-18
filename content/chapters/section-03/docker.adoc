@@ -60,27 +60,27 @@ include::{pipeline-solutions}/08-Jenkinsfile-dockerfile-agents[]
 
 Fichier `settings.xml` :
 
-[source,xml,subs="attributes"]
+[source,xml]
 ----
 <settings>
-<proxies>
-    <proxy>
-        <id>httpproxy</id>
-        <active>true</active>
-        <protocol>http</protocol>
-        <host>10.0.4.2</host>
-        <port>3128</port>
-        <nonProxyHosts>ensg.eu|localhost</nonProxyHosts>
-    </proxy>
-    <proxy>
-        <id>httpsproxy</id>
-        <active>true</active>
-        <protocol>https</protocol>
-        <host>10.0.4.2</host>
-        <port>3128</port>
-        <nonProxyHosts>ensg.eu|localhost</nonProxyHosts>
-    </proxy>
-</proxies>
+    <proxies>
+        <proxy>
+            <id>httpproxy</id>
+            <active>true</active>
+            <protocol>http</protocol>
+            <host>10.0.4.2</host>
+            <port>3128</port>
+            <nonProxyHosts>ensg.eu|localhost</nonProxyHosts>
+        </proxy>
+        <proxy>
+            <id>httpsproxy</id>
+            <active>true</active>
+            <protocol>https</protocol>
+            <host>10.0.4.2</host>
+            <port>3128</port>
+            <nonProxyHosts>ensg.eu|localhost</nonProxyHosts>
+        </proxy>
+    </proxies>
 </settings>
 ----
 
