@@ -33,16 +33,70 @@ bash-4.4# mvn -v # Difference ?
 * Le mot clef `agent` permet d'exécuter les "stages" dans
 un container Docker, depuis une "image Docker",
 ou depuis un `Dockerfile` (recette maison d'image Docker)
-** link:https://jenkins.io/doc/book/pipeline/syntax/#agent[Directive Agent sur jenkins.io]
 
 == Exercice : Agent Docker
 
 * Exécuter l'étape *Build* dans un containeur
 basé sur le fichier `Dockerfile.build`
 
-== Solution : Agent Docker
+* Attention, le proxy doit être précisé à Jenkins. Comment passer le flag `--build-arg` dans le pipeline?
+** _Indice :_ Documentation link:https://jenkins.io/doc/book/pipeline/syntax/#agent[Directive Agent sur jenkins.io]
+
+* Attention, le proxy doit également être passé à Maven, qui ne sait pas lire la variable `HTTP_PROXY`
+** _Indice :_ Documentation de Maven link:https://maven.apache.org/settings.html#Proxies[sur la configuration d'un proxy]
+** _Indice :_ L'utilisateur par défaut dans `Dockerfile.build` est `root`. Son `HOME` est le dossier `/root`
+** _Indice :_ Vous pouvez tester dans la devbox de manière interactive
+
+== Solution : Agent Docker 1/3
+
+Fichier `Jenkinsfile` :
 
 [source,groovy,subs="attributes"]
 ----
 include::{pipeline-solutions}/08-Jenkinsfile-dockerfile-agents[]
+----
+
+== Solution : Agent Docker 2/3
+
+Fichier `settings.xml` :
+
+[source,xml,subs="attributes"]
+----
+<settings>
+<proxies>
+    <proxy>
+        <id>httpproxy</id>
+        <active>true</active>
+        <protocol>http</protocol>
+        <host>10.0.4.2</host>
+        <port>3128</port>
+        <nonProxyHosts>ensg.eu|localhost</nonProxyHosts>
+    </proxy>
+    <proxy>
+        <id>httpsproxy</id>
+        <active>true</active>
+        <protocol>https</protocol>
+        <host>10.0.4.2</host>
+        <port>3128</port>
+        <nonProxyHosts>ensg.eu|localhost</nonProxyHosts>
+    </proxy>
+</proxies>
+</settings>
+----
+
+== Solution : Agent Docker 3/3
+
+[source,Dockerfile,subs="attributes"]
+----
+FROM maven:3-jdk-8-alpine
+# Install Some tools
+RUN apk add --no-cache \
+  curl \
+  bats \
+  docker \
+  git
+
+# Configure Proxy
+RUN mkdir -p /root/.m2
+COPY ./settings.xml /root/.m2/settings.xml
 ----

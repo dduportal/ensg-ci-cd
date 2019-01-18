@@ -11,7 +11,7 @@ pipeline {
           stash(name: 'build-result', includes: 'target/**/*')
         }
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
       }
     }
@@ -19,7 +19,7 @@ pipeline {
       steps {
         unstash 'build-result'
         sh './scripts/integration-tests.sh'
-        junit 'target/**/*.xml'
+        junit 'target/failsafe-reports/**/*.xml'
       }
     }
     stage('Deploy') {

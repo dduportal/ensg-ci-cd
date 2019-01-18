@@ -12,7 +12,7 @@ pipeline {
       steps {
         unstash 'build-result'
         sh './scripts/integration-tests.sh'
-        junit 'target/**/*.xml'
+        junit 'target/failsafe-reports/**/*.xml'
       }
     }
     stage('Deploy') {

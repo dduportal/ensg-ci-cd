@@ -18,6 +18,7 @@ pipeline {
         dockerfile {
           filename 'Dockerfile.build'
           label 'docker'
+          additionalBuildArgs  '--build-arg HTTP_PROXY=http://10.0.4.2:3128/ --build-arg HTTPS_PROXY=http://10.0.4.2:3128/'
         }
       }
       steps {
@@ -26,7 +27,7 @@ pipeline {
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -45,7 +46,7 @@ pipeline {
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -57,7 +58,7 @@ pipeline {
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
