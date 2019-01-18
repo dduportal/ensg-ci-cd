@@ -199,7 +199,7 @@ Le <strong>Blue Ocean Pipeline Editor</strong> s&#8217;ouvre pour en générer u
     stage('Test') {
       steps {
         sh './scripts/integration-tests.sh'
-        junit 'target/**/*.xml'
+        junit 'target/failsafe-reports/**/*.xml'
       }
     }
     stage('Deploy') {
@@ -228,7 +228,7 @@ le ré-ordonnancement de "stages"</p><div class="ulist"><ul><li><p>Mode textuel 
       steps {
         unstash 'build-result'
         sh './scripts/integration-tests.sh'
-        junit 'target/**/*.xml'
+        junit 'target/failsafe-reports/**/*.xml'
       }
     }
     stage('Deploy') {
@@ -254,7 +254,7 @@ publiés dans <strong>tous</strong> les cas après la phase <strong>Build</stron
           stash(name: 'build-result', includes: 'target/**/*')
         }
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
       }
     }
@@ -262,7 +262,7 @@ publiés dans <strong>tous</strong> les cas après la phase <strong>Build</stron
       steps {
         unstash 'build-result'
         sh './scripts/integration-tests.sh'
-        junit 'target/**/*.xml'
+        junit 'target/failsafe-reports/**/*.xml'
       }
     }
     stage('Deploy') {
@@ -290,7 +290,7 @@ configuré avec le label <code>java8</code></p></li><li><p>L&#8217;éditeur Blue
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -307,7 +307,7 @@ configuré avec le label <code>java8</code></p></li><li><p>L&#8217;éditeur Blue
       steps {
         unstash 'build-result'
         sh './scripts/integration-tests.sh'
-        junit 'target/**/*.xml'
+        junit 'target/failsafe-reports/**/*.xml'
       }
     }
     stage('Deploy') {
@@ -332,7 +332,7 @@ des "stages"</p></li><li><p>Agent <code>java12</code> pour le Test Java 12</p></
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -351,7 +351,7 @@ des "stages"</p></li><li><p>Agent <code>java12</code> pour le Test Java 12</p></
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -363,7 +363,7 @@ des "stages"</p></li><li><p>Agent <code>java12</code> pour le Test Java 12</p></
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
@@ -387,8 +387,9 @@ docker run --rm -ti -v $(pwd):/app --entrypoint="bash" demoapp:build
 bash-4.4# ls -al /app
 bash-4.4# mvn -v # Difference ?</code></pre></div></div></section><section id="agents_avec_docker"><h2>Agents avec Docker</h2><div class="ulist"><ul><li><p><strong>But:</strong> Usage de Docker pour faciliter la définition des environements de build</p></li><li><p>Le mot clef <code>agent</code> permet d&#8217;exécuter les "stages" dans
 un container Docker, depuis une "image Docker",
-ou depuis un <code>Dockerfile</code> (recette maison d&#8217;image Docker)</p><div class="ulist"><ul><li><p><a href="https://jenkins.io/doc/book/pipeline/syntax/#agent">Directive Agent sur jenkins.io</a></p></li></ul></div></li></ul></div></section><section id="exercice_agent_docker"><h2>Exercice : Agent Docker</h2><div class="ulist"><ul><li><p>Exécuter l&#8217;étape <strong>Build</strong> dans un containeur
-basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section><section id="solution_agent_docker"><h2>Solution : Agent Docker</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
+ou depuis un <code>Dockerfile</code> (recette maison d&#8217;image Docker)</p></li></ul></div></section><section id="exercice_agent_docker"><h2>Exercice : Agent Docker</h2><div class="ulist"><ul><li><p>Exécuter l&#8217;étape <strong>Build</strong> dans un containeur
+basé sur le fichier <code>Dockerfile.build</code></p></li><li><p>Attention, le proxy doit être précisé à Jenkins. Comment passer le flag <code>--build-arg</code> dans le pipeline?</p><div class="ulist"><ul><li><p><em>Indice :</em> Documentation <a href="https://jenkins.io/doc/book/pipeline/syntax/#agent">Directive Agent sur jenkins.io</a></p></li></ul></div></li><li><p>Attention, le proxy doit également être passé à Maven, qui ne sait pas lire la variable <code>HTTP_PROXY</code></p><div class="ulist"><ul><li><p><em>Indice :</em> Documentation de Maven <a href="https://maven.apache.org/settings.html#Proxies">sur la configuration d&#8217;un proxy</a></p></li><li><p><em>Indice :</em> L&#8217;utilisateur par défaut dans <code>Dockerfile.build</code> est <code>root</code>. Son <code>HOME</code> est le dossier <code>/root</code></p></li><li><p><em>Indice :</em> Vous pouvez tester dans la devbox de manière interactive</p></li></ul></div></li></ul></div></section><section id="solution_agent_docker_1_3"><h2>Solution : Agent Docker 1/3</h2><div class="paragraph"><p>Fichier <code>Jenkinsfile</code> :</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
   agent any
   stages {
     stage('Build') {
@@ -396,6 +397,7 @@ basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section>
         dockerfile {
           filename 'Dockerfile.build'
           label 'docker'
+          additionalBuildArgs  '--build-arg HTTP_PROXY=http://10.0.4.2:3128/ --build-arg HTTPS_PROXY=http://10.0.4.2:3128/'
         }
       }
       steps {
@@ -403,7 +405,7 @@ basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section>
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -422,7 +424,7 @@ basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section>
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -434,7 +436,7 @@ basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section>
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
@@ -445,7 +447,37 @@ basé sur le fichier <code>Dockerfile.build</code></p></li></ul></div></section>
       }
     }
   }
-}</code></pre></div></div></section></section>
+}</code></pre></div></div></section><section id="solution_agent_docker_2_3"><h2>Solution : Agent Docker 2/3</h2><div class="paragraph"><p>Fichier <code>settings.xml</code> :</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="xml language-xml">&lt;settings&gt;
+    &lt;proxies&gt;
+        &lt;proxy&gt;
+            &lt;id&gt;httpproxy&lt;/id&gt;
+            &lt;active&gt;true&lt;/active&gt;
+            &lt;protocol&gt;http&lt;/protocol&gt;
+            &lt;host&gt;10.0.4.2&lt;/host&gt;
+            &lt;port&gt;3128&lt;/port&gt;
+            &lt;nonProxyHosts&gt;ensg.eu|localhost&lt;/nonProxyHosts&gt;
+        &lt;/proxy&gt;
+        &lt;proxy&gt;
+            &lt;id&gt;httpsproxy&lt;/id&gt;
+            &lt;active&gt;true&lt;/active&gt;
+            &lt;protocol&gt;https&lt;/protocol&gt;
+            &lt;host&gt;10.0.4.2&lt;/host&gt;
+            &lt;port&gt;3128&lt;/port&gt;
+            &lt;nonProxyHosts&gt;ensg.eu|localhost&lt;/nonProxyHosts&gt;
+        &lt;/proxy&gt;
+    &lt;/proxies&gt;
+&lt;/settings&gt;</code></pre></div></div></section><section id="solution_agent_docker_3_3"><h2>Solution : Agent Docker 3/3</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="Dockerfile language-Dockerfile">FROM maven:3-jdk-8-alpine
+# Install Some tools
+RUN apk add --no-cache \
+  curl \
+  bats \
+  docker \
+  git
+
+# Configure Proxy
+RUN mkdir -p /root/.m2
+COPY ./settings.xml /root/.m2/settings.xml</code></pre></div></div></section></section>
 <section><section id="pipeline_avancs" data-background-color="rgb(248, 228, 130)" data-state="invert"><h2>Pipeline Avancés</h2></section><section id="input"><h2>Input</h2><div class="ulist"><ul><li><p>Jenkins permet de "mettre en pause" l&#8217;exécution
 d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuous Delivery / Deployment</p></li><li><p>Mot-clef <code>input</code>, c&#8217;est une "step" Pipeline</p><div class="ulist"><ul><li><p>Hautement configurable:
 <a href="https://jenkins.io/doc/pipeline/steps/pipeline-input-step/">Documentation Step Input</a></p></li></ul></div></li><li><p>Généralement utilisé dans un "stage" dédié.</p><div class="ulist"><ul><li><p>Obligatoirement avec <code>agent none</code> (pas d&#8217;exécuteur, pas de workspace)</p></li></ul></div></li></ul></div></section><section id="exercice_validation_humaine"><h2>Exercice : Validation Humaine</h2><div class="ulist"><ul><li><p>Ajouter une stage "approval" avant le déploiement</p></li></ul></div></section><section id="solution_validation_humaine"><h2>Solution : Validation Humaine</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="groovy language-groovy">pipeline {
@@ -456,6 +488,7 @@ d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuo
         dockerfile {
           filename 'Dockerfile.build'
           label 'docker'
+          additionalBuildArgs  '--build-arg HTTP_PROXY=http://10.0.4.2:3128/ --build-arg HTTPS_PROXY=http://10.0.4.2:3128/'
         }
       }
       steps {
@@ -463,7 +496,7 @@ d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuo
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -482,7 +515,7 @@ d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuo
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -494,7 +527,7 @@ d&#8217;un pipeline, en attendant une validation humaine</p></li><li><p>Continuo
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
@@ -524,6 +557,7 @@ pour une instruction spécifique</p></li></ul></div></li></ul></div></section><s
         dockerfile {
           filename 'Dockerfile.build'
           label 'docker'
+          additionalBuildArgs  '--build-arg HTTP_PROXY=http://10.0.4.2:3128/ --build-arg HTTPS_PROXY=http://10.0.4.2:3128/'
         }
       }
       steps {
@@ -531,7 +565,7 @@ pour une instruction spécifique</p></li></ul></div></li></ul></div></section><s
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -550,7 +584,7 @@ pour une instruction spécifique</p></li></ul></div></li></ul></div></section><s
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -562,7 +596,7 @@ pour une instruction spécifique</p></li></ul></div></li></ul></div></section><s
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
@@ -607,6 +641,7 @@ dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètr
         dockerfile {
           filename 'Dockerfile.build'
           label 'docker'
+          additionalBuildArgs  '--build-arg HTTP_PROXY=http://10.0.4.2:3128/ --build-arg HTTPS_PROXY=http://10.0.4.2:3128/'
         }
       }
       steps {
@@ -614,7 +649,7 @@ dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètr
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -633,7 +668,7 @@ dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètr
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -645,7 +680,7 @@ dont la valeur par défaut est <code>Deploy ?</code></p></li><li><p>Ce paramètr
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
@@ -695,6 +730,7 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
         dockerfile {
           filename 'Dockerfile.build'
           label 'docker'
+          additionalBuildArgs  '--build-arg HTTP_PROXY=http://10.0.4.2:3128/ --build-arg HTTPS_PROXY=http://10.0.4.2:3128/'
         }
       }
       steps {
@@ -702,7 +738,7 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
       }
       post {
         always {
-          junit 'target/**/*.xml'
+          junit 'target/surefire-reports/**/*.xml'
         }
         success {
           archiveArtifacts 'target/*.jar'
@@ -721,7 +757,7 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
         stage('Test Java 12') {
@@ -733,7 +769,7 @@ pipeline: limiter l&#8217;usage disque</p></li></ul></div></section><section id=
           steps {
             unstash 'build-result'
             sh './scripts/integration-tests.sh'
-            junit 'target/**/*.xml'
+            junit 'target/failsafe-reports/**/*.xml'
           }
         }
       }
