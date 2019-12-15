@@ -2,22 +2,27 @@ version: '3.7'
 
 services:
   reverse-proxy:
-    image: traefik:v2.0
+    image: traefik:v2.1
     command:
       - --api.dashboard=true
       - --ping=true
-      - --providers.docker
+      - --ping.entrypoint=ping
+      - --providers.docker.exposedbydefault=false
       - --providers.file.filename=/certs/traefik-dyn.yml
       - --entryPoints.web.address=:${EXTERNAL_HTTP_PORT}
       - --entryPoints.websecure.address=:${EXTERNAL_HTTPS_PORT}
       - --entryPoints.jnlp.address=:${EXTERNAL_JNLP_PORT}
       - --entryPoints.gitssh.address=:${EXTERNAL_GITSSH_PORT}
+      - --entryPoints.demoapp.address=:${EXTERNAL_DEMOAPP_PORT}
+      - --entryPoints.ping.address=:8888
     restart: unless-stopped
     labels:
+      - traefik.enable=true
       - traefik.http.routers.traefik.rule=Host(`traefik.${EXTERNAL_DOMAIN}`)
       - traefik.http.routers.traefik.tls=true
       - traefik.http.routers.traefik.entrypoints=websecure
       - traefik.http.routers.traefik.service=api@internal
+
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
       - traefik.http.routers.redirs.entrypoints=web
@@ -28,11 +33,12 @@ services:
       - "${EXTERNAL_HTTPS_PORT}:${EXTERNAL_HTTPS_PORT}"
       - "${EXTERNAL_JNLP_PORT}:${EXTERNAL_JNLP_PORT}"
       - "${EXTERNAL_GITSSH_PORT}:${EXTERNAL_GITSSH_PORT}"
+      - "${EXTERNAL_DEMOAPP_PORT}:${EXTERNAL_DEMOAPP_PORT}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certs:/certs
     healthcheck:
-      test: ["CMD", "wget", "http://localhost:8080/ping","--spider"]
+      test: ["CMD", "wget", "http://localhost:8888/ping","--spider"]
       interval: 2s
       timeout: 1s
       retries: 3
@@ -43,6 +49,7 @@ services:
     restart: unless-stopped
     read_only: true
     labels:
+      - traefik.enable=true
       - traefik.http.routers.web.rule=Host(`${EXTERNAL_DOMAIN}`)
       - traefik.http.routers.web.tls=true
       - traefik.http.routers.web.entrypoints=websecure
@@ -79,6 +86,7 @@ services:
       - jenkins-maven-jdk8-node
       - jenkins-maven-jdknext-node
     labels:
+      - traefik.enable=true
       - traefik.http.routers.jenkins.rule=Host(`${EXTERNAL_DOMAIN}`) && PathPrefix(`/jenkins`)
       - traefik.http.routers.jenkins.tls=true
       - traefik.http.routers.jenkins.entrypoints=websecure
@@ -101,6 +109,7 @@ services:
     image: ${DOCKER_USERNAME}/oufti-gitserver
     restart: unless-stopped
     labels:
+      - traefik.enable=true
       - traefik.http.routers.gitserver.rule=Host(`${EXTERNAL_DOMAIN}`) && PathPrefix(`/gitserver`)
       - traefik.http.routers.gitserver.tls=true
       - traefik.http.routers.gitserver.entrypoints=websecure
@@ -176,13 +185,23 @@ services:
       target: devbox
     image: ${DOCKER_USERNAME}/oufti-devbox
     restart: unless-stopped
+    expose:
+      - 8080 # Demoapp
+      - 7681 # Ttyd web CLI
     labels:
+      - traefik.enable=true
       - traefik.http.routers.devbox.rule=Host(`${EXTERNAL_DOMAIN}`) && PathPrefix(`/devbox`)
       - traefik.http.routers.devbox.entrypoints=websecure
       - traefik.http.routers.devbox.middlewares=devbox-stripprefix
       - traefik.http.routers.devbox.tls=true
+      - traefik.http.routers.devbox.service=devbox-svc
       - traefik.http.middlewares.devbox-stripprefix.stripprefix.prefixes=/devbox
       - traefik.http.services.devbox-svc.LoadBalancer.server.Port=7681
+
+      - traefik.http.routers.devbox-demoapp.rule=Host(`${EXTERNAL_DOMAIN}`)
+      - traefik.http.routers.devbox-demoapp.entrypoints=demoapp
+      - traefik.http.routers.devbox-demoapp.service=devbox-demoapp-svc
+      - traefik.http.services.devbox-demoapp-svc.LoadBalancer.server.Port=8080
     privileged: true
     extra_hosts:
       - "${EXTERNAL_DOMAIN}:${DOCKER_BRIDGE_IP}"
