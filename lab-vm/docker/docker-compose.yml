@@ -36,7 +36,7 @@ services:
       - "${EXTERNAL_DEMOAPP_PORT}:${EXTERNAL_DEMOAPP_PORT}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./certs:/certs
+      - ./certs:/certs:ro
     healthcheck:
       test: ["CMD", "wget", "http://localhost:8888/ping","--spider"]
       interval: 2s
@@ -131,6 +131,7 @@ services:
     volumes:
       - gitserver-data:/app/data:rw
       - ./gitserver/repositories.json:/tmp/repositories.json:ro
+      - ./certs/localhost.pem:/usr/local/share/ca-certificates/localhost.pem:ro
     healthcheck:
       test: ["CMD", "wget", "http://butler:butler@localhost:3000/butler/demoapp","--spider"]
       interval: 10s
