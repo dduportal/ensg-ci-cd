@@ -14,14 +14,13 @@
 
 == Solution: Réparer le build
 
-* Depuis
+* Éditer le fichier
 link:{demoapp-repo-web-url}/src/master/src/test/java/hello/HelloControllerIT.java[src/test/java/hello/HelloControllerIT.java]
-** Cliquer sur "Edit"
-* Commenter la ligne 39
-* *Dé*-commenter la ligne 40
-* *Commit* avec un message (push automatique)
+** Commenter la ligne 39
+** *Dé*-commenter la ligne 40
 * Lancer le build manuellement dans Blue Ocean
-* Le build doit être vert (*Stable*)
+** Attention: ne pas utiliser "Re-run" (même commit)
+* Le build résultant doit être stable
 
 == Webhooks pour un retour plus rapide
 
@@ -31,13 +30,15 @@ link:{demoapp-repo-web-url}/src/master/src/test/java/hello/HelloControllerIT.jav
 
 == Exercise: Webhooks
 
-* Configurons un *"Webhook"* :
-** Depuis *Gitea git server* -> *Settings* -> *Webhooks*
-*** link:{demoapp-repo-web-url}/settings/hooks[Lien direct vers la configuration de Webhooks,window=_blank]
+* Configurons un *"Webhook"* dans *Gitea* -> *Settings* -> *Webhooks*
+** link:{demoapp-repo-web-url}/settings/hooks[Lien direct vers la configuration de Webhooks,window=_blank]
 * Ajouter un nouveau webhook:
 ** Type: *Gitea*
-** When should this webhook be triggered?: *I need everything*
-** Payload URL: `{webhook-url}`
+** Target URL:
+[source,subs="attributes"]
+{webhook-url}
+** Trigger On: *All events*
+* Une fois créé, testez le (cliquer sur le webhook, puis tout en bas)
 
 == Solution: Webhooks
 

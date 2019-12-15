@@ -141,12 +141,13 @@ ls -lrh ./target/
 java -jar ./target/demoapp.jar
 # Utiliser CTRL-C pour arrêter
 ----
-* Ouvrir une autre instance de *DevBox* (link:{devbox-url}[Click Me, window=_blank]) et vérifier
-link:http//localhost:8080[] avec `curl`
+* Ouvrir la page link:http://localhost:8080[],
+ou tester avec la commande `curl` dans 
+une autre instance de *DevBox* avec :
 +
 [source,subs="attributes",bash]
 ----
-curl -v http://localhost:8080/ 
+curl http://localhost:8080 && echo
 ----
 
 == Demo Application : Tests d'intégration
