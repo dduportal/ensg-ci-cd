@@ -19,10 +19,10 @@
 
 * Créer un nouveau Pipeline, avec les réglages suivants :
 ** Stocké dans *Git*
-** Repository URL: Dans Gitea, récupérez l'URL en *SSH* :
-image:gitea-ssh-url.png[height=50]
-** Vérifiez la clef SSH que Jenkins puisse accéder au code :
-*** Dans Gitea, cliquez en haut à droite sur le drop-down, allez dans "Settings" -> "SSH/GPG Keys"
+** Utilisez l'URL en *SSH*
+** La clef SSH a déjà été préparée pour vous 
+*** (Dans Gitea, en haut à droite -> "Settings" -> "SSH/GPG Keys")
+* Si la page est bloquée: rechargez !
 
 == Exercice : L'éditeur de Pipeline
 

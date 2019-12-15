@@ -24,10 +24,9 @@
 :pipeline-solutions: ./pipeline-solutions
 :box-url: https://bit.ly/2QIY9xZ
 :external-domain: localhost
-:external-port: 10000
 :admin-user: butler
 :admin-password: butler
-:homepage-url: http://{external-domain}:{external-port}
+:homepage-url: https://{external-domain}
 :jenkins-url: {homepage-url}/jenkins
 :devbox-url: {homepage-url}/devbox
 :gitserver-url: {homepage-url}/gitserver
