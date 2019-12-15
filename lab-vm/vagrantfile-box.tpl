@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
     override.vm.network "forwarded_port", guest: 443, host: 443, auto_correct: false, id: "https"
     override.vm.network "forwarded_port", guest: 50000, host: 50000, auto_correct: false, id: "jnlp"
     override.vm.network "forwarded_port", guest: 5022, host: 5022, auto_correct: false, id: "git-ssh"
+    override.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: false, id: "demoapp"
 
     # No FS share to allow any depds to the host
     config.vm.synced_folder ".", "/vagrant", disabled: true
