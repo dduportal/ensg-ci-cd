@@ -54,7 +54,7 @@ pdf: $(DIST_DIR)/index.html
 		--user $(CURRENT_UID) \
 		--read-only=true \
 		--tmpfs=/tmp \
-		astefanutti/decktape:2.10 \
+		astefanutti/decktape:2.9 \
 		/slides/index.html \
 		/slides/slides.pdf \
 		--size='2048x1536'
