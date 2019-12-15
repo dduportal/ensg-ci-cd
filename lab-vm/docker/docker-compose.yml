@@ -22,7 +22,6 @@ services:
       - traefik.http.routers.traefik.tls=true
       - traefik.http.routers.traefik.entrypoints=websecure
       - traefik.http.routers.traefik.service=api@internal
-
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
       - traefik.http.routers.redirs.entrypoints=web
