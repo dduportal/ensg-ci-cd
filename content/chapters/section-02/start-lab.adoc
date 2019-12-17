@@ -4,47 +4,31 @@
 
 == Pré-requis
 
+* Git
 * Docker 18.03+
-* Configurer le proxy HTTPPour le proxy HTTP:
-** https://github.com/tmatilai/vagrant-proxyconf
-*** `export VAGRANT_HTTP_PROXY=... && vagrant ...`
-** et/ou https://github.com/AlbanMontaigu/docker-transparent-proxy
+* docker-compose 1.26+
+* Configurer le proxy HTTP: https://docs.docker.com/config/daemon/systemd/#httphttps-proxy
 
-== Obtenir Le template de la VM
+== Obtenir le projet
 
-[source,bash]
-----
-vagrant box add jenkins-lab-demo {box-url}
-----
-
-== Initialiser l'environnement
-
-* Créer un dossier de travail nommé `jenkins-lab-demo`
-dans votre HOME utilisateur
-* Se positionner dans ce dossier
-* Exécuter `vagrant init`
-
-[source,bash]
-----
-mkdir ~/jenkins-lab-demo
-cd ~/jenkins-lab-demo
-vagrant init -m -f jenkins-lab-demo
-----
+* Clone le dépot https://github.com/dduportal/ensg-ci-cd
+* Se positionner sur la branche `2019-2020` (`git checkout <branch name>`)
+* Se positionner dans le dossier `lab-vm/docker`
 
 == Démarrer / Arrêter le lab
 
 [source,bash]
 ----
-vagrant up # Démarrer la VM. Ignorer une éventuelle erreur à propos de "/etc/default/docker"
-vagrant suspend # Suspendre la VM
-vagrant resume # Relancer la VM
-vagrant halt # Arrêter "proprement la VM"
-vagrant destroy # Détruire la VM (BRUTAL)
+docker-compose up -d # Démarrage
+docker-compose stop # Suspendre
+docker-compose kill # Arrêt brutal
+docker-compose down -v # Tout supprimer une fois arrêté
 ----
 
 == Accéder au lab
 
 * Dans votre navigateur, ouvrir link:{homepage-url}[{homepage-url},window=_blank]
+* Accepter l'exception de sécurité ou ajouter le certificat comme "trusted"
 * Bienvenue sur la page d'accueil du Lab:
 ** Le lien *Slides* vous permettra d'accéder au slides
 
