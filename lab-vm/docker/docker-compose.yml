@@ -105,8 +105,8 @@ services:
       - AGENT_PRIVATE_KEY_FILE=/run/secrets/agent_private_key
   
   gitserver:
-    build: ./gitserver/
-    image: ${DOCKER_USERNAME}/oufti-gitserver
+    # build: ./gitserver/
+    image: dduportal/oufti-gitserver:2019-2020
     restart: unless-stopped
     labels:
       - traefik.enable=true
