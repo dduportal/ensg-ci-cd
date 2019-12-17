@@ -31,9 +31,8 @@
 :devbox-url: {homepage-url}/devbox
 :gitserver-url: {homepage-url}/gitserver
 :demoapp-repo-name: demoapp
-:demoapp-repo-web-url: {gitserver-url}/{admin-user}/{demoapp-repo-name}
+:demoapp-repo-web-url: http://gitserver:3000/{admin-user}/{demoapp-repo-name}
 :demoapp-repo-git-url: ssh://git@gitserver:5022/{admin-user}/{demoapp-repo-name}.git
-:webhook-url: {jenkins-url}/git/notifyCommit?url={demoapp-repo-git-url}
+:webhook-url: http://jenkins:8080/jenkins/git/notifyCommit?url={demoapp-repo-git-url}
 :demoapp-mb-job-name: {demoapp-repo-name}
 :demoapp-mb-job-url: {jenkins-url}/job/{demoapp-mb-job-name}
-:webhook-url: http://jenkins:8080/jenkins/git/notifyCommit?url={demoapp-repo-git-url}
