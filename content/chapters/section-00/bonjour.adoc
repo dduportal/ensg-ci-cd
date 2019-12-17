@@ -6,18 +6,15 @@
 [{invert}]
 == Whoami
 
-* Damien DUPORTAL:
-** link:https://traefik.io/[Træfik]'s Developer Advocate @
-link:https://containo.us/[Containous] et Freelancer
-** Ancien Training Engineer @ CloudBees
+* Freelancer
+* Former Developer Advocate @ Containous
+* Former Training Engineer @ CloudBees
+* Former Geoportail Tech Lead @ Worldine
+* Contact:
+** mailto:damien.duportal@gmail.com[+++<span class="far fa-envelope"></span>+++ damien.duportal@gmail.com] 
+** link:https://github.com/dduportal[+++<span class="fab fa-github"></span>+++ dduportal]
+** link:https://twitter.com/DamienDuportal[+++<span class="fab fa-twitter"></span>+++ @DamienDuportal]
 
-* mailto:damien.duportal@gmail.com[icon:envelope[]damien.duportal@gmail.com]
-* link:https://twitter.com/DamienDuportal[icon:twitter[] @DamienDuportal]
-* link:https://github.com/dduportal[icon:github[] dduportal]
-
-// image::damien.jpg[height=200]
-
-// //// end of Speaker Slide and Company slide
 
 == Et vous ?
 [.left.text-center]
