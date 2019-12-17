@@ -29,10 +29,10 @@ include::{pipeline-solutions}/06-Jenkinsfile-agents[]
 == Exercice : Tests Parallèles
 
 * *But:* Tester en parallèle l'application
-sur java 12 et 8
+sur java 8 et la future version de java
 * Mot clef `parallel` définissant un block contenant
 des "stages"
-* Agent `java12` pour le Test Java 12
+* Agent `javanext` pour le Test Java "Future version"
 * L'éditeur Blue Ocean est utilisable (et recommandé)
 
 == Solution : Tests Parallèles

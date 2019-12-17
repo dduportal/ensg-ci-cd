@@ -45,10 +45,10 @@ pipeline {
             junit 'target/failsafe-reports/**/*.xml'
           }
         }
-        stage('Test Java 12') {
+        stage('Test Java Next') {
           agent {
             node {
-              label 'java12'
+              label 'javanext'
             }
           }
           steps {
