@@ -6,7 +6,7 @@
 
 * Git
 * Docker 18.03+
-* docker-compose 1.26+
+* docker-compose 1.24.0+
 * Configurer le proxy HTTP: https://docs.docker.com/config/daemon/systemd/#httphttps-proxy
 
 == Obtenir le projet
@@ -25,7 +25,23 @@ docker-compose kill # Arrêt brutal
 docker-compose down -v # Tout supprimer une fois arrêté
 ----
 
-== Accéder au lab
+== 2019-2020 HotFix Gitea
+
+[source,bash]
+----
+# Arrêter le gitserver
+docker-compose kill gitserver
+# Nettoyer le gitserver
+docker-compose rm -f -v gitserver
+# Récupérer le fix
+git pull origin 2019-2020
+# Récupérer la nouvelle image
+docker-compose pull gitserver
+# Redémarrer le gitserver
+dockr-compose up -d gitserver
+----
+
+== Accéder au Lab
 
 * Dans votre navigateur, ouvrir link:{homepage-url}[{homepage-url},window=_blank]
 * Accepter l'exception de sécurité ou ajouter le certificat comme "trusted"

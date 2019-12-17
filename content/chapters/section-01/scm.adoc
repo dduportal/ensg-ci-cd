@@ -84,7 +84,7 @@ Visual Studio Online by Microsoft, SourceForge, GitLab.com, etc.
 == SCM "Hébergés dans le Cloud"
 
 * Pour pallier au risque précédent,
-on trouve des versions "On-Premide" (généralement payantes)
+on trouve des versions "On-Premise" (généralement payantes)
 * Le monde de l'Open Source fourni également des solutions
 à héberger soit-même
 ** Très souvent gratuit et on peut le corriger
