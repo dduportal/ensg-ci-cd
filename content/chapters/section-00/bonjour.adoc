@@ -11,7 +11,7 @@
 * Former Training Engineer @ CloudBees
 * Former Geoportail Tech Lead @ Worldine
 * Contact:
-** mailto:damien.duportal@gmail.com[+++<span class="far fa-envelope"></span>+++ damien.duportal@gmail.com] 
+** +++<span class="far fa-envelope"></span>+++ mailto:damien.duportal@gmail.com
 ** link:https://github.com/dduportal[+++<span class="fab fa-github"></span>+++ dduportal]
 ** link:https://twitter.com/DamienDuportal[+++<span class="fab fa-twitter"></span>+++ @DamienDuportal]
 

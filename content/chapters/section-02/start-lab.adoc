@@ -4,11 +4,8 @@
 
 == Pré-requis
 
-* VirtualBox (6.0+)
-** Check: `VboxManage -v`
-* Vagrant (2.0.1+)
-** Check: `vagrant -v`
-* Pour le proxy HTTP:
+* Docker 18.03+
+* Configurer le proxy HTTPPour le proxy HTTP:
 ** https://github.com/tmatilai/vagrant-proxyconf
 *** `export VAGRANT_HTTP_PROXY=... && vagrant ...`
 ** et/ou https://github.com/AlbanMontaigu/docker-transparent-proxy
