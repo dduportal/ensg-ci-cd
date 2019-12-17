@@ -16,7 +16,7 @@ PRESENTATION_URL = https://$(REPOSITORY_OWNER).github.io/$(REPOSITORY_NAME)/$(TR
 
 export PRESENTATION_URL CURRENT_UID REPOSITORY_URL REPOSITORY_BASE_URL TRAVIS_BRANCH
 
-all: clean build verify pdf
+all: clean build verify
 
 # Generate documents inside a container, all *.adoc in parallel
 build: clean $(DIST_DIR)
@@ -59,7 +59,7 @@ pdf: $(DIST_DIR)/index.html
 		/slides/slides.pdf \
 		--size='2048x1536'
 
-deploy: pdf
+deploy:
 	@bash $(CURDIR)/scripts/travis-gh-deploy.sh
 
 clean:
