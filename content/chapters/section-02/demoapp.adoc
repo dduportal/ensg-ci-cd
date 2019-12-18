@@ -28,7 +28,7 @@ link:https://spring.io/guides/gs/spring-boot/[Spring Boot Starter,window=_blank]
 * Configuration Maven: `pom.xml`
 * Code source de l'application: `src/main/java/`
 * Code source des tests: `src/test`
-* Script utilitaires: `scripts`
+* Scripts utilitaires: `scripts`
 
 == Web Command Line
 
@@ -75,7 +75,7 @@ ls -l
 * Maven TL;DR:
 ** *Workflow* standardisé
 ** `pom.xml` décrit l'application (Project Object Model)
-* Maven Command line : `mvn`, attends des *goals* en argument
+* Maven Command line : `mvn`, attend des *goals* en argument
 +
 [source,subs="attributes",bash]
 ----

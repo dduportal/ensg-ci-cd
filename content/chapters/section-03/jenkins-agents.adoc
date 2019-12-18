@@ -9,7 +9,7 @@ des _builds_
 * Step `agent` spécifie sur quel "noeud" exécuter des "stages".
 * Une section `agent` globale *doit* être définie
 (au niveau du block `pipeline`)
-* On peut aussi définire des sections `agent` par "stage"
+* On peut aussi définir des sections `agent` par "stage"
 
 == Exercice : Agents
 
@@ -45,10 +45,10 @@ include::{pipeline-solutions}/07-Jenkinsfile-parallel-tests[]
 == Agents avec Docker
 
 * *But:* Usage de Docker pour faciliter la définition
-des environements de build
+des environnements de build
 * Le mot clef `agent` permet d'exécuter les "stages" dans
 un container Docker, depuis une "image Docker",
-ou depuis un `Dockerfile` (recette maison d'image Docker)
+ou depuis un `Dockerfile` (recette maison d'images Docker)
 ** link:https://jenkins.io/doc/book/pipeline/syntax/#agent[Directive Agent sur jenkins.io]
 
 == Exercice : Agent Docker
