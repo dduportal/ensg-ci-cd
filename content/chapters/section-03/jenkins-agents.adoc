@@ -55,8 +55,6 @@ ou depuis un `Dockerfile` (recette maison d'image Docker)
 
 * Exécuter le *Build* dans un containeur
 basé sur le fichier `Dockerfile.build`
-* Exécuter le *Test Java 8* dans un containeur
-basé sur les images `maven:3-jdk-8-alpine`
 
 == Solution : Agent Docker
 
