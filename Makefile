@@ -36,7 +36,7 @@ verify:
 		18fgsa/html-proofer \
 			--check-html \
 			--http-status-ignore "999" \
-			--url-ignore "/localhost/,/127.0.0.1/,/$(PRESENTATION_URL)/,/github.com\/$(REPOSITORY_OWNER)\/slides\/tree/" \
+			--url-ignore "/localhost/,/gitserver:3000/,/jenkins:8080/,/127.0.0.1/,/$(PRESENTATION_URL)/,/github.com\/$(REPOSITORY_OWNER)\/slides\/tree/" \
         	/dist/index.html
 
 serve: clean
