@@ -41,3 +41,26 @@ des "stages"
 ----
 include::{pipeline-solutions}/07-Jenkinsfile-parallel-tests[]
 ----
+
+== Agents avec Docker
+
+* *But:* Usage de Docker pour faciliter la définition
+des environements de build
+* Le mot clef `agent` permet d'exécuter les "stages" dans
+un container Docker, depuis une "image Docker",
+ou depuis un `Dockerfile` (recette maison d'image Docker)
+** link:https://jenkins.io/doc/book/pipeline/syntax/#agent[Directive Agent sur jenkins.io]
+
+== Exercice : Agent Docker
+
+* Exécuter le *Build* dans un containeur
+basé sur le fichier `Dockerfile.build`
+* Exécuter le *Test Java 8* dans un containeur
+basé sur les images `maven:3-jdk-8-alpine`
+
+== Solution : Agent Docker
+
+[source,groovy,subs="attributes"]
+----
+include::{pipeline-solutions}/08-Jenkinsfile-dockerfile-agents[]
+----
