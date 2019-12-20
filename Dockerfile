@@ -1,17 +1,19 @@
-FROM node:10.8-alpine
+FROM node:13-alpine
 
 LABEL Maintainers="Damien DUPORTAL<damien.duportal@gmail.com>"
+
+# To handle 'not get uid/gid'
+RUN npm config set unsafe-perm true
 
 # Install Global dependencies and gulp 4.x globally
 RUN apk add --no-cache \
       curl \
       git \
       tini \
-  && npm install -g gulp
+  && npm install -g gulp npm-check-updates
 
 # Install App's dependencies (dev and runtime)
 COPY ./package.json /app/package.json
-# COPY ./npm-shrinkwrap.json /app/npm-shrinkwrap.json
 WORKDIR /app
 RUN npm install
 
