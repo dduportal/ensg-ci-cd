@@ -7,6 +7,9 @@ set -ex
 
 DATA_DIR=/app/data
 
+# Regenerate CA certificate collection to allow using self signed certificates
+update-ca-certificates
+
 # Reusable functions
 log_message() {
   echo "[entrypoint] ${*}"

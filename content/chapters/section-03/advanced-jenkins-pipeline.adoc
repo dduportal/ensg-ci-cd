@@ -38,14 +38,14 @@ include::{pipeline-solutions}/09-Jenkinsfile-interactive-input[]
 == Variables d'environments
 
 * Définir des collections de clé-valeurs,
-en tant que variables d'environement:
+en tant que variables d'environnement:
 ** Définition globale ou par "stage"
 ** Ou en utilisant `withEnv` dans un block `steps`
 pour une instruction spécifique
 
 == Exercice : Déploiement Conditionnel
 
-* N'éxecuter les "stages" *Approval* et *Deploy* que:
+* N'exécuter les "stages" *Approval* et *Deploy* que:
 ** *Si* on se trouve sur la branche `master`
 ** *Ou si* la variable `FORCE_DEPLOY` est à `true`
 
@@ -58,10 +58,10 @@ include::{pipeline-solutions}/10-Jenkinsfile-conditional-deploy[]
 
 == Paramètres
 
-* Directive `parameters` : l'utilisateur fournit des argument
+* Directive `parameters` : l'utilisateur fournit des arguments
 au pipeline
 * Disponible en tant que variables accessibles dans l'objet `params`
-* Oeuf & Poule : Jenkins ne peut accéder au paramètre lors dur 1er build
+* Oeuf & Poule : Jenkins ne peut pas accéder aux paramètres lors du 1er build
 
 == Exercice : Paramètres
 
@@ -83,12 +83,12 @@ include::{pipeline-solutions}/11-Jenkinsfile-input[]
 * Mot clef `options`
 * Documentation des options:
 link:https://jenkins.io/doc/book/pipeline/syntax/#options[]
-* Certaines options comme `timeout` peuvent être appliquée
+* Certaines options comme `timeout` peuvent être appliquées
 dans un bloc `step`
 
 == Exercice : Options & Timeout Approval
 
-* On souhaite que la "stage" *Approval* attende 3 minute
+* On souhaite que la "stage" *Approval* attende 3 minutes
 avant d'arrêter le pipeline
 * On ne veut conserver que les 5 derniers builds d'un
 pipeline: limiter l'usage disque

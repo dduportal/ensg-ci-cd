@@ -19,10 +19,10 @@
 
 * Créer un nouveau Pipeline, avec les réglages suivants :
 ** Stocké dans *Git*
-** Repository URL: Dans Gitea, récupérez l'URL en *SSH* :
-image:gitea-ssh-url.png[height=50]
-** Vérifiez la clef SSH que Jenkins puisse accéder au code :
-*** Dans Gitea, cliquez en haut à droite sur le drop-down, allez dans "Settings" -> "SSH/GPG Keys"
+** Utilisez l'URL en *SSH*
+** La clef SSH a déjà été préparée pour vous 
+*** (Dans Gitea, en haut à droite -> "Settings" -> "SSH/GPG Keys")
+* Si la page est bloquée: rechargez !
 
 == Exercice : L'éditeur de Pipeline
 
@@ -66,10 +66,10 @@ include::{pipeline-solutions}/02-Jenkinsfile-base[]
 
 * En utilisant le *Blue Ocean Pipeline Editor*:
 ** Modifiez le pipeline actuel
-** La "stage" *Build* doit archiver tous les fichier ".jar" générés
-*** _Indices :_ Dans le dossier `target`, motif `{asterisk}.jar`
-** La "stage" *Test* doit publier les rapports de test d'intégration au format `junit`
-*** _Indices :_ Dans le dossier `target/failsafe-reports`, motif `{asterisk}{asterisk}/{asterisk}.xml`
+** La "stage" *Build* doit archiver tous les fichiers ".jar" générés
+*** _Indice :_ Dans le dossier `target`, motif `{asterisk}.jar`
+** La "stage" *Test* doit publier récursivement tous les rapports de test `junit` d'intégration
+*** _Indice :_ Dans le dossier `target`, motif `failsafe-reports/{asterisk}{asterisk}/{asterisk}.xml`
 * Le Pipeline doit être *UNSTABLE*
 
 == Solution : Archives et Tests

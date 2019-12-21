@@ -25,12 +25,12 @@ améliorant la qualité du système
 
 == Terminologie du Test Logiciel
 
-* *SUT*: "System Under Testing". Défini les frontières du système.
+* *SUT*: "System Under Testing". Définit les frontières du système.
 * *Test Double*: Terme générique désignant un sous-ensemble simplifié
 du "S.U.T.". Exemples: Mock, Stub, Spy, etc.
 * *Boîte Blanche*: Tester avec une vue interne du SUT
 * *Boîte Noire*: Tester le SUT sans connaissance préalable de
-ses mécanismes interne
+ses mécanismes internes
 
 == Comment tester le logiciel ?
 
@@ -38,7 +38,7 @@ ses mécanismes interne
 "Que voulez-vous tester ?"
 
 * En fonction de la réponse, différent types de tests
-peuvent être utilisé (liste NON exhaustive) :
+peuvent être utilisés (liste NON exhaustive) :
 ** Unit testing
 ** Integration testing
 ** Smoke testing
@@ -48,7 +48,7 @@ peuvent être utilisé (liste NON exhaustive) :
 
 == Test Unitaire
 
-* Focalisé sur le plus petit sous sytème possible du SUT, en "boîte blanche"
+* Focalisé sur le plus petit sous-sytème possible du SUT, en "boîte blanche"
 * Tests *indépendants* les uns des autres
 ** Ordre d'exécution non important
 ** Utilisation de *Test Doubles* pour simuler le "reste" en bon fonctionnement
@@ -88,9 +88,9 @@ __
 
 == Tests Fonctionnels
 
-* Vérifie que le logiciel se comporte comme prévue par
+* Vérifie que le logiciel se comporte comme prévu par
 *les personnes en charge de la fabrication*
-* Pas de *biais* d'inteprétation
+* Pas de *biais* d'interprétation
 * Le SUT est en "boîte noire"
 
 == Tests de Régression

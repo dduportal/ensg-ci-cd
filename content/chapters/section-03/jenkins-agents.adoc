@@ -9,7 +9,7 @@ des _builds_
 * Step `agent` spécifie sur quel "noeud" exécuter des "stages".
 * Une section `agent` globale *doit* être définie
 (au niveau du block `pipeline`)
-* On peut aussi définire des sections `agent` par "stage"
+* On peut aussi définir des sections `agent` par "stage"
 
 == Exercice : Agents
 
@@ -29,10 +29,10 @@ include::{pipeline-solutions}/06-Jenkinsfile-agents[]
 == Exercice : Tests Parallèles
 
 * *But:* Tester en parallèle l'application
-sur java 12 et 8
+sur java 8 et la future version de java
 * Mot clef `parallel` définissant un block contenant
 des "stages"
-* Agent `java12` pour le Test Java 12
+* Agent `javanext` pour le Test Java "Future version"
 * L'éditeur Blue Ocean est utilisable (et recommandé)
 
 == Solution : Tests Parallèles
@@ -40,4 +40,25 @@ des "stages"
 [source,groovy,subs="attributes"]
 ----
 include::{pipeline-solutions}/07-Jenkinsfile-parallel-tests[]
+----
+
+== Agents avec Docker
+
+* *But:* Usage de Docker pour faciliter la définition
+des environnements de build
+* Le mot clef `agent` permet d'exécuter les "stages" dans
+un container Docker, depuis une "image Docker",
+ou depuis un `Dockerfile` (recette maison d'images Docker)
+** link:https://jenkins.io/doc/book/pipeline/syntax/#agent[Directive Agent sur jenkins.io]
+
+== Exercice : Agent Docker
+
+* Exécuter le *Build* dans un containeur
+basé sur le fichier `Dockerfile.build`
+
+== Solution : Agent Docker
+
+[source,groovy,subs="attributes"]
+----
+include::{pipeline-solutions}/08-Jenkinsfile-dockerfile-agents[]
 ----

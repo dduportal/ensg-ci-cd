@@ -65,12 +65,12 @@ ____
 
 Continuous Deployment
 
-== Qu'est ce que le Déploiement Continu ?
+== Qu'est-ce que le Déploiement Continu ?
 
 * Version "avancée" de la livraison continue:
 ** Chaque changement *est* déployé en production, de manière *automatique*
 * Question importante: En avez-vous besoin ?
-** Avez-vous les mêmes besoin que Amazon Google ou Netflix ?
+** Avez-vous les mêmes besoins que Amazon Google ou Netflix ?
 
 == Continuous Delivery versus Deployment
 

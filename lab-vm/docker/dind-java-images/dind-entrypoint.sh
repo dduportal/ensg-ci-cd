@@ -20,6 +20,9 @@ wait_for_docker_startup_or_exit() {
   [ "${COUNTER}" -lt "${MAX_TRIES}" ]
 }
 
+# Regenerate CA certificate collection to allow using self signed certificates
+update-ca-certificates
+
 ####
 # Launch the DinD startup in background
 # with logs on the standard output (for docker logs)

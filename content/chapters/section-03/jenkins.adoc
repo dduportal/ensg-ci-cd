@@ -37,7 +37,19 @@ image::jenkins-background.jpg[background, size=cover]
 
 image::ci-usage-rebel-lab-2016.jpg[width=400]
 
-== Jenkins Pipeline
+[.footer]
+Source : link:http://pages.zeroturnaround.com/RebelLabs-Developer-Productivity-Report-2016.html[RebelLabs Tools and Technologies Leaderboard 2016,window=_blank]
+
+== Jenkins en 2016 : Jenkins *2*
+image::jenkins-background.jpg[background, size=cover]
+
+* *But :* CI -> CD
+* Pas de "cassure" depuis Jenkins 1
+* Expérience "premier démarrage" améliorée
+* *Pipeline-as-Code:*
+** Syntaxe "scriptée" : "Code your Pipeline"
+
+== Jenkins en 2017
 image::jenkins-background.jpg[background, size=cover]
 
 image::pipeline-picture.jpg[height=200]
@@ -69,3 +81,9 @@ image::i-have-no-idea-what-i-am-doing.jpg[]
 ** Syntaxe originale (~3 ans)
 ** "Great Power == Great Responsibility"
 ** À utiliser lorsque le Déclaratif commence à être *bizarre*
+
+== Blue Ocean Pipeline Editor
+
+* Fournit le cycle ("round trip") *complet* avec le SCM
+* Pas de Pipeline ? "Suivez le guide".
+* Le Pipeline existe déjà ? Edit, commit, et exécutez le

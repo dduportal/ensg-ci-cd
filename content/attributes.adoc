@@ -18,26 +18,21 @@
 :highlightjs-main-theme: github
 :highlightjs-theme: {revealjsdir}/plugin/highlight/styles/{highlightjs-main-theme}.min.css
 :invert: state=invert,background-color="rgb(248, 228, 130)"
-// Enable font awesome, and use it from local resources (instead of CDN)
-:icons: font
 :stylesdir: styles
-:iconfont-remote!:
-:iconfont-name: font-awesome.min
 :notitle: true
 :chaptersdir: ./chapters
 :pipeline-solutions: ./pipeline-solutions
 :box-url: https://bit.ly/2QIY9xZ
 :external-domain: localhost
-:external-port: 10000
 :admin-user: butler
 :admin-password: butler
-:homepage-url: http://{external-domain}:{external-port}
+:homepage-url: https://{external-domain}
 :jenkins-url: {homepage-url}/jenkins
 :devbox-url: {homepage-url}/devbox
 :gitserver-url: {homepage-url}/gitserver
 :demoapp-repo-name: demoapp
-:demoapp-repo-web-url: {gitserver-url}/{admin-user}/{demoapp-repo-name}
+:demoapp-repo-web-url: http://gitserver:3000/{admin-user}/{demoapp-repo-name}
 :demoapp-repo-git-url: ssh://git@gitserver:5022/{admin-user}/{demoapp-repo-name}.git
+:webhook-url: http://jenkins:8080/jenkins/git/notifyCommit?url={demoapp-repo-git-url}
 :demoapp-mb-job-name: {demoapp-repo-name}
 :demoapp-mb-job-url: {jenkins-url}/job/{demoapp-mb-job-name}
-:webhook-url: http://jenkins:8080/jenkins/git/notifyCommit?url={demoapp-repo-git-url}

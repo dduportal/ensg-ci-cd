@@ -8,20 +8,19 @@
 * *Priorité:* réparer le build
 * Utiliser *Gitea git server*
 * Les tests d'intégration sont dans `src/test/java/hello`
-* Indices:
+* Indice:
 ** _Integration Tests:_ == *IT*
 * Pour relancer le build : depuis l'accueil Blue Ocean, naviguez sur le projet -> Branches, et regardez à droite, dans la ligne correspondant à "master"
 
 == Solution: Réparer le build
 
-* Depuis
+* Éditer le fichier
 link:{demoapp-repo-web-url}/src/master/src/test/java/hello/HelloControllerIT.java[src/test/java/hello/HelloControllerIT.java]
-** Cliquer sur "Edit"
-* Commenter la ligne 39
-* *Dé*-commenter la ligne 40
-* *Commit* avec un message (push automatique)
+** Commenter la ligne 39
+** *Dé*-commenter la ligne 40
 * Lancer le build manuellement dans Blue Ocean
-* Le build doit être vert (*Stable*)
+** Attention: ne pas utiliser "Re-run" (même commit)
+* Le build résultant doit être stable
 
 == Webhooks pour un retour plus rapide
 
@@ -31,13 +30,15 @@ link:{demoapp-repo-web-url}/src/master/src/test/java/hello/HelloControllerIT.jav
 
 == Exercise: Webhooks
 
-* Configurons un *"Webhook"* :
-** Depuis *Gitea git server* -> *Settings* -> *Webhooks*
-*** link:{demoapp-repo-web-url}/settings/hooks[Lien direct vers la configuration de Webhooks,window=_blank]
-* Ajouter un nouveau webhook:
+* Configurons un *"Webhook"* dans *Gitea* -> *Settings* -> *Webhooks*
+** link:{demoapp-repo-web-url}/settings/hooks[Lien direct vers la configuration de Webhooks,window=_blank]
+* Ajoutez un nouveau webhook:
 ** Type: *Gitea*
-** When should this webhook be triggered?: *I need everything*
-** Payload URL: `{webhook-url}`
+** Target URL:
+[source,subs="attributes"]
+{webhook-url}
+** Trigger On: *All events*
+* Une fois créé, testez le (cliquez sur le webhook, puis tout en bas)
 
 == Solution: Webhooks
 
@@ -63,16 +64,12 @@ depuis *Gitea git server*
 * But: réutiliser les binaires générés dans *Build*
 * Action: "mise sur étagère": *Stash / Unstash*
 * Modifier le Pipeline pour :
-** "Stasher" le dossier `target`, à la fin de la phase *Build*
+** "Stasher" le dossier `target` (récursivement), à la fin de la phase *Build*
+*** _Indice :_ Dans le dossier `target`, motif `target/{asterisk}{asterisk}/{asterisk}`
 ** "Unstasher" au début de la phase *Test*
-* _Attention_, une limite de l'éditeur *Blue Ocean*
-va être atteinte
+*** _Indice :_ Attention à l'ordre !
 
 == Solution - Réutilisation Binaire
-
-* L'éditeur Blue Ocean ne supporte pas encore
-le ré-ordonnancement de "stages"
-** Mode textuel et/ou *Snippet Generator* à utiliser
 
 [source,groovy,subs="attributes"]
 ----
@@ -84,7 +81,7 @@ include::{pipeline-solutions}/04-Jenkinsfile-stash-tests[]
 * Section `post` :
 ** Contient des "steps" à exécuter
 à la fin du Pipeline *ou* après une "stage"
-** Divisé en "condition d'états":
+** Divisée en "condition d'états":
 `always`, `success`, `failure`, `changed`
 * Chaque condition contient ses propres "steps"
 * Pas _encore_ intégré dans l'éditeur Blue Ocean

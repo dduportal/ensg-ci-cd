@@ -10,8 +10,6 @@ var tasks_dir_path = './tasks',
         asciidoctorRevealjs: require('asciidoctor-reveal.js'),
         autoprefixer: require('gulp-autoprefixer'),
         browserSync: require('browser-sync').create(),
-        compass: require('gulp-compass'),
-        concatCss: require('gulp-concat-css'),
         csso: require('gulp-csso'),
         exec: require('gulp-exec'),
         fs: require('fs'),
@@ -23,16 +21,21 @@ var tasks_dir_path = './tasks',
     current_config = {
         docinfosPath: '/app/content/docinfos',
         imgSrcPath: '/app/content/images',
+        videosSrcPath: '/app/content/videos',
         stylesSrcPath: '/app/assets/styles',
         fontSrcPath: '/app/assets/fonts',
-        faviconPath: '/app/content/images/favicon.ico',
+        scriptsSrcPath: '/app/assets/scripts',
+        faviconPath: '/app/content/favicon.ico',
         distDir: '/app/dist',
         sourcesDir: '/app/content',
         nodeModulesDir: '/app/node_modules',
+        revealJSPluginList: '/tmp/revealjs-plugins-list.js',
         listen_ip: process.env.LISTEN_IP || '0.0.0.0',
         listen_port: process.env.LISTEN_PORT || 8000,
         livereload_port: process.env.LIVERELOAD_PORT || 35729,
+        revealjsPlugins: ["reveal.js-menu","reveal.js-toolbar"],
     };
+plugins.asciidoctorRevealjs.register();
 
 fs.readdirSync(tasks_dir_path).forEach(function (file) {
     'use strict';
@@ -44,10 +47,9 @@ gulp.task('build', gulp.series(
     gulp.parallel(
         'fonts',
         'images',
+        'videos',
         'favicon',
-        'prepare:revealjs',
-        'prepare:highlightjs',
-        'prepare:fontawesome',
+        'prepare:dependencies',
         'styles'
     ),
     'html'
