@@ -66,7 +66,7 @@ include::{pipeline-solutions}/02-Jenkinsfile-base[]
 
 * En utilisant le *Blue Ocean Pipeline Editor*:
 ** Modifiez le pipeline actuel
-** La "stage" *Build* doit archiver tous les fichier ".jar" générés
+** La "stage" *Build* doit archiver tous les fichiers ".jar" générés
 *** _Indice :_ Dans le dossier `target`, motif `{asterisk}.jar`
 ** La "stage" *Test* doit publier récursivement tous les rapports de test `junit` d'intégration
 *** _Indice :_ Dans le dossier `target`, motif `failsafe-reports/{asterisk}{asterisk}/{asterisk}.xml`

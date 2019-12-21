@@ -10,7 +10,7 @@
 * Découvrir les concepts de l'Intégration Continue
 et du Déploiement Continu
 * Découvrir Jenkins
-* Mettre en oeuvre Jenkins en tant que dévelopeur
+* Mettre en oeuvre Jenkins en tant que développeur
 
 == Temps
 
@@ -19,5 +19,5 @@ et du Déploiement Continu
 ** 09:00 -> 10:30
 ** 11:00 -> 12:30
 * Après-Midi:
-* 13:30 -> 15:00
-* 15:30 -> 17:00
+** 13:30 -> 15:00
+** 15:30 -> 17:00

@@ -8,7 +8,7 @@
 * *Priorité:* réparer le build
 * Utiliser *Gitea git server*
 * Les tests d'intégration sont dans `src/test/java/hello`
-* Indices:
+* Indice:
 ** _Integration Tests:_ == *IT*
 * Pour relancer le build : depuis l'accueil Blue Ocean, naviguez sur le projet -> Branches, et regardez à droite, dans la ligne correspondant à "master"
 
@@ -32,13 +32,13 @@ link:{demoapp-repo-web-url}/src/master/src/test/java/hello/HelloControllerIT.jav
 
 * Configurons un *"Webhook"* dans *Gitea* -> *Settings* -> *Webhooks*
 ** link:{demoapp-repo-web-url}/settings/hooks[Lien direct vers la configuration de Webhooks,window=_blank]
-* Ajouter un nouveau webhook:
+* Ajoutez un nouveau webhook:
 ** Type: *Gitea*
 ** Target URL:
 [source,subs="attributes"]
 {webhook-url}
 ** Trigger On: *All events*
-* Une fois créé, testez le (cliquer sur le webhook, puis tout en bas)
+* Une fois créé, testez le (cliquez sur le webhook, puis tout en bas)
 
 == Solution: Webhooks
 
@@ -81,7 +81,7 @@ include::{pipeline-solutions}/04-Jenkinsfile-stash-tests[]
 * Section `post` :
 ** Contient des "steps" à exécuter
 à la fin du Pipeline *ou* après une "stage"
-** Divisé en "condition d'états":
+** Divisée en "condition d'états":
 `always`, `success`, `failure`, `changed`
 * Chaque condition contient ses propres "steps"
 * Pas _encore_ intégré dans l'éditeur Blue Ocean

@@ -10,7 +10,7 @@ secteur balbutiant et très dynamique
 
 == Analyse du besoin
 
-* Hébergement du Service ?
+* Hébergement du service ?
 * Existant ?
 * Profil des utilisateurs ?
 * Criticité ?
@@ -30,7 +30,7 @@ secteur balbutiant et très dynamique
 
 == De nombreux outils 2/2
 
-* A héberger soit-même :
+* A héberger soi-même :
 ** Jenkins
 ** CloudBees Jenkins Enteprise
 ** GitLab

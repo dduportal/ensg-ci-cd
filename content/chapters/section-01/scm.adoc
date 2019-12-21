@@ -74,19 +74,19 @@ image::scm-distributed.png[caption="Centralized SCM",width=300]
 * *SCM as a Service*
 * Le serveur centralisé est un service hébergé par un fournisseur
 * Avantages:
-** Pas de temps/énergie passés sur la gestion
-** Associent au SCM d'autre services : gestionnaire de tickets,
+** Pas de temps/énergie passé sur la gestion
+** Associent au SCM d'autres services : gestionnaire de tickets,
 wiki, éditeur de texte online, etc.
 * Risque: Votre code est hébergé par un tiers
 * Exemples: GitHub, Bitbucket by Atlassian, Amazon CodeCommit,
 Visual Studio Online by Microsoft, SourceForge, GitLab.com, etc.
 
-== SCM "Hébergés dans le Cloud"
+== SCM "Hébergés à la maison"
 
 * Pour pallier au risque précédent,
 on trouve des versions "On-Premise" (généralement payantes)
-* Le monde de l'Open Source fourni également des solutions
-à héberger soit-même
+* Le monde de l'Open Source fournit également des solutions
+à héberger soi-même
 ** Très souvent gratuit et on peut le corriger
 ** Temps et énergie à consacrer
 * Exemples: Gitlab, Gitea, Gogs, Bazaar server, VisualSVN Server, etc.
@@ -95,7 +95,7 @@ on trouve des versions "On-Premise" (généralement payantes)
 
 * *diff:* un ensemble de lignes "changées" sur un fichier donné
 * *changeset:* un ensemble de "diff" (donc peut couvrir plusieurs fichiers)
-* *commit:* Action de sauvegarder un changeset dans la base de données
+* *commit:* action de sauvegarder un changeset dans la base de données
 des versions.
 
 == Terminologie des SCM : Représentation

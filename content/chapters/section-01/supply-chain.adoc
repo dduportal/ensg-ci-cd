@@ -16,7 +16,7 @@
 * Problème #2: Réagir *systématiquement* sur un retour
 * Problème #3: Avoir *confiance*
 
-== Qu'est ce qu'une boucle de Feedback ?
+== Qu'est-ce qu'une boucle de Feedback ?
 
 image::feedback-loop.png[caption="Feedback Loop"]
 
@@ -24,7 +24,7 @@ image::feedback-loop.png[caption="Feedback Loop"]
 
 * Quels *acteurs* du système ?
 * Quel médium de *communication* ?
-* Quel déclencheurs et quelles limites ?
+* Quels déclencheurs et quelles limites ?
 
 * *Culture à construire*, les outils suivent facilement
 
@@ -37,7 +37,7 @@ image::supply-chain.png[height=600]
 
 image::pipeline.png[height=600]
 
-== Qu'est ce qu'un Pipeline ?
+== Qu'est-ce qu'un Pipeline ?
 
 * *Industrialisation* du *logiciel*
 * Modélisation de la chaîne de valeur ("Value Stream Mapping")
@@ -47,11 +47,11 @@ image::pipeline.png[height=600]
 == Anatomie d'un "Pipeline" 1/2
 
 * *Stage* ("étape"): Élément de base
-** Abstraction *atomiques* d'un ensemble d'actions
+** Abstraction *atomique* d'un ensemble d'actions
 ** Exemple: "Build", "Run Unit Tests"
-** Possibilité de parallèlisation
+** Possibilité de parallélisation
 * *Gate* ("Porte"): Transition entre 2 étapes
-** Manuel ou automatique
+** Manuelle ou automatique
 ** Peuvent être conditionnelles
 
 == Anatomie d'un "Pipeline" 2/2
@@ -84,9 +84,9 @@ image::cd-pipeline-example.jpg[caption="A Pipeline Example"]
 
 * Réutilisation des artefacts: _"Only Build Your Binaries Once"_
 * Arrêt du Pipeline dès qu'une faute est identifiée: _"Fail Fast"_
-** *Identifier* si un artefacts n'est pas déployable (tests...)
+** *Identifier* si un artefact n'est pas déployable (tests...)
 * S'assurer qu'une même version de la base de code
-est utilisée à tout moment pour un Pipeline donnée
+est utilisée à tout moment pour un Pipeline donné
 
 == Optimiser le Pipeline
 
@@ -95,7 +95,7 @@ image::cd-pipeline-wait.jpg[caption="Waiting for the pipeline build",width=250]
 * Paralléliser les étapes
 ** Arrêt du Pipeline si une "branche" est en erreur
 ** Sinon: étape inutile à supprimer
-* Les "gates" manuelles peuvent également être paralleliser
+* Les "gates" manuelles peuvent également être parallélisée
 ** relation "1-N": _N_ "gates" manuelles déclencheront _N_ étapes parallèles
 
 == Exemple de Pipeline optimisé
