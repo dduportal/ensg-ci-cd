@@ -12,7 +12,7 @@
 * But : évaluer l'acquisition
 des concepts théoriques autour du CI/CD
 * Format :
-** 10 questions à choix multiples portant sur les 2 jours
+** 15 questions à choix multiples portant sur les 2 jours
 ** Pas de points négatifs
 * Temps limité: 15 minutes
 
