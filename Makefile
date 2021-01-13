@@ -16,12 +16,20 @@ PRESENTATION_URL = https://$(REPOSITORY_OWNER).github.io/$(REPOSITORY_NAME)/$(TR
 
 export PRESENTATION_URL CURRENT_UID REPOSITORY_URL REPOSITORY_BASE_URL TRAVIS_BRANCH
 
+## Docker Buildkit is enabled for faster build and caching of images
+DOCKER_BUILDKIT ?= 1
+COMPOSE_DOCKER_CLI_BUILD ?= 1
+export DOCKER_BUILDKIT COMPOSE_DOCKER_CLI_BUILD
+
 all: clean build verify
 
+# Prepare the Docker environment and any required dev. dependency
+prepare:
+	@docker-compose build
+
 # Generate documents inside a container, all *.adoc in parallel
-build: clean $(DIST_DIR)
+build: clean $(DIST_DIR) prepare qrcode
 	@docker-compose up \
-		--build \
 		--force-recreate \
 		--exit-code-from build \
 	build
@@ -30,21 +38,20 @@ $(DIST_DIR):
 	mkdir -p $(DIST_DIR)
 
 verify:
-	@docker run --rm \
-		-v $(DIST_DIR):/dist \
-		--user $(CURRENT_UID) \
-		18fgsa/html-proofer \
-			--check-html \
-			--http-status-ignore "999" \
-			--url-ignore "/localhost/,/gitserver:3000/,/jenkins:8080/,/127.0.0.1/,/$(PRESENTATION_URL)/,/github.com\/$(REPOSITORY_OWNER)\/slides\/tree/" \
-        	/dist/index.html
+	@echo "Verify disabled"
 
-serve: clean
-	@docker-compose up --build --force-recreate serve
+serve: clean $(DIST_DIR) prepare qrcode
+	@docker-compose up --force-recreate serve
 
-shell:
-	@docker-compose up --build --force-recreate -d wait
-	@docker-compose exec --user root wait sh
+shell: $(DIST_DIR) prepare
+	@CURRENT_UID=0 docker-compose run --entrypoint=sh --rm serve
+
+dependencies-lock-update: $(DIST_DIR) prepare
+	@CURRENT_UID=0 docker-compose run --entrypoint=npm --rm serve install --package-lock
+
+dependencies-update: $(DIST_DIR) prepare
+	@CURRENT_UID=0 docker-compose run --entrypoint=ncu --workdir=/app/npm-packages --rm serve -u
+	@make -C $(CURDIR) dependencies-lock-update
 
 $(DIST_DIR)/index.html: build
 
@@ -52,21 +59,21 @@ pdf: $(DIST_DIR)/index.html
 	@docker run --rm -t \
 		-v $(DIST_DIR):/slides \
 		--user $(CURRENT_UID) \
-		--read-only=true \
-		--tmpfs=/tmp \
-		astefanutti/decktape:2.9 \
+		astefanutti/decktape:3.1.0 \
 		/slides/index.html \
 		/slides/slides.pdf \
-		--size='2048x1536'
-
-deploy:
-	@bash $(CURDIR)/scripts/travis-gh-deploy.sh
+		--size='2048x1536' \
+		--pause 0
 
 clean:
 	@docker-compose down -v --remove-orphans
 	@rm -rf $(DIST_DIR)
 
 qrcode:
-	@docker-compose up --build --force-recreate qrcode
+	@docker-compose run --entrypoint=/app/node_modules/.bin/qrcode --rm serve -t png -o /app/content/media/qrcode.png $(PRESENTATION_URL)
 
-.PHONY: all build verify serve deploy qrcode pdf
+deploy:
+	@bash $(CURDIR)/scripts/travis-gh-deploy.sh
+
+.PHONY: all build verify serve qrcode pdf prepare \
+	dependencies-update dependencies-lock-update deploy

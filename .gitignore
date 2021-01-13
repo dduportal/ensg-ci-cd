@@ -1,8 +1,5 @@
 node_modules/
 .DS_Store
 *.zip
-*.box
 dist/
-packer_cache
-.terraform
-.vagrant
+.release-notes/tmp*
